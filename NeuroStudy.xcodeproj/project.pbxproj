@@ -3,138 +3,166 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C1D2E3F4A5B60001A0000001 /* PathologyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E3F4A5B60003A0000001 /* PathologyData.swift */; };
-		C1D2E3F4A5B60002A0000001 /* PathologyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E3F4A5B60004A0000001 /* PathologyStore.swift */; };
-		D1D2E3F4A5B60001A0000001 /* PathologyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E3F4A5B60003A0000001 /* PathologyData.swift */; };
-		D1D2E3F4A5B60002A0000001 /* PathologyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E3F4A5B60004A0000001 /* PathologyStore.swift */; };
-		A1B2C3D4E5F60001A0000001 /* ModernDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60005A0000001 /* ModernDesignSystem.swift */; };
-		A1B2C3D4E5F60002A0000001 /* ModernExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60006A0000001 /* ModernExploreView.swift */; };
-		A1B2C3D4E5F60003A0000001 /* ModernQuizHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60007A0000001 /* ModernQuizHomeView.swift */; };
-		A1B2C3D4E5F60004A0000001 /* ModernProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60008A0000001 /* ModernProgressDashboardView.swift */; };
-		B1B2C3D4E5F60001A0000001 /* ModernDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60005A0000001 /* ModernDesignSystem.swift */; };
-		B1B2C3D4E5F60002A0000001 /* ModernExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60006A0000001 /* ModernExploreView.swift */; };
-		B1B2C3D4E5F60003A0000001 /* ModernQuizHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60007A0000001 /* ModernQuizHomeView.swift */; };
-		B1B2C3D4E5F60004A0000001 /* ModernProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60008A0000001 /* ModernProgressDashboardView.swift */; };
 		045B21CD1C260B7BD8D28E36 /* BrainPathData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75138F19D66E9A1DC7444F37 /* BrainPathData.swift */; };
+		05BDD7963DFA10451AD63BEC /* Brain3DViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A19DD90DE8458BBC74814 /* Brain3DViewModel.swift */; };
 		06DAF3B9CC72C96D19550CDE /* FlashcardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170D7A15D5D37414F759B0A7 /* FlashcardView.swift */; };
 		0873060076F714444D75D8F6 /* NeuroStudyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034CBA1AED71AD650A0681C /* NeuroStudyApp.swift */; };
+		094B741486A07E40B4AC02FD /* ModernProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E3D89AD4A75BB47A9FC522 /* ModernProgressDashboardView.swift */; };
+		0FFB676BFFDC255AB4B51F60 /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1EE6588342353CB8A9CC4F3F /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf */; };
 		16D6B722564CE073D061CE6C /* TapIdentifyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */; };
+		1F28252890AA88774892AA6F /* EMERGENCY_IPAD_FIX.md in Resources */ = {isa = PBXBuildFile; fileRef = 0554AB53758C14DAA5A7386C /* EMERGENCY_IPAD_FIX.md */; };
+		217A9ECC3E70C8241EED7066 /* IPADOS_TROUBLESHOOTING.md in Resources */ = {isa = PBXBuildFile; fileRef = 58D8B9823FF9B1BD711A5834 /* IPADOS_TROUBLESHOOTING.md */; };
+		2426B314CDAF51A9980476A4 /* XCODE_VISUAL_GUIDE.md in Resources */ = {isa = PBXBuildFile; fileRef = EFFA658949145C11584D2916 /* XCODE_VISUAL_GUIDE.md */; };
 		29189F8E21DAA32E59C4E6E1 /* GlassComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D4F3B912CD378B9D90ECE /* GlassComponents.swift */; };
+		2BA07433427198D7B2EEC4D4 /* ModernDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDA2FBF57EFA60F2F151A27 /* ModernDesignSystem.swift */; };
+		32400DFBD4252BCF8842BC32 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C61E8421DDF6EFC475A09844 /* Media.xcassets */; };
 		3370DCD14A8B9F8F9C655F26 /* StudyProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C02FD658C3F7B90FA54C33 /* StudyProgress.swift */; };
 		3507E5A9B63A49C35B9CDC2B /* StudyProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C02FD658C3F7B90FA54C33 /* StudyProgress.swift */; };
-		37D121902F42455A00C5A891 /* UniversalMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D1218F2F42455A00C5A891 /* UniversalMainView.swift */; };
-		37D121912F42455A00C5A891 /* UniversalMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D1218F2F42455A00C5A891 /* UniversalMainView.swift */; };
 		3A1D6A9C77BD8787FE0BDF11 /* FlashcardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170D7A15D5D37414F759B0A7 /* FlashcardView.swift */; };
 		3BA7BFC2D29A2614CDC9C483 /* BrainHotspot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4652787F297CCE688A6C3100 /* BrainHotspot.swift */; };
 		401038D8E768B6FDD0FD4939 /* TapIdentifyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */; };
 		40EA8D0A2D5CCC4BEAD344A4 /* QuizQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1284EBC8180B361D2B86E11B /* QuizQuestion.swift */; };
+		4247480219A4F521B904135D /* ModernProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E3D89AD4A75BB47A9FC522 /* ModernProgressDashboardView.swift */; };
+		43857657D891D213310B0EC6 /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1EE6588342353CB8A9CC4F3F /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf */; };
 		44D68FB176EAA33C9EE2BA64 /* BrainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9F1D05EAF7806B0E9CB253 /* BrainMapViewModel.swift */; };
+		46C236757A861AE9D69AD68D /* ModernQuizHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C38866C8A7A6367D67872C /* ModernQuizHomeView.swift */; };
+		46C470FFCBBAEEC1EAFFBA49 /* PathologyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15BE40AEBE598A6C47BAC7D /* PathologyQuizView.swift */; };
+		46E2A4A0EDF2ABFD99C27ACE /* UniversalMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7EEC20F93F0243AA91E0B0 /* UniversalMainView.swift */; };
+		4D99258306D8FDDD0CFDB7DC /* PathologyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B5C7DA03A3EB499B5DCFAB /* PathologyStore.swift */; };
+		4DBC8632796591ADDFAF951F /* BrainIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EADE39DF105432016F0C8D /* BrainIllustrationView.swift */; };
+		4FB5CA8E0019FC3CB1EACC2D /* BrainRenderEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F493D506307D9AA7C8CA82D /* BrainRenderEffects.swift */; };
+		527A264B9C71547F706ECEA3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */; };
 		5A5D401EC2FBD372D4584DE9 /* BrainRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E1C4BAD3C96A2ECB3AC94 /* BrainRegion.swift */; };
+		5BF360443BB7FF23B7B9EEAB /* PathologyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF7725D2E1527DB24F1555 /* PathologyData.swift */; };
+		5C3824CA80F344AC8A78728A /* XCODE_VISUAL_GUIDE.md in Resources */ = {isa = PBXBuildFile; fileRef = EFFA658949145C11584D2916 /* XCODE_VISUAL_GUIDE.md */; };
+		6369FECF419198837BB095E9 /* ModernDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDA2FBF57EFA60F2F151A27 /* ModernDesignSystem.swift */; };
 		65BE6C741BA6B6EB42262894 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247E697F887109916D2B4727 /* QuizViewModel.swift */; };
 		69AA52F129C28809F4BBDA31 /* NeuroStudyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034CBA1AED71AD650A0681C /* NeuroStudyApp.swift */; };
+		6A87AE91606F875271FE0470 /* A_Short_Guide_to_Brain_Imaging.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 108CDCFE549BC924F2D07A83 /* A_Short_Guide_to_Brain_Imaging.pdf */; };
 		6DB7C3D27FC40914C8F783DE /* SpacedRepetitionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF999B7C0FE4375D4469CF9 /* SpacedRepetitionEngine.swift */; };
 		7349463F96DB9A41177F057F /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247E697F887109916D2B4727 /* QuizViewModel.swift */; };
+		7391B89F41E16B5811365C0B /* ModernExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442BFC60E119CC072FC7112C /* ModernExploreView.swift */; };
+		76D5B3A1DC6B3D5CF6BAC8B8 /* PathologyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF7725D2E1527DB24F1555 /* PathologyData.swift */; };
 		77D60B5B512FC3D1A3B6ECFD /* ProgressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846B3B5497475D14055CEB96 /* ProgressStore.swift */; };
 		791F6BD5CA3456AB39562409 /* AppTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886AF33244B0412DDFFD76C8 /* AppTypography.swift */; };
+		7940F268B59BAE00240B95FA /* Brain3DView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD9F7C3D28DDA908679E370 /* Brain3DView.swift */; };
 		7A62635A3A85CFB50F89229D /* GlassComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D4F3B912CD378B9D90ECE /* GlassComponents.swift */; };
 		7E6F2126D2B19171C10E81F6 /* BrainStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FC9A1F90F4D473DE8E2E5 /* BrainStructure.swift */; };
+		7F5DD2B026CC9F99D85186DB /* IPAD_QUICK_FIX.md in Resources */ = {isa = PBXBuildFile; fileRef = 235C68422E8C13647D8A66F6 /* IPAD_QUICK_FIX.md */; };
 		7F5F7111B637470E5721C4C0 /* BrainRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E1C4BAD3C96A2ECB3AC94 /* BrainRegion.swift */; };
 		88698E2610BE4E711AD231ED /* BrainStructureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47720808E26F924BA29CFF7 /* BrainStructureStore.swift */; };
+		967F30224640FAF3F19A691E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C61E8421DDF6EFC475A09844 /* Media.xcassets */; };
+		993B7C5AAE18C074D71B032D /* PathologyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15BE40AEBE598A6C47BAC7D /* PathologyQuizView.swift */; };
+		99BFBFBB2684D5E62EFC5B6A /* BrainIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EADE39DF105432016F0C8D /* BrainIllustrationView.swift */; };
+		9D5138151F691A10A2DB969A /* Brain3DView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD9F7C3D28DDA908679E370 /* Brain3DView.swift */; };
 		A768B3242E04DB8B4CD4E805 /* BrainStructureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47720808E26F924BA29CFF7 /* BrainStructureStore.swift */; };
 		AAFD0E5DEB43F33EB622411C /* QuizResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31628D0CF6C252C15568120B /* QuizResultsView.swift */; };
 		AE6E17A8543017DE64F1BD0B /* QuizQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1284EBC8180B361D2B86E11B /* QuizQuestion.swift */; };
+		AEF5D0C2004A2C5D7B71AFFB /* IPAD_QUICK_FIX.md in Resources */ = {isa = PBXBuildFile; fileRef = 235C68422E8C13647D8A66F6 /* IPAD_QUICK_FIX.md */; };
 		AF7ECDFCEEF2A66AA15F3890 /* BrainPathData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75138F19D66E9A1DC7444F37 /* BrainPathData.swift */; };
 		AFDE40E93AE14F5D63172509 /* LiquidGlassStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */; };
 		B1F68A0D739ADA861FB7DA05 /* StructureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4FC106EB9F049E4512E2EC /* StructureDetailView.swift */; };
+		B41D414C69C6D83615223DF4 /* IPAD_SOLUTION_INDEX.md in Resources */ = {isa = PBXBuildFile; fileRef = 09B2CC929B58FF54DDCFE2D7 /* IPAD_SOLUTION_INDEX.md */; };
 		B634CB79934E494E276B4772 /* BrainHotspot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4652787F297CCE688A6C3100 /* BrainHotspot.swift */; };
+		B9CFAAD0AB85934B458283E1 /* UniversalMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7EEC20F93F0243AA91E0B0 /* UniversalMainView.swift */; };
+		BA47D6F8F3C77A318CE979CE /* Brain3DScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331CE660655D1A87436A586C /* Brain3DScene.swift */; };
+		BB3E5090969B87731567EB83 /* PathologyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B5C7DA03A3EB499B5DCFAB /* PathologyStore.swift */; };
+		BBC3D1A0BEF8C51A47CB054C /* ModernQuizHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C38866C8A7A6367D67872C /* ModernQuizHomeView.swift */; };
 		BDB9423C4725F1709298DD9A /* QuizResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31628D0CF6C252C15568120B /* QuizResultsView.swift */; };
 		BE1E6E5BBEDE8CFD60D61EA9 /* BrainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC92131AFE65197C9A9C804 /* BrainMapView.swift */; };
+		C073610543DB962753FD9CFF /* Brain3DScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331CE660655D1A87436A586C /* Brain3DScene.swift */; };
+		C94148487061B773762F1C5D /* BrainRenderEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F493D506307D9AA7C8CA82D /* BrainRenderEffects.swift */; };
 		C9AB6345447899D6AED2C105 /* BrainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC92131AFE65197C9A9C804 /* BrainMapView.swift */; };
 		CADEFEDCF38E62A5091EB984 /* MultipleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029A583054B38D467A7CB354 /* MultipleChoiceView.swift */; };
+		CF7B7943DD1AF46C55C104CA /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */; };
+		D00454C5A24E7B8AA8AE8828 /* IPAD_SOLUTION_INDEX.md in Resources */ = {isa = PBXBuildFile; fileRef = 09B2CC929B58FF54DDCFE2D7 /* IPAD_SOLUTION_INDEX.md */; };
 		D06B43A0C1BF2BCEDEE0A3BA /* ProgressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846B3B5497475D14055CEB96 /* ProgressStore.swift */; };
+		D0EDACE971A4A16A4569407B /* IPADOS_TROUBLESHOOTING.md in Resources */ = {isa = PBXBuildFile; fileRef = 58D8B9823FF9B1BD711A5834 /* IPADOS_TROUBLESHOOTING.md */; };
 		D3DDC683981C41B9A1DD4465 /* BrainStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FC9A1F90F4D473DE8E2E5 /* BrainStructure.swift */; };
 		D6D7ECB348C9DFBE7F491115 /* StructureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4FC106EB9F049E4512E2EC /* StructureDetailView.swift */; };
+		D85D169142F44E9789B9F6F3 /* EMERGENCY_IPAD_FIX.md in Resources */ = {isa = PBXBuildFile; fileRef = 0554AB53758C14DAA5A7386C /* EMERGENCY_IPAD_FIX.md */; };
 		D9883F88B3B0F5D0D20D80A2 /* MultipleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029A583054B38D467A7CB354 /* MultipleChoiceView.swift */; };
+		DBF91236200E3E8BB2DAA4C2 /* ModernExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442BFC60E119CC072FC7112C /* ModernExploreView.swift */; };
 		DE35B4B88287EBC69B571A65 /* LiquidGlassStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */; };
+		EB3F645377CF61E719F7D52E /* Brain3DViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A19DD90DE8458BBC74814 /* Brain3DViewModel.swift */; };
 		EC01E24F0FF262B2804C815A /* BrainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9F1D05EAF7806B0E9CB253 /* BrainMapViewModel.swift */; };
+		F52696F04D9CBD3D8C6B9CED /* A_Short_Guide_to_Brain_Imaging.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 108CDCFE549BC924F2D07A83 /* A_Short_Guide_to_Brain_Imaging.pdf */; };
 		F65D7C4A21FA11935A0C6E9C /* AppTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886AF33244B0412DDFFD76C8 /* AppTypography.swift */; };
 		F68FEB224B4E9AAE29532A76 /* SpacedRepetitionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF999B7C0FE4375D4469CF9 /* SpacedRepetitionEngine.swift */; };
-		E1A2B3C4D5E60001A0000001 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 379ADAE12F416AA10027EA2B /* Media.xcassets */; };
-		E1A2B3C4D5E60002A0000001 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 379ADAE12F416AA10027EA2B /* Media.xcassets */; };
-		A9B8C7D6E5F40001A0000001 /* BrainRenderEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B8C7D6E5F40003A0000001 /* BrainRenderEffects.swift */; };
-		A9B8C7D6E5F40002A0000001 /* BrainRenderEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B8C7D6E5F40003A0000001 /* BrainRenderEffects.swift */; };
-		F002AA02BB02CC02DD02EE02 /* Brain3DViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001AA01BB01CC01DD01EE01 /* Brain3DViewModel.swift */; };
-		F003AA03BB03CC03DD03EE03 /* Brain3DViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001AA01BB01CC01DD01EE01 /* Brain3DViewModel.swift */; };
-		F005AA05BB05CC05DD05EE05 /* Brain3DScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F004AA04BB04CC04DD04EE04 /* Brain3DScene.swift */; };
-		F006AA06BB06CC06DD66EE06 /* Brain3DScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F004AA04BB04CC04DD04EE04 /* Brain3DScene.swift */; };
-		F008AA08BB08CC08DD08EE08 /* Brain3DView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F007AA07BB07CC07DD07EE07 /* Brain3DView.swift */; };
-		A1B2C3D4E5F60002A1B2C3D4 /* BrainIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60001A1B2C3D4 /* BrainIllustrationView.swift */; };
-		A1B2C3D4E5F60003A1B2C3D4 /* BrainIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60001A1B2C3D4 /* BrainIllustrationView.swift */; };
-		F009AA09BB09CC09DD09EE09 /* Brain3DView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F007AA07BB07CC07DD07EE07 /* Brain3DView.swift */; };
-		F011AA11BB11CC11DD11EE11 /* PathologyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F010AA10BB10CC10DD10EE10 /* PathologyQuizView.swift */; };
-		F012AA12BB12CC12DD12EE12 /* PathologyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F010AA10BB10CC10DD10EE10 /* PathologyQuizView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0034CBA1AED71AD650A0681C /* NeuroStudyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroStudyApp.swift; sourceTree = "<group>"; };
 		029A583054B38D467A7CB354 /* MultipleChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceView.swift; sourceTree = "<group>"; };
+		0554AB53758C14DAA5A7386C /* EMERGENCY_IPAD_FIX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = EMERGENCY_IPAD_FIX.md; sourceTree = "<group>"; };
+		09B2CC929B58FF54DDCFE2D7 /* IPAD_SOLUTION_INDEX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IPAD_SOLUTION_INDEX.md; sourceTree = "<group>"; };
+		108CDCFE549BC924F2D07A83 /* A_Short_Guide_to_Brain_Imaging.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = A_Short_Guide_to_Brain_Imaging.pdf; sourceTree = "<group>"; };
 		1284EBC8180B361D2B86E11B /* QuizQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestion.swift; sourceTree = "<group>"; };
 		170D7A15D5D37414F759B0A7 /* FlashcardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardView.swift; sourceTree = "<group>"; };
+		1EE6588342353CB8A9CC4F3F /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Neuropsychological_Assessment_5th_Ed_Lezak.pdf; sourceTree = "<group>"; };
+		235C68422E8C13647D8A66F6 /* IPAD_QUICK_FIX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IPAD_QUICK_FIX.md; sourceTree = "<group>"; };
 		247E697F887109916D2B4727 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		31628D0CF6C252C15568120B /* QuizResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultsView.swift; sourceTree = "<group>"; };
-		379ADAE12F416AA10027EA2B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		37D1218E2F42453100C5A891 /* IPADOS_TROUBLESHOOTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IPADOS_TROUBLESHOOTING.md; sourceTree = "<group>"; };
-		37D1218F2F42455A00C5A891 /* UniversalMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalMainView.swift; sourceTree = "<group>"; };
-		37D121922F42458B00C5A891 /* IPAD_QUICK_FIX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IPAD_QUICK_FIX.md; sourceTree = "<group>"; };
-		37D121932F4245CA00C5A891 /* XCODE_VISUAL_GUIDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = XCODE_VISUAL_GUIDE.md; sourceTree = "<group>"; };
-		37D121942F42460100C5A891 /* IPAD_SOLUTION_INDEX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IPAD_SOLUTION_INDEX.md; sourceTree = "<group>"; };
-		37D121952F42462500C5A891 /* EMERGENCY_IPAD_FIX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = EMERGENCY_IPAD_FIX.md; sourceTree = "<group>"; };
+		31EADE39DF105432016F0C8D /* BrainIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainIllustrationView.swift; sourceTree = "<group>"; };
+		331CE660655D1A87436A586C /* Brain3DScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain3DScene.swift; sourceTree = "<group>"; };
+		35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		42C02FD658C3F7B90FA54C33 /* StudyProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyProgress.swift; sourceTree = "<group>"; };
+		442BFC60E119CC072FC7112C /* ModernExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernExploreView.swift; sourceTree = "<group>"; };
 		4652787F297CCE688A6C3100 /* BrainHotspot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainHotspot.swift; sourceTree = "<group>"; };
+		4AD9F7C3D28DDA908679E370 /* Brain3DView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain3DView.swift; sourceTree = "<group>"; };
+		4F493D506307D9AA7C8CA82D /* BrainRenderEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainRenderEffects.swift; sourceTree = "<group>"; };
+		58D8B9823FF9B1BD711A5834 /* IPADOS_TROUBLESHOOTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IPADOS_TROUBLESHOOTING.md; sourceTree = "<group>"; };
 		5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapIdentifyQuizView.swift; sourceTree = "<group>"; };
 		652FC9A1F90F4D473DE8E2E5 /* BrainStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainStructure.swift; sourceTree = "<group>"; };
+		685A19DD90DE8458BBC74814 /* Brain3DViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain3DViewModel.swift; sourceTree = "<group>"; };
 		736D4F3B912CD378B9D90ECE /* GlassComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassComponents.swift; sourceTree = "<group>"; };
 		75138F19D66E9A1DC7444F37 /* BrainPathData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainPathData.swift; sourceTree = "<group>"; };
 		846B3B5497475D14055CEB96 /* ProgressStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStore.swift; sourceTree = "<group>"; };
 		886AF33244B0412DDFFD76C8 /* AppTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTypography.swift; sourceTree = "<group>"; };
 		8A4FC106EB9F049E4512E2EC /* StructureDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureDetailView.swift; sourceTree = "<group>"; };
 		8CC92131AFE65197C9A9C804 /* BrainMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainMapView.swift; sourceTree = "<group>"; };
-		9F41A4FDFFF6EC41E7FC1DB8 /* NeuroStudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeuroStudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D7EEC20F93F0243AA91E0B0 /* UniversalMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalMainView.swift; sourceTree = "<group>"; };
+		97C38866C8A7A6367D67872C /* ModernQuizHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernQuizHomeView.swift; sourceTree = "<group>"; };
+		9F41A4FDFFF6EC41E7FC1DB8 /* NeuroStudy.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NeuroStudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA1E1C4BAD3C96A2ECB3AC94 /* BrainRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainRegion.swift; sourceTree = "<group>"; };
+		AACF7725D2E1527DB24F1555 /* PathologyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathologyData.swift; sourceTree = "<group>"; };
+		B15BE40AEBE598A6C47BAC7D /* PathologyQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathologyQuizView.swift; sourceTree = "<group>"; };
+		C0E3D89AD4A75BB47A9FC522 /* ModernProgressDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernProgressDashboardView.swift; sourceTree = "<group>"; };
+		C61E8421DDF6EFC475A09844 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		CFDA2FBF57EFA60F2F151A27 /* ModernDesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernDesignSystem.swift; sourceTree = "<group>"; };
 		D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGlassStyle.swift; sourceTree = "<group>"; };
+		E1B5C7DA03A3EB499B5DCFAB /* PathologyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathologyStore.swift; sourceTree = "<group>"; };
 		E393C28461A3D889358E85D8 /* NeuroStudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeuroStudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E47720808E26F924BA29CFF7 /* BrainStructureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainStructureStore.swift; sourceTree = "<group>"; };
 		EA9F1D05EAF7806B0E9CB253 /* BrainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainMapViewModel.swift; sourceTree = "<group>"; };
+		EFFA658949145C11584D2916 /* XCODE_VISUAL_GUIDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = XCODE_VISUAL_GUIDE.md; sourceTree = "<group>"; };
 		FFF999B7C0FE4375D4469CF9 /* SpacedRepetitionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedRepetitionEngine.swift; sourceTree = "<group>"; };
-		C1D2E3F4A5B60003A0000001 /* PathologyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathologyData.swift; sourceTree = "<group>"; };
-		C1D2E3F4A5B60004A0000001 /* PathologyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathologyStore.swift; sourceTree = "<group>"; };
-		A1B2C3D4E5F60005A0000001 /* ModernDesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernDesignSystem.swift; sourceTree = "<group>"; };
-		A1B2C3D4E5F60006A0000001 /* ModernExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernExploreView.swift; sourceTree = "<group>"; };
-		A1B2C3D4E5F60007A0000001 /* ModernQuizHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernQuizHomeView.swift; sourceTree = "<group>"; };
-		A1B2C3D4E5F60008A0000001 /* ModernProgressDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernProgressDashboardView.swift; sourceTree = "<group>"; };
-		A9B8C7D6E5F40003A0000001 /* BrainRenderEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainRenderEffects.swift; sourceTree = "<group>"; };
-		F001AA01BB01CC01DD01EE01 /* Brain3DViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain3DViewModel.swift; sourceTree = "<group>"; };
-		F004AA04BB04CC04DD04EE04 /* Brain3DScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain3DScene.swift; sourceTree = "<group>"; };
-		F007AA07BB07CC07DD07EE07 /* Brain3DView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain3DView.swift; sourceTree = "<group>"; };
-		F010AA10BB10CC10DD10EE10 /* PathologyQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathologyQuizView.swift; sourceTree = "<group>"; };
-		A1B2C3D4E5F60001A1B2C3D4 /* BrainIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainIllustrationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		04C45E31B6DB94208682853A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				108CDCFE549BC924F2D07A83 /* A_Short_Guide_to_Brain_Imaging.pdf */,
+				1EE6588342353CB8A9CC4F3F /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		142D17BE748063265C795C16 /* Quiz */ = {
 			isa = PBXGroup;
 			children = (
 				170D7A15D5D37414F759B0A7 /* FlashcardView.swift */,
+				97C38866C8A7A6367D67872C /* ModernQuizHomeView.swift */,
 				029A583054B38D467A7CB354 /* MultipleChoiceView.swift */,
-				A1B2C3D4E5F60007A0000001 /* ModernQuizHomeView.swift */,
+				B15BE40AEBE598A6C47BAC7D /* PathologyQuizView.swift */,
 				31628D0CF6C252C15568120B /* QuizResultsView.swift */,
 				247E697F887109916D2B4727 /* QuizViewModel.swift */,
 				5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */,
-			F010AA10BB10CC10DD10EE10 /* PathologyQuizView.swift */,
 			);
 			path = Quiz;
 			sourceTree = "<group>";
@@ -153,8 +181,8 @@
 				AA1E1C4BAD3C96A2ECB3AC94 /* BrainRegion.swift */,
 				652FC9A1F90F4D473DE8E2E5 /* BrainStructure.swift */,
 				E47720808E26F924BA29CFF7 /* BrainStructureStore.swift */,
-				C1D2E3F4A5B60003A0000001 /* PathologyData.swift */,
-				C1D2E3F4A5B60004A0000001 /* PathologyStore.swift */,
+				AACF7725D2E1527DB24F1555 /* PathologyData.swift */,
+				E1B5C7DA03A3EB499B5DCFAB /* PathologyStore.swift */,
 				1284EBC8180B361D2B86E11B /* QuizQuestion.swift */,
 				FFF999B7C0FE4375D4469CF9 /* SpacedRepetitionEngine.swift */,
 				42C02FD658C3F7B90FA54C33 /* StudyProgress.swift */,
@@ -165,7 +193,7 @@
 		2F008E3F06CDD4B0EAF703C0 /* Progress */ = {
 			isa = PBXGroup;
 			children = (
-				A1B2C3D4E5F60008A0000001 /* ModernProgressDashboardView.swift */,
+				C0E3D89AD4A75BB47A9FC522 /* ModernProgressDashboardView.swift */,
 			);
 			path = Progress;
 			sourceTree = "<group>";
@@ -184,15 +212,15 @@
 		36BEB49F43BB3C2EB2D95289 /* BrainMap */ = {
 			isa = PBXGroup;
 			children = (
+				331CE660655D1A87436A586C /* Brain3DScene.swift */,
+				4AD9F7C3D28DDA908679E370 /* Brain3DView.swift */,
+				685A19DD90DE8458BBC74814 /* Brain3DViewModel.swift */,
 				4652787F297CCE688A6C3100 /* BrainHotspot.swift */,
+				31EADE39DF105432016F0C8D /* BrainIllustrationView.swift */,
 				8CC92131AFE65197C9A9C804 /* BrainMapView.swift */,
 				EA9F1D05EAF7806B0E9CB253 /* BrainMapViewModel.swift */,
 				75138F19D66E9A1DC7444F37 /* BrainPathData.swift */,
-				A9B8C7D6E5F40003A0000001 /* BrainRenderEffects.swift */,
-			F001AA01BB01CC01DD01EE01 /* Brain3DViewModel.swift */,
-			F004AA04BB04CC04DD04EE04 /* Brain3DScene.swift */,
-			F007AA07BB07CC07DD07EE07 /* Brain3DView.swift */,
-				A1B2C3D4E5F60001A1B2C3D4 /* BrainIllustrationView.swift */,
+				4F493D506307D9AA7C8CA82D /* BrainRenderEffects.swift */,
 			);
 			path = BrainMap;
 			sourceTree = "<group>";
@@ -211,7 +239,7 @@
 			children = (
 				886AF33244B0412DDFFD76C8 /* AppTypography.swift */,
 				D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */,
-				A1B2C3D4E5F60005A0000001 /* ModernDesignSystem.swift */,
+				CFDA2FBF57EFA60F2F151A27 /* ModernDesignSystem.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -227,19 +255,21 @@
 		BF194099A921EC43F0CEC97C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				0554AB53758C14DAA5A7386C /* EMERGENCY_IPAD_FIX.md */,
+				235C68422E8C13647D8A66F6 /* IPAD_QUICK_FIX.md */,
+				09B2CC929B58FF54DDCFE2D7 /* IPAD_SOLUTION_INDEX.md */,
+				58D8B9823FF9B1BD711A5834 /* IPADOS_TROUBLESHOOTING.md */,
+				C61E8421DDF6EFC475A09844 /* Media.xcassets */,
 				0034CBA1AED71AD650A0681C /* NeuroStudyApp.swift */,
+				35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */,
+				8D7EEC20F93F0243AA91E0B0 /* UniversalMainView.swift */,
+				EFFA658949145C11584D2916 /* XCODE_VISUAL_GUIDE.md */,
 				36BEB49F43BB3C2EB2D95289 /* BrainMap */,
 				2A5B97DA2C8B0D5B05ABB4DC /* Models */,
 				C8BAC5FC1576A63A50AD83DD /* Persistence */,
+				04C45E31B6DB94208682853A /* Resources */,
 				630842BF267F2AE488359C9A /* Styles */,
 				3103316691C5C2BED9DB799F /* Views */,
-				379ADAE12F416AA10027EA2B /* Media.xcassets */,
-				37D1218E2F42453100C5A891 /* IPADOS_TROUBLESHOOTING.md */,
-				37D1218F2F42455A00C5A891 /* UniversalMainView.swift */,
-				37D121922F42458B00C5A891 /* IPAD_QUICK_FIX.md */,
-				37D121932F4245CA00C5A891 /* XCODE_VISUAL_GUIDE.md */,
-				37D121942F42460100C5A891 /* IPAD_SOLUTION_INDEX.md */,
-				37D121952F42462500C5A891 /* EMERGENCY_IPAD_FIX.md */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -247,7 +277,7 @@
 		C55D4BC0DB2D1B7DE17ED8FB /* Explore */ = {
 			isa = PBXGroup;
 			children = (
-				A1B2C3D4E5F60006A0000001 /* ModernExploreView.swift */,
+				442BFC60E119CC072FC7112C /* ModernExploreView.swift */,
 				8A4FC106EB9F049E4512E2EC /* StructureDetailView.swift */,
 			);
 			path = Explore;
@@ -269,7 +299,7 @@
 			buildConfigurationList = 5E371844F6794E80AEB1361A /* Build configuration list for PBXNativeTarget "NeuroStudy_macOS" */;
 			buildPhases = (
 				EA66ED5EF9A8B151BC18845D /* Sources */,
-				E1A2B3C4D5E60004A0000001 /* Resources */,
+				30DA35F8BFB421CE7A7418A0 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -287,7 +317,7 @@
 			buildConfigurationList = A1D58496E624E583E49F0DB0 /* Build configuration list for PBXNativeTarget "NeuroStudy_iOS" */;
 			buildPhases = (
 				C5100B824938406A273A0EC9 /* Sources */,
-				E1A2B3C4D5E60003A0000001 /* Resources */,
+				3679550B4EF424860A57ABD9 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -307,18 +337,19 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 2620;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					2A47719868A63AEC3D36D399 = {
+						DevelopmentTeam = 47K6N92W54;
 						ProvisioningStyle = Automatic;
 					};
 					8792CD7E92775DA92FB11BC4 = {
+						DevelopmentTeam = 47K6N92W54;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = 5CC0A394500EA162D3B83955 /* Build configuration list for PBXProject "NeuroStudy" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -327,6 +358,8 @@
 			);
 			mainGroup = 9FFFBCF700A583F274BD6FF4;
 			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 583F9F69900BA3E78200D6BB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -337,19 +370,35 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		E1A2B3C4D5E60003A0000001 /* Resources */ = {
+		30DA35F8BFB421CE7A7418A0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1A2B3C4D5E60001A0000001 /* Media.xcassets in Resources */,
+				6A87AE91606F875271FE0470 /* A_Short_Guide_to_Brain_Imaging.pdf in Resources */,
+				1F28252890AA88774892AA6F /* EMERGENCY_IPAD_FIX.md in Resources */,
+				D0EDACE971A4A16A4569407B /* IPADOS_TROUBLESHOOTING.md in Resources */,
+				7F5DD2B026CC9F99D85186DB /* IPAD_QUICK_FIX.md in Resources */,
+				D00454C5A24E7B8AA8AE8828 /* IPAD_SOLUTION_INDEX.md in Resources */,
+				32400DFBD4252BCF8842BC32 /* Media.xcassets in Resources */,
+				43857657D891D213310B0EC6 /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf in Resources */,
+				527A264B9C71547F706ECEA3 /* PrivacyInfo.xcprivacy in Resources */,
+				2426B314CDAF51A9980476A4 /* XCODE_VISUAL_GUIDE.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E1A2B3C4D5E60004A0000001 /* Resources */ = {
+		3679550B4EF424860A57ABD9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1A2B3C4D5E60002A0000001 /* Media.xcassets in Resources */,
+				F52696F04D9CBD3D8C6B9CED /* A_Short_Guide_to_Brain_Imaging.pdf in Resources */,
+				D85D169142F44E9789B9F6F3 /* EMERGENCY_IPAD_FIX.md in Resources */,
+				217A9ECC3E70C8241EED7066 /* IPADOS_TROUBLESHOOTING.md in Resources */,
+				AEF5D0C2004A2C5D7B71AFFB /* IPAD_QUICK_FIX.md in Resources */,
+				B41D414C69C6D83615223DF4 /* IPAD_SOLUTION_INDEX.md in Resources */,
+				967F30224640FAF3F19A691E /* Media.xcassets in Resources */,
+				0FFB676BFFDC255AB4B51F60 /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf in Resources */,
+				CF7B7943DD1AF46C55C104CA /* PrivacyInfo.xcprivacy in Resources */,
+				5C3824CA80F344AC8A78728A /* XCODE_VISUAL_GUIDE.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,25 +409,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1B2C3D4E5F60001A0000001 /* ModernDesignSystem.swift in Sources */,
-				A1B2C3D4E5F60002A0000001 /* ModernExploreView.swift in Sources */,
-				A1B2C3D4E5F60003A0000001 /* ModernQuizHomeView.swift in Sources */,
-				A1B2C3D4E5F60004A0000001 /* ModernProgressDashboardView.swift in Sources */,
 				791F6BD5CA3456AB39562409 /* AppTypography.swift in Sources */,
+				C073610543DB962753FD9CFF /* Brain3DScene.swift in Sources */,
+				9D5138151F691A10A2DB969A /* Brain3DView.swift in Sources */,
+				05BDD7963DFA10451AD63BEC /* Brain3DViewModel.swift in Sources */,
 				3BA7BFC2D29A2614CDC9C483 /* BrainHotspot.swift in Sources */,
+				99BFBFBB2684D5E62EFC5B6A /* BrainIllustrationView.swift in Sources */,
 				BE1E6E5BBEDE8CFD60D61EA9 /* BrainMapView.swift in Sources */,
 				EC01E24F0FF262B2804C815A /* BrainMapViewModel.swift in Sources */,
 				045B21CD1C260B7BD8D28E36 /* BrainPathData.swift in Sources */,
 				5A5D401EC2FBD372D4584DE9 /* BrainRegion.swift in Sources */,
+				4FB5CA8E0019FC3CB1EACC2D /* BrainRenderEffects.swift in Sources */,
 				7E6F2126D2B19171C10E81F6 /* BrainStructure.swift in Sources */,
 				A768B3242E04DB8B4CD4E805 /* BrainStructureStore.swift in Sources */,
 				3A1D6A9C77BD8787FE0BDF11 /* FlashcardView.swift in Sources */,
 				7A62635A3A85CFB50F89229D /* GlassComponents.swift in Sources */,
 				AFDE40E93AE14F5D63172509 /* LiquidGlassStyle.swift in Sources */,
+				2BA07433427198D7B2EEC4D4 /* ModernDesignSystem.swift in Sources */,
+				DBF91236200E3E8BB2DAA4C2 /* ModernExploreView.swift in Sources */,
+				094B741486A07E40B4AC02FD /* ModernProgressDashboardView.swift in Sources */,
+				46C236757A861AE9D69AD68D /* ModernQuizHomeView.swift in Sources */,
 				CADEFEDCF38E62A5091EB984 /* MultipleChoiceView.swift in Sources */,
 				69AA52F129C28809F4BBDA31 /* NeuroStudyApp.swift in Sources */,
+				5BF360443BB7FF23B7B9EEAB /* PathologyData.swift in Sources */,
+				993B7C5AAE18C074D71B032D /* PathologyQuizView.swift in Sources */,
+				BB3E5090969B87731567EB83 /* PathologyStore.swift in Sources */,
 				77D60B5B512FC3D1A3B6ECFD /* ProgressStore.swift in Sources */,
-				37D121912F42455A00C5A891 /* UniversalMainView.swift in Sources */,
 				40EA8D0A2D5CCC4BEAD344A4 /* QuizQuestion.swift in Sources */,
 				AAFD0E5DEB43F33EB622411C /* QuizResultsView.swift in Sources */,
 				65BE6C741BA6B6EB42262894 /* QuizViewModel.swift in Sources */,
@@ -386,14 +442,7 @@
 				B1F68A0D739ADA861FB7DA05 /* StructureDetailView.swift in Sources */,
 				3370DCD14A8B9F8F9C655F26 /* StudyProgress.swift in Sources */,
 				16D6B722564CE073D061CE6C /* TapIdentifyQuizView.swift in Sources */,
-				C1D2E3F4A5B60001A0000001 /* PathologyData.swift in Sources */,
-				C1D2E3F4A5B60002A0000001 /* PathologyStore.swift in Sources */,
-				A9B8C7D6E5F40001A0000001 /* BrainRenderEffects.swift in Sources */,
-				F002AA02BB02CC02DD02EE02 /* Brain3DViewModel.swift in Sources */,
-				F005AA05BB05CC05DD05EE05 /* Brain3DScene.swift in Sources */,
-				F008AA08BB08CC08DD08EE08 /* Brain3DView.swift in Sources */,
-				A1B2C3D4E5F60002A1B2C3D4 /* BrainIllustrationView.swift in Sources */,
-				F011AA11BB11CC11DD11EE11 /* PathologyQuizView.swift in Sources */,
+				B9CFAAD0AB85934B458283E1 /* UniversalMainView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,25 +450,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1B2C3D4E5F60001A0000001 /* ModernDesignSystem.swift in Sources */,
-				B1B2C3D4E5F60002A0000001 /* ModernExploreView.swift in Sources */,
-				B1B2C3D4E5F60003A0000001 /* ModernQuizHomeView.swift in Sources */,
-				B1B2C3D4E5F60004A0000001 /* ModernProgressDashboardView.swift in Sources */,
 				F65D7C4A21FA11935A0C6E9C /* AppTypography.swift in Sources */,
+				BA47D6F8F3C77A318CE979CE /* Brain3DScene.swift in Sources */,
+				7940F268B59BAE00240B95FA /* Brain3DView.swift in Sources */,
+				EB3F645377CF61E719F7D52E /* Brain3DViewModel.swift in Sources */,
 				B634CB79934E494E276B4772 /* BrainHotspot.swift in Sources */,
+				4DBC8632796591ADDFAF951F /* BrainIllustrationView.swift in Sources */,
 				C9AB6345447899D6AED2C105 /* BrainMapView.swift in Sources */,
 				44D68FB176EAA33C9EE2BA64 /* BrainMapViewModel.swift in Sources */,
 				AF7ECDFCEEF2A66AA15F3890 /* BrainPathData.swift in Sources */,
 				7F5F7111B637470E5721C4C0 /* BrainRegion.swift in Sources */,
+				C94148487061B773762F1C5D /* BrainRenderEffects.swift in Sources */,
 				D3DDC683981C41B9A1DD4465 /* BrainStructure.swift in Sources */,
 				88698E2610BE4E711AD231ED /* BrainStructureStore.swift in Sources */,
 				06DAF3B9CC72C96D19550CDE /* FlashcardView.swift in Sources */,
 				29189F8E21DAA32E59C4E6E1 /* GlassComponents.swift in Sources */,
 				DE35B4B88287EBC69B571A65 /* LiquidGlassStyle.swift in Sources */,
+				6369FECF419198837BB095E9 /* ModernDesignSystem.swift in Sources */,
+				7391B89F41E16B5811365C0B /* ModernExploreView.swift in Sources */,
+				4247480219A4F521B904135D /* ModernProgressDashboardView.swift in Sources */,
+				BBC3D1A0BEF8C51A47CB054C /* ModernQuizHomeView.swift in Sources */,
 				D9883F88B3B0F5D0D20D80A2 /* MultipleChoiceView.swift in Sources */,
 				0873060076F714444D75D8F6 /* NeuroStudyApp.swift in Sources */,
+				76D5B3A1DC6B3D5CF6BAC8B8 /* PathologyData.swift in Sources */,
+				46C470FFCBBAEEC1EAFFBA49 /* PathologyQuizView.swift in Sources */,
+				4D99258306D8FDDD0CFDB7DC /* PathologyStore.swift in Sources */,
 				D06B43A0C1BF2BCEDEE0A3BA /* ProgressStore.swift in Sources */,
-				37D121902F42455A00C5A891 /* UniversalMainView.swift in Sources */,
 				AE6E17A8543017DE64F1BD0B /* QuizQuestion.swift in Sources */,
 				BDB9423C4725F1709298DD9A /* QuizResultsView.swift in Sources */,
 				7349463F96DB9A41177F057F /* QuizViewModel.swift in Sources */,
@@ -427,14 +483,7 @@
 				D6D7ECB348C9DFBE7F491115 /* StructureDetailView.swift in Sources */,
 				3507E5A9B63A49C35B9CDC2B /* StudyProgress.swift in Sources */,
 				401038D8E768B6FDD0FD4939 /* TapIdentifyQuizView.swift in Sources */,
-				D1D2E3F4A5B60001A0000001 /* PathologyData.swift in Sources */,
-				D1D2E3F4A5B60002A0000001 /* PathologyStore.swift in Sources */,
-				A9B8C7D6E5F40002A0000001 /* BrainRenderEffects.swift in Sources */,
-				F003AA03BB03CC03DD03EE03 /* Brain3DViewModel.swift in Sources */,
-				F006AA06BB06CC06DD66EE06 /* Brain3DScene.swift in Sources */,
-				F009AA09BB09CC09DD09EE09 /* Brain3DView.swift in Sources */,
-				A1B2C3D4E5F60003A1B2C3D4 /* BrainIllustrationView.swift in Sources */,
-				F012AA12BB12CC12DD12EE12 /* PathologyQuizView.swift in Sources */,
+				46E2A4A0EDF2ABFD99C27ACE /* UniversalMainView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,11 +525,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -497,7 +544,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.9;
@@ -509,9 +555,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 47K6N92W54;
 				ENABLE_PREVIEWS = YES;
@@ -537,9 +581,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 47K6N92W54;
 				ENABLE_PREVIEWS = YES;
@@ -565,15 +607,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 47K6N92W54;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -595,15 +633,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 47K6N92W54;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -655,11 +689,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -683,7 +715,6 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.9;
