@@ -1,0 +1,35 @@
+# Xcode
+*.xcuserstate
+*.xcscheme
+xcuserdata/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+build/
+
+# SwiftPM
+.build/
+.swiftpm/
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Copyrighted / licensed materials — do not distribute
+Shared/Resources/*.pdf
+
+# Environment / secrets
+.env
+*.pem
