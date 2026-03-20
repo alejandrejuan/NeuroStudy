@@ -22,6 +22,8 @@ targets:
     sources:
       - path: Shared
         type: group
+        excludes:
+          - "Resources/*.pdf"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.neurostudy.app

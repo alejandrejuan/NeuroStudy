@@ -12,7 +12,6 @@
 		06DAF3B9CC72C96D19550CDE /* FlashcardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170D7A15D5D37414F759B0A7 /* FlashcardView.swift */; };
 		0873060076F714444D75D8F6 /* NeuroStudyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034CBA1AED71AD650A0681C /* NeuroStudyApp.swift */; };
 		094B741486A07E40B4AC02FD /* ModernProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E3D89AD4A75BB47A9FC522 /* ModernProgressDashboardView.swift */; };
-		0FFB676BFFDC255AB4B51F60 /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1EE6588342353CB8A9CC4F3F /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf */; };
 		16D6B722564CE073D061CE6C /* TapIdentifyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */; };
 		1F28252890AA88774892AA6F /* EMERGENCY_IPAD_FIX.md in Resources */ = {isa = PBXBuildFile; fileRef = 0554AB53758C14DAA5A7386C /* EMERGENCY_IPAD_FIX.md */; };
 		217A9ECC3E70C8241EED7066 /* IPADOS_TROUBLESHOOTING.md in Resources */ = {isa = PBXBuildFile; fileRef = 58D8B9823FF9B1BD711A5834 /* IPADOS_TROUBLESHOOTING.md */; };
@@ -27,7 +26,6 @@
 		401038D8E768B6FDD0FD4939 /* TapIdentifyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */; };
 		40EA8D0A2D5CCC4BEAD344A4 /* QuizQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1284EBC8180B361D2B86E11B /* QuizQuestion.swift */; };
 		4247480219A4F521B904135D /* ModernProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E3D89AD4A75BB47A9FC522 /* ModernProgressDashboardView.swift */; };
-		43857657D891D213310B0EC6 /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1EE6588342353CB8A9CC4F3F /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf */; };
 		44D68FB176EAA33C9EE2BA64 /* BrainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9F1D05EAF7806B0E9CB253 /* BrainMapViewModel.swift */; };
 		46C236757A861AE9D69AD68D /* ModernQuizHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C38866C8A7A6367D67872C /* ModernQuizHomeView.swift */; };
 		46C470FFCBBAEEC1EAFFBA49 /* PathologyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15BE40AEBE598A6C47BAC7D /* PathologyQuizView.swift */; };
@@ -42,7 +40,6 @@
 		6369FECF419198837BB095E9 /* ModernDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDA2FBF57EFA60F2F151A27 /* ModernDesignSystem.swift */; };
 		65BE6C741BA6B6EB42262894 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247E697F887109916D2B4727 /* QuizViewModel.swift */; };
 		69AA52F129C28809F4BBDA31 /* NeuroStudyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034CBA1AED71AD650A0681C /* NeuroStudyApp.swift */; };
-		6A87AE91606F875271FE0470 /* A_Short_Guide_to_Brain_Imaging.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 108CDCFE549BC924F2D07A83 /* A_Short_Guide_to_Brain_Imaging.pdf */; };
 		6DB7C3D27FC40914C8F783DE /* SpacedRepetitionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF999B7C0FE4375D4469CF9 /* SpacedRepetitionEngine.swift */; };
 		7349463F96DB9A41177F057F /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247E697F887109916D2B4727 /* QuizViewModel.swift */; };
 		7391B89F41E16B5811365C0B /* ModernExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442BFC60E119CC072FC7112C /* ModernExploreView.swift */; };
@@ -90,7 +87,6 @@
 		DE35B4B88287EBC69B571A65 /* LiquidGlassStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */; };
 		EB3F645377CF61E719F7D52E /* Brain3DViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A19DD90DE8458BBC74814 /* Brain3DViewModel.swift */; };
 		EC01E24F0FF262B2804C815A /* BrainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9F1D05EAF7806B0E9CB253 /* BrainMapViewModel.swift */; };
-		F52696F04D9CBD3D8C6B9CED /* A_Short_Guide_to_Brain_Imaging.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 108CDCFE549BC924F2D07A83 /* A_Short_Guide_to_Brain_Imaging.pdf */; };
 		F65D7C4A21FA11935A0C6E9C /* AppTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886AF33244B0412DDFFD76C8 /* AppTypography.swift */; };
 		F68FEB224B4E9AAE29532A76 /* SpacedRepetitionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF999B7C0FE4375D4469CF9 /* SpacedRepetitionEngine.swift */; };
 /* End PBXBuildFile section */
@@ -100,10 +96,8 @@
 		029A583054B38D467A7CB354 /* MultipleChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceView.swift; sourceTree = "<group>"; };
 		0554AB53758C14DAA5A7386C /* EMERGENCY_IPAD_FIX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = EMERGENCY_IPAD_FIX.md; sourceTree = "<group>"; };
 		09B2CC929B58FF54DDCFE2D7 /* IPAD_SOLUTION_INDEX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IPAD_SOLUTION_INDEX.md; sourceTree = "<group>"; };
-		108CDCFE549BC924F2D07A83 /* A_Short_Guide_to_Brain_Imaging.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = A_Short_Guide_to_Brain_Imaging.pdf; sourceTree = "<group>"; };
 		1284EBC8180B361D2B86E11B /* QuizQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestion.swift; sourceTree = "<group>"; };
 		170D7A15D5D37414F759B0A7 /* FlashcardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardView.swift; sourceTree = "<group>"; };
-		1EE6588342353CB8A9CC4F3F /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Neuropsychological_Assessment_5th_Ed_Lezak.pdf; sourceTree = "<group>"; };
 		235C68422E8C13647D8A66F6 /* IPAD_QUICK_FIX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IPAD_QUICK_FIX.md; sourceTree = "<group>"; };
 		247E697F887109916D2B4727 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		31628D0CF6C252C15568120B /* QuizResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultsView.swift; sourceTree = "<group>"; };
@@ -144,15 +138,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		04C45E31B6DB94208682853A /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				108CDCFE549BC924F2D07A83 /* A_Short_Guide_to_Brain_Imaging.pdf */,
-				1EE6588342353CB8A9CC4F3F /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		142D17BE748063265C795C16 /* Quiz */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,7 +252,6 @@
 				36BEB49F43BB3C2EB2D95289 /* BrainMap */,
 				2A5B97DA2C8B0D5B05ABB4DC /* Models */,
 				C8BAC5FC1576A63A50AD83DD /* Persistence */,
-				04C45E31B6DB94208682853A /* Resources */,
 				630842BF267F2AE488359C9A /* Styles */,
 				3103316691C5C2BED9DB799F /* Views */,
 			);
@@ -374,13 +358,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A87AE91606F875271FE0470 /* A_Short_Guide_to_Brain_Imaging.pdf in Resources */,
 				1F28252890AA88774892AA6F /* EMERGENCY_IPAD_FIX.md in Resources */,
 				D0EDACE971A4A16A4569407B /* IPADOS_TROUBLESHOOTING.md in Resources */,
 				7F5DD2B026CC9F99D85186DB /* IPAD_QUICK_FIX.md in Resources */,
 				D00454C5A24E7B8AA8AE8828 /* IPAD_SOLUTION_INDEX.md in Resources */,
 				32400DFBD4252BCF8842BC32 /* Media.xcassets in Resources */,
-				43857657D891D213310B0EC6 /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf in Resources */,
 				527A264B9C71547F706ECEA3 /* PrivacyInfo.xcprivacy in Resources */,
 				2426B314CDAF51A9980476A4 /* XCODE_VISUAL_GUIDE.md in Resources */,
 			);
@@ -390,13 +372,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F52696F04D9CBD3D8C6B9CED /* A_Short_Guide_to_Brain_Imaging.pdf in Resources */,
 				D85D169142F44E9789B9F6F3 /* EMERGENCY_IPAD_FIX.md in Resources */,
 				217A9ECC3E70C8241EED7066 /* IPADOS_TROUBLESHOOTING.md in Resources */,
 				AEF5D0C2004A2C5D7B71AFFB /* IPAD_QUICK_FIX.md in Resources */,
 				B41D414C69C6D83615223DF4 /* IPAD_SOLUTION_INDEX.md in Resources */,
 				967F30224640FAF3F19A691E /* Media.xcassets in Resources */,
-				0FFB676BFFDC255AB4B51F60 /* Neuropsychological_Assessment_5th_Ed_Lezak.pdf in Resources */,
 				CF7B7943DD1AF46C55C104CA /* PrivacyInfo.xcprivacy in Resources */,
 				5C3824CA80F344AC8A78728A /* XCODE_VISUAL_GUIDE.md in Resources */,
 			);
