@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeuroStudy — Learn Neuroanatomy</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f5f5f7;
+      --text: #1d1d1f;
+      --secondary: #6e6e73;
+      --accent: #6e3fcc;
+      --border: #d2d2d7;
+      --radius: 18px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #000000;
+        --surface: #1c1c1e;
+        --text: #f5f5f7;
+        --secondary: #98989d;
+        --accent: #9b70e0;
+        --border: #3a3a3c;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 24px 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(145deg, #5b3fa0, #9b66cc);
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+    header p { font-size: 14px; color: var(--secondary); margin-top: 2px; }
+    .hero {
+      max-width: 720px;
+      margin: 64px auto 0;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .hero h2 {
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero h2 span { color: var(--accent); }
+    .hero p {
+      font-size: 19px;
+      color: var(--secondary);
+      max-width: 480px;
+      margin: 0 auto 36px;
+      line-height: 1.5;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 14px;
+      color: var(--secondary);
+      font-weight: 500;
+    }
+    .features {
+      max-width: 720px;
+      margin: 80px auto 0;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .feature {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .feature h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: -0.2px;
+    }
+    .feature p {
+      font-size: 14px;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+    footer {
+      max-width: 720px;
+      margin: 80px auto 0;
+      padding: 32px 24px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--secondary);
+    }
+    footer a { color: var(--secondary); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+    .footer-links { display: flex; gap: 20px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="icon"></div>
+    <div>
+      <h1>NeuroStudy</h1>
+      <p>iOS &amp; macOS</p>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h2>Master the <span>brain.</span><br>One structure at a time.</h2>
+    <p>An interactive neuroanatomy atlas with spaced repetition quizzes, 3D brain visualization, and detailed pathology coverage.</p>
+    <span class="badge">Coming soon to the App Store</span>
+  </section>
+
+  <section class="features">
+    <div class="feature">
+      <div class="feature-icon">🧠</div>
+      <h3>Brain Atlas</h3>
+      <p>Explore structures interactively with 3D SceneKit visualization and illustrated maps.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🃏</div>
+      <h3>Smart Quizzes</h3>
+      <p>Multiple choice, flashcards, and tap-to-identify modes powered by spaced repetition.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📈</div>
+      <h3>Progress Tracking</h3>
+      <p>Mastery levels, accuracy metrics, and review scheduling per brain region.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>Private by Design</h3>
+      <p>All data stays on your device. No accounts, no tracking, no ads.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>&copy; 2026 NeuroStudy</span>
+    <nav class="footer-links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-service.html">Terms of Service</a>
+      <a href="https://github.com/alejandrejuan/NeuroStudy/issues">Support</a>
+    </nav>
+  </footer>
+</body>
+</html>
