@@ -159,9 +159,8 @@ struct SettingsView: View {
                 LabeledContent("Version", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
                 LabeledContent("Build", value: Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1")
 
-                // TODO: Replace these URLs with your hosted Legal/ pages before App Store submission
-                Link("Privacy Policy", destination: URL(string: "https://example.com/privacy")!)
-                Link("Terms of Service", destination: URL(string: "https://example.com/terms")!)
+                Link("Privacy Policy", destination: URL(string: "https://alejandrejuan.github.io/NeuroStudy/privacy-policy.html")!)
+                Link("Terms of Service", destination: URL(string: "https://alejandrejuan.github.io/NeuroStudy/terms-of-service.html")!)
             }
         }
         .navigationTitle("Settings")

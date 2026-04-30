@@ -12,6 +12,7 @@
 		06DAF3B9CC72C96D19550CDE /* FlashcardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170D7A15D5D37414F759B0A7 /* FlashcardView.swift */; };
 		0873060076F714444D75D8F6 /* NeuroStudyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034CBA1AED71AD650A0681C /* NeuroStudyApp.swift */; };
 		094B741486A07E40B4AC02FD /* ModernProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E3D89AD4A75BB47A9FC522 /* ModernProgressDashboardView.swift */; };
+		14DD226EB4B9599F8E531A45 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8272D3F38A6598EF656FC77 /* ScreenshotTests.swift */; };
 		16D6B722564CE073D061CE6C /* TapIdentifyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */; };
 		1F28252890AA88774892AA6F /* EMERGENCY_IPAD_FIX.md in Resources */ = {isa = PBXBuildFile; fileRef = 0554AB53758C14DAA5A7386C /* EMERGENCY_IPAD_FIX.md */; };
 		217A9ECC3E70C8241EED7066 /* IPADOS_TROUBLESHOOTING.md in Resources */ = {isa = PBXBuildFile; fileRef = 58D8B9823FF9B1BD711A5834 /* IPADOS_TROUBLESHOOTING.md */; };
@@ -91,9 +92,20 @@
 		F68FEB224B4E9AAE29532A76 /* SpacedRepetitionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF999B7C0FE4375D4469CF9 /* SpacedRepetitionEngine.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		246C7803F766807D2DE194D3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4134A7D756494EC080E34063 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8792CD7E92775DA92FB11BC4;
+			remoteInfo = NeuroStudy_iOS;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0034CBA1AED71AD650A0681C /* NeuroStudyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroStudyApp.swift; sourceTree = "<group>"; };
 		029A583054B38D467A7CB354 /* MultipleChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceView.swift; sourceTree = "<group>"; };
+		034D1EA85EDEC6B23673EC15 /* NeuroStudyUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NeuroStudyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0554AB53758C14DAA5A7386C /* EMERGENCY_IPAD_FIX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = EMERGENCY_IPAD_FIX.md; sourceTree = "<group>"; };
 		09B2CC929B58FF54DDCFE2D7 /* IPAD_SOLUTION_INDEX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IPAD_SOLUTION_INDEX.md; sourceTree = "<group>"; };
 		1284EBC8180B361D2B86E11B /* QuizQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestion.swift; sourceTree = "<group>"; };
@@ -134,6 +146,7 @@
 		E47720808E26F924BA29CFF7 /* BrainStructureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainStructureStore.swift; sourceTree = "<group>"; };
 		EA9F1D05EAF7806B0E9CB253 /* BrainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainMapViewModel.swift; sourceTree = "<group>"; };
 		EFFA658949145C11584D2916 /* XCODE_VISUAL_GUIDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = XCODE_VISUAL_GUIDE.md; sourceTree = "<group>"; };
+		F8272D3F38A6598EF656FC77 /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
 		FFF999B7C0FE4375D4469CF9 /* SpacedRepetitionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedRepetitionEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -215,6 +228,7 @@
 			children = (
 				9F41A4FDFFF6EC41E7FC1DB8 /* NeuroStudy.app */,
 				E393C28461A3D889358E85D8 /* NeuroStudy.app */,
+				034D1EA85EDEC6B23673EC15 /* NeuroStudyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -232,6 +246,7 @@
 		9FFFBCF700A583F274BD6FF4 = {
 			isa = PBXGroup;
 			children = (
+				E50B3E42FC1E2DDBE738AC24 /* NeuroStudyUITests */,
 				BF194099A921EC43F0CEC97C /* Shared */,
 				583F9F69900BA3E78200D6BB /* Products */,
 			);
@@ -275,6 +290,14 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		E50B3E42FC1E2DDBE738AC24 /* NeuroStudyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F8272D3F38A6598EF656FC77 /* ScreenshotTests.swift */,
+			);
+			path = NeuroStudyUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -295,6 +318,24 @@
 			productName = NeuroStudy_macOS;
 			productReference = E393C28461A3D889358E85D8 /* NeuroStudy.app */;
 			productType = "com.apple.product-type.application";
+		};
+		5867BAB00C9AACC979A28B9F /* NeuroStudyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5E32E2AAF71AC6C694C7E60 /* Build configuration list for PBXNativeTarget "NeuroStudyUITests" */;
+			buildPhases = (
+				A570540EAEDEDFB321CEAF02 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6023D266C96F79842D2AD9E8 /* PBXTargetDependency */,
+			);
+			name = NeuroStudyUITests;
+			packageProductDependencies = (
+			);
+			productName = NeuroStudyUITests;
+			productReference = 034D1EA85EDEC6B23673EC15 /* NeuroStudyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		8792CD7E92775DA92FB11BC4 /* NeuroStudy_iOS */ = {
 			isa = PBXNativeTarget;
@@ -327,6 +368,10 @@
 						DevelopmentTeam = 47K6N92W54;
 						ProvisioningStyle = Automatic;
 					};
+					5867BAB00C9AACC979A28B9F = {
+						DevelopmentTeam = 47K6N92W54;
+						TestTargetID = 8792CD7E92775DA92FB11BC4;
+					};
 					8792CD7E92775DA92FB11BC4 = {
 						DevelopmentTeam = 47K6N92W54;
 						ProvisioningStyle = Automatic;
@@ -347,6 +392,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				5867BAB00C9AACC979A28B9F /* NeuroStudyUITests */,
 				8792CD7E92775DA92FB11BC4 /* NeuroStudy_iOS */,
 				2A47719868A63AEC3D36D399 /* NeuroStudy_macOS */,
 			);
@@ -385,6 +431,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A570540EAEDEDFB321CEAF02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14DD226EB4B9599F8E531A45 /* ScreenshotTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C5100B824938406A273A0EC9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -469,6 +523,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		6023D266C96F79842D2AD9E8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8792CD7E92775DA92FB11BC4 /* NeuroStudy_iOS */;
+			targetProxy = 246C7803F766807D2DE194D3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		8273A4F3D399CC071314B96A /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -504,7 +566,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -518,6 +580,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = NeuroStudy;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
@@ -535,7 +598,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 47K6N92W54;
 				ENABLE_PREVIEWS = YES;
@@ -561,7 +624,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 47K6N92W54;
 				ENABLE_PREVIEWS = YES;
@@ -582,12 +645,30 @@
 			};
 			name = Release;
 		};
+		AFE93CBAEA489E6B5ED2E44A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 47K6N92W54;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.neurostudy.app.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = NeuroStudy_iOS;
+			};
+			name = Debug;
+		};
 		CA6AD45587E1C4C85D173A6A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 47K6N92W54;
@@ -613,7 +694,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 47K6N92W54;
@@ -631,6 +712,24 @@
 				PRODUCT_NAME = NeuroStudy;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		D58BE8B63677D25A5BF055EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 47K6N92W54;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.neurostudy.app.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = NeuroStudy_iOS;
 			};
 			name = Release;
 		};
@@ -668,7 +767,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -688,6 +787,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = NeuroStudy;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
@@ -727,6 +827,15 @@
 			buildConfigurations = (
 				841CC8E10858FD92E2B0F674 /* Debug */,
 				972BB516CC3ED5ACF77BC662 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F5E32E2AAF71AC6C694C7E60 /* Build configuration list for PBXNativeTarget "NeuroStudyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AFE93CBAEA489E6B5ED2E44A /* Debug */,
+				D58BE8B63677D25A5BF055EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

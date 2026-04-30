@@ -8,6 +8,8 @@ DerivedData/
 *.dSYM.zip
 *.dSYM
 build/
+Builds/
+AppStore-Assets/RawScreenshots/
 
 # SwiftPM
 .build/
