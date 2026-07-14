@@ -14,9 +14,6 @@
 		094B741486A07E40B4AC02FD /* ModernProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E3D89AD4A75BB47A9FC522 /* ModernProgressDashboardView.swift */; };
 		14DD226EB4B9599F8E531A45 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8272D3F38A6598EF656FC77 /* ScreenshotTests.swift */; };
 		16D6B722564CE073D061CE6C /* TapIdentifyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */; };
-		1F28252890AA88774892AA6F /* EMERGENCY_IPAD_FIX.md in Resources */ = {isa = PBXBuildFile; fileRef = 0554AB53758C14DAA5A7386C /* EMERGENCY_IPAD_FIX.md */; };
-		217A9ECC3E70C8241EED7066 /* IPADOS_TROUBLESHOOTING.md in Resources */ = {isa = PBXBuildFile; fileRef = 58D8B9823FF9B1BD711A5834 /* IPADOS_TROUBLESHOOTING.md */; };
-		2426B314CDAF51A9980476A4 /* XCODE_VISUAL_GUIDE.md in Resources */ = {isa = PBXBuildFile; fileRef = EFFA658949145C11584D2916 /* XCODE_VISUAL_GUIDE.md */; };
 		29189F8E21DAA32E59C4E6E1 /* GlassComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D4F3B912CD378B9D90ECE /* GlassComponents.swift */; };
 		2BA07433427198D7B2EEC4D4 /* ModernDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDA2FBF57EFA60F2F151A27 /* ModernDesignSystem.swift */; };
 		32400DFBD4252BCF8842BC32 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C61E8421DDF6EFC475A09844 /* Media.xcassets */; };
@@ -37,7 +34,6 @@
 		527A264B9C71547F706ECEA3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */; };
 		5A5D401EC2FBD372D4584DE9 /* BrainRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E1C4BAD3C96A2ECB3AC94 /* BrainRegion.swift */; };
 		5BF360443BB7FF23B7B9EEAB /* PathologyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF7725D2E1527DB24F1555 /* PathologyData.swift */; };
-		5C3824CA80F344AC8A78728A /* XCODE_VISUAL_GUIDE.md in Resources */ = {isa = PBXBuildFile; fileRef = EFFA658949145C11584D2916 /* XCODE_VISUAL_GUIDE.md */; };
 		6369FECF419198837BB095E9 /* ModernDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDA2FBF57EFA60F2F151A27 /* ModernDesignSystem.swift */; };
 		65BE6C741BA6B6EB42262894 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247E697F887109916D2B4727 /* QuizViewModel.swift */; };
 		69AA52F129C28809F4BBDA31 /* NeuroStudyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034CBA1AED71AD650A0681C /* NeuroStudyApp.swift */; };
@@ -50,7 +46,6 @@
 		7940F268B59BAE00240B95FA /* Brain3DView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD9F7C3D28DDA908679E370 /* Brain3DView.swift */; };
 		7A62635A3A85CFB50F89229D /* GlassComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D4F3B912CD378B9D90ECE /* GlassComponents.swift */; };
 		7E6F2126D2B19171C10E81F6 /* BrainStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FC9A1F90F4D473DE8E2E5 /* BrainStructure.swift */; };
-		7F5DD2B026CC9F99D85186DB /* IPAD_QUICK_FIX.md in Resources */ = {isa = PBXBuildFile; fileRef = 235C68422E8C13647D8A66F6 /* IPAD_QUICK_FIX.md */; };
 		7F5F7111B637470E5721C4C0 /* BrainRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E1C4BAD3C96A2ECB3AC94 /* BrainRegion.swift */; };
 		88698E2610BE4E711AD231ED /* BrainStructureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47720808E26F924BA29CFF7 /* BrainStructureStore.swift */; };
 		967F30224640FAF3F19A691E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C61E8421DDF6EFC475A09844 /* Media.xcassets */; };
@@ -60,11 +55,9 @@
 		A768B3242E04DB8B4CD4E805 /* BrainStructureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47720808E26F924BA29CFF7 /* BrainStructureStore.swift */; };
 		AAFD0E5DEB43F33EB622411C /* QuizResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31628D0CF6C252C15568120B /* QuizResultsView.swift */; };
 		AE6E17A8543017DE64F1BD0B /* QuizQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1284EBC8180B361D2B86E11B /* QuizQuestion.swift */; };
-		AEF5D0C2004A2C5D7B71AFFB /* IPAD_QUICK_FIX.md in Resources */ = {isa = PBXBuildFile; fileRef = 235C68422E8C13647D8A66F6 /* IPAD_QUICK_FIX.md */; };
 		AF7ECDFCEEF2A66AA15F3890 /* BrainPathData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75138F19D66E9A1DC7444F37 /* BrainPathData.swift */; };
 		AFDE40E93AE14F5D63172509 /* LiquidGlassStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */; };
 		B1F68A0D739ADA861FB7DA05 /* StructureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4FC106EB9F049E4512E2EC /* StructureDetailView.swift */; };
-		B41D414C69C6D83615223DF4 /* IPAD_SOLUTION_INDEX.md in Resources */ = {isa = PBXBuildFile; fileRef = 09B2CC929B58FF54DDCFE2D7 /* IPAD_SOLUTION_INDEX.md */; };
 		B634CB79934E494E276B4772 /* BrainHotspot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4652787F297CCE688A6C3100 /* BrainHotspot.swift */; };
 		B9CFAAD0AB85934B458283E1 /* UniversalMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7EEC20F93F0243AA91E0B0 /* UniversalMainView.swift */; };
 		BA47D6F8F3C77A318CE979CE /* Brain3DScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331CE660655D1A87436A586C /* Brain3DScene.swift */; };
@@ -77,12 +70,9 @@
 		C9AB6345447899D6AED2C105 /* BrainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC92131AFE65197C9A9C804 /* BrainMapView.swift */; };
 		CADEFEDCF38E62A5091EB984 /* MultipleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029A583054B38D467A7CB354 /* MultipleChoiceView.swift */; };
 		CF7B7943DD1AF46C55C104CA /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */; };
-		D00454C5A24E7B8AA8AE8828 /* IPAD_SOLUTION_INDEX.md in Resources */ = {isa = PBXBuildFile; fileRef = 09B2CC929B58FF54DDCFE2D7 /* IPAD_SOLUTION_INDEX.md */; };
 		D06B43A0C1BF2BCEDEE0A3BA /* ProgressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846B3B5497475D14055CEB96 /* ProgressStore.swift */; };
-		D0EDACE971A4A16A4569407B /* IPADOS_TROUBLESHOOTING.md in Resources */ = {isa = PBXBuildFile; fileRef = 58D8B9823FF9B1BD711A5834 /* IPADOS_TROUBLESHOOTING.md */; };
 		D3DDC683981C41B9A1DD4465 /* BrainStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FC9A1F90F4D473DE8E2E5 /* BrainStructure.swift */; };
 		D6D7ECB348C9DFBE7F491115 /* StructureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4FC106EB9F049E4512E2EC /* StructureDetailView.swift */; };
-		D85D169142F44E9789B9F6F3 /* EMERGENCY_IPAD_FIX.md in Resources */ = {isa = PBXBuildFile; fileRef = 0554AB53758C14DAA5A7386C /* EMERGENCY_IPAD_FIX.md */; };
 		D9883F88B3B0F5D0D20D80A2 /* MultipleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029A583054B38D467A7CB354 /* MultipleChoiceView.swift */; };
 		DBF91236200E3E8BB2DAA4C2 /* ModernExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442BFC60E119CC072FC7112C /* ModernExploreView.swift */; };
 		DE35B4B88287EBC69B571A65 /* LiquidGlassStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */; };
@@ -106,11 +96,8 @@
 		0034CBA1AED71AD650A0681C /* NeuroStudyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroStudyApp.swift; sourceTree = "<group>"; };
 		029A583054B38D467A7CB354 /* MultipleChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceView.swift; sourceTree = "<group>"; };
 		034D1EA85EDEC6B23673EC15 /* NeuroStudyUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NeuroStudyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0554AB53758C14DAA5A7386C /* EMERGENCY_IPAD_FIX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = EMERGENCY_IPAD_FIX.md; sourceTree = "<group>"; };
-		09B2CC929B58FF54DDCFE2D7 /* IPAD_SOLUTION_INDEX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IPAD_SOLUTION_INDEX.md; sourceTree = "<group>"; };
 		1284EBC8180B361D2B86E11B /* QuizQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestion.swift; sourceTree = "<group>"; };
 		170D7A15D5D37414F759B0A7 /* FlashcardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardView.swift; sourceTree = "<group>"; };
-		235C68422E8C13647D8A66F6 /* IPAD_QUICK_FIX.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IPAD_QUICK_FIX.md; sourceTree = "<group>"; };
 		247E697F887109916D2B4727 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		31628D0CF6C252C15568120B /* QuizResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultsView.swift; sourceTree = "<group>"; };
 		31EADE39DF105432016F0C8D /* BrainIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainIllustrationView.swift; sourceTree = "<group>"; };
@@ -121,7 +108,6 @@
 		4652787F297CCE688A6C3100 /* BrainHotspot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainHotspot.swift; sourceTree = "<group>"; };
 		4AD9F7C3D28DDA908679E370 /* Brain3DView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain3DView.swift; sourceTree = "<group>"; };
 		4F493D506307D9AA7C8CA82D /* BrainRenderEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainRenderEffects.swift; sourceTree = "<group>"; };
-		58D8B9823FF9B1BD711A5834 /* IPADOS_TROUBLESHOOTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IPADOS_TROUBLESHOOTING.md; sourceTree = "<group>"; };
 		5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapIdentifyQuizView.swift; sourceTree = "<group>"; };
 		652FC9A1F90F4D473DE8E2E5 /* BrainStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainStructure.swift; sourceTree = "<group>"; };
 		685A19DD90DE8458BBC74814 /* Brain3DViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain3DViewModel.swift; sourceTree = "<group>"; };
@@ -145,7 +131,6 @@
 		E393C28461A3D889358E85D8 /* NeuroStudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeuroStudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E47720808E26F924BA29CFF7 /* BrainStructureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainStructureStore.swift; sourceTree = "<group>"; };
 		EA9F1D05EAF7806B0E9CB253 /* BrainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainMapViewModel.swift; sourceTree = "<group>"; };
-		EFFA658949145C11584D2916 /* XCODE_VISUAL_GUIDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = XCODE_VISUAL_GUIDE.md; sourceTree = "<group>"; };
 		F8272D3F38A6598EF656FC77 /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
 		FFF999B7C0FE4375D4469CF9 /* SpacedRepetitionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedRepetitionEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -255,15 +240,10 @@
 		BF194099A921EC43F0CEC97C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				0554AB53758C14DAA5A7386C /* EMERGENCY_IPAD_FIX.md */,
-				235C68422E8C13647D8A66F6 /* IPAD_QUICK_FIX.md */,
-				09B2CC929B58FF54DDCFE2D7 /* IPAD_SOLUTION_INDEX.md */,
-				58D8B9823FF9B1BD711A5834 /* IPADOS_TROUBLESHOOTING.md */,
 				C61E8421DDF6EFC475A09844 /* Media.xcassets */,
 				0034CBA1AED71AD650A0681C /* NeuroStudyApp.swift */,
 				35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */,
 				8D7EEC20F93F0243AA91E0B0 /* UniversalMainView.swift */,
-				EFFA658949145C11584D2916 /* XCODE_VISUAL_GUIDE.md */,
 				36BEB49F43BB3C2EB2D95289 /* BrainMap */,
 				2A5B97DA2C8B0D5B05ABB4DC /* Models */,
 				C8BAC5FC1576A63A50AD83DD /* Persistence */,
@@ -404,13 +384,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F28252890AA88774892AA6F /* EMERGENCY_IPAD_FIX.md in Resources */,
-				D0EDACE971A4A16A4569407B /* IPADOS_TROUBLESHOOTING.md in Resources */,
-				7F5DD2B026CC9F99D85186DB /* IPAD_QUICK_FIX.md in Resources */,
-				D00454C5A24E7B8AA8AE8828 /* IPAD_SOLUTION_INDEX.md in Resources */,
 				32400DFBD4252BCF8842BC32 /* Media.xcassets in Resources */,
 				527A264B9C71547F706ECEA3 /* PrivacyInfo.xcprivacy in Resources */,
-				2426B314CDAF51A9980476A4 /* XCODE_VISUAL_GUIDE.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,13 +393,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D85D169142F44E9789B9F6F3 /* EMERGENCY_IPAD_FIX.md in Resources */,
-				217A9ECC3E70C8241EED7066 /* IPADOS_TROUBLESHOOTING.md in Resources */,
-				AEF5D0C2004A2C5D7B71AFFB /* IPAD_QUICK_FIX.md in Resources */,
-				B41D414C69C6D83615223DF4 /* IPAD_SOLUTION_INDEX.md in Resources */,
 				967F30224640FAF3F19A691E /* Media.xcassets in Resources */,
 				CF7B7943DD1AF46C55C104CA /* PrivacyInfo.xcprivacy in Resources */,
-				5C3824CA80F344AC8A78728A /* XCODE_VISUAL_GUIDE.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,11 @@
 import Foundation
 
+extension Comparable {
+    func clamped(to range: ClosedRange<Self>) -> Self {
+        min(max(self, range.lowerBound), range.upperBound)
+    }
+}
+
 enum SpacedRepetitionGrade: Int, CaseIterable {
     case again = 0
     case hard = 3
@@ -26,6 +32,17 @@ enum SpacedRepetitionGrade: Int, CaseIterable {
 }
 
 struct SpacedRepetitionEngine {
+    /// Longest gap we will ever schedule. Without a ceiling the SM-2 multiplication
+    /// runs away: at the default ease factor of 2.5 a card reaches ~8,982 days after
+    /// only ten correct answers (effectively retiring it forever), and overflows Int
+    /// — trapping at runtime — after roughly forty-five. A year is long enough to be
+    /// a real "you know this" interval and short enough that the card comes back.
+    static let maximumIntervalDays = 365
+
+    /// SM-2's ease factor has a documented floor of 1.3 but no upper bound. Cap it so
+    /// repeated "easy" grades cannot compound the interval growth without limit.
+    static let maximumEaseFactor = 2.5
+
     static func update(_ progress: inout StudyProgress, grade: SpacedRepetitionGrade) {
         let q = Double(grade.rawValue)
 
@@ -39,7 +56,10 @@ struct SpacedRepetitionEngine {
             } else if progress.repetitions == 1 {
                 progress.interval = 6
             } else {
-                progress.interval = Int(Double(progress.interval) * progress.easeFactor)
+                let grown = (Double(progress.interval) * progress.easeFactor)
+                    .rounded()
+                    .clamped(to: 1...Double(maximumIntervalDays))
+                progress.interval = Int(grown)
             }
             progress.repetitions += 1
             progress.correctAttempts += 1
@@ -49,7 +69,7 @@ struct SpacedRepetitionEngine {
 
         // SM-2 ease factor update
         let newEF = progress.easeFactor + (0.1 - (5.0 - q) * (0.08 + (5.0 - q) * 0.02))
-        progress.easeFactor = max(1.3, newEF)
+        progress.easeFactor = newEF.clamped(to: 1.3...maximumEaseFactor)
 
         progress.nextReviewDate = Calendar.current.date(
             byAdding: .day, value: progress.interval, to: .now) ?? .now

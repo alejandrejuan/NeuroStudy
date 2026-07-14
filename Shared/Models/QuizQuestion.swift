@@ -72,57 +72,105 @@ enum QuizQuestionTemplate: CaseIterable {
     case lesionEffect
     case disorderAssociation
 
-    func generate(for structure: BrainStructure, allStructures: [BrainStructure]) -> QuizQuestion {
-        let distractorPool = allStructures.filter { $0.id != structure.id }
-        let regionFirst = distractorPool.filter { $0.region == structure.region }
-        let otherRegions = distractorPool.filter { $0.region != structure.region }
-        let orderedPool = regionFirst + otherRegions
+    /// Number of wrong options shown alongside the correct one.
+    private static let distractorCount = 3
 
+    /// Builds the wrong answers for a question.
+    ///
+    /// Two rules matter here, and the previous implementation broke both:
+    ///
+    /// 1. **A distractor must never also be correct.** `isAlsoCorrect` rejects
+    ///    candidates that are genuinely valid answers — e.g. asking which structure is
+    ///    associated with Parkinson's must not offer both Substantia Nigra and Globus
+    ///    Pallidus and then mark one of them wrong.
+    /// 2. **Same-region candidates are more plausible, but must not be the only source.**
+    ///    Same-region structures are exactly the ones that share disorders and
+    ///    functions, so they are drawn first for plausibility but the rest of the atlas
+    ///    backfills whenever rule 1 rejects too many of them.
+    ///
+    /// Returns fewer than `distractorCount` only when the atlas genuinely cannot supply
+    /// more; callers should skip such questions rather than show a two-option quiz.
+    private func distractors<T: Hashable>(
+        for structure: BrainStructure,
+        from allStructures: [BrainStructure],
+        value: (BrainStructure) -> T?,
+        isAlsoCorrect: (BrainStructure) -> Bool
+    ) -> [T] {
+        let pool = allStructures.filter { $0.id != structure.id && !isAlsoCorrect($0) }
+        let sameRegion = pool.filter { $0.region == structure.region }.shuffled()
+        let otherRegions = pool.filter { $0.region != structure.region }.shuffled()
+
+        var seen = Set<T>()
+        var result: [T] = []
+        for candidate in sameRegion + otherRegions {
+            guard result.count < Self.distractorCount else { break }
+            guard let v = value(candidate), !seen.contains(v) else { continue }
+            seen.insert(v)
+            result.append(v)
+        }
+        return result
+    }
+
+    private static func truncate(_ text: String) -> String {
+        text.count > 100 ? String(text.prefix(100)) + "..." : text
+    }
+
+    func generate(for structure: BrainStructure, allStructures: [BrainStructure]) -> QuizQuestion {
         switch self {
         case .identifyFunction:
             let correct = structure.functions.first ?? "Unknown"
-            var distractors = orderedPool.prefix(10).compactMap { $0.functions.first }.filter { $0 != correct }
-            distractors = Array(Set(distractors)).shuffled()
-            let choices = (distractors.prefix(3) + [correct]).shuffled()
+            // Any function the target itself performs is a defensible answer to
+            // "what is its primary function", so exclude structures that share one.
+            let targetFunctions = Set(structure.functions)
+            let wrong = distractors(
+                for: structure,
+                from: allStructures,
+                value: { $0.functions.first },
+                isAlsoCorrect: { !targetFunctions.isDisjoint(with: Set($0.functions)) }
+            )
             return QuizQuestion(
                 targetStructure: structure,
                 mode: .multipleChoice,
                 prompt: "What is the primary function of the \(structure.name)?",
-                choices: Array(choices),
+                choices: (wrong + [correct]).shuffled(),
                 correctAnswer: correct,
                 sourceReference: .neuroanatomy
             )
 
         case .identifyStructure:
-            let function = structure.functions.randomElement() ?? structure.functions.first ?? "Unknown"
+            let function = structure.functions.randomElement() ?? "Unknown"
             let correct = structure.name
-            var distractors = orderedPool.prefix(10).map(\.name).filter { $0 != correct }
-            distractors = Array(Set(distractors)).shuffled()
-            let choices = (distractors.prefix(3) + [correct]).shuffled()
+            // A structure that also performs the asked-about function is a correct
+            // answer to "which structure is responsible for this", not a distractor.
+            let wrong = distractors(
+                for: structure,
+                from: allStructures,
+                value: { $0.name },
+                isAlsoCorrect: { $0.functions.contains(function) }
+            )
             return QuizQuestion(
                 targetStructure: structure,
                 mode: .multipleChoice,
                 prompt: "Which structure is primarily responsible for: \(function)?",
-                choices: Array(choices),
+                choices: (wrong + [correct]).shuffled(),
                 correctAnswer: correct,
                 sourceReference: .neuroanatomy
             )
 
         case .lesionEffect:
-            let correct = structure.clinicalSignificance
-            let truncated = String(correct.prefix(100)) + (correct.count > 100 ? "..." : "")
-            var distractors = orderedPool.prefix(10).map {
-                let sig = $0.clinicalSignificance
-                return String(sig.prefix(100)) + (sig.count > 100 ? "..." : "")
-            }.filter { $0 != truncated }
-            distractors = Array(Set(distractors)).shuffled()
-            let choices = (distractors.prefix(3) + [truncated]).shuffled()
+            let correct = Self.truncate(structure.clinicalSignificance)
+            let wrong = distractors(
+                for: structure,
+                from: allStructures,
+                value: { Self.truncate($0.clinicalSignificance) },
+                isAlsoCorrect: { Self.truncate($0.clinicalSignificance) == correct }
+            )
             return QuizQuestion(
                 targetStructure: structure,
                 mode: .multipleChoice,
                 prompt: "Damage to the \(structure.name) most commonly results in:",
-                choices: Array(choices),
-                correctAnswer: truncated,
+                choices: (wrong + [correct]).shuffled(),
+                correctAnswer: correct,
                 sourceReference: .neuroanatomy
             )
 
@@ -131,14 +179,20 @@ enum QuizQuestionTemplate: CaseIterable {
                 return QuizQuestionTemplate.identifyFunction.generate(for: structure, allStructures: allStructures)
             }
             let correct = structure.name
-            var distractors = orderedPool.prefix(10).map(\.name).filter { $0 != correct }
-            distractors = Array(Set(distractors)).shuffled()
-            let choices = (distractors.prefix(3) + [correct]).shuffled()
+            // The bug this guards against: Parkinson's is listed on Substantia Nigra
+            // *and* on neighbouring basal-ganglia structures. Offering both and scoring
+            // only one as right marks a correct answer wrong.
+            let wrong = distractors(
+                for: structure,
+                from: allStructures,
+                value: { $0.name },
+                isAlsoCorrect: { $0.associatedDisorders.contains(disorder) }
+            )
             return QuizQuestion(
                 targetStructure: structure,
                 mode: .multipleChoice,
                 prompt: "Which structure is most associated with \(disorder)?",
-                choices: Array(choices),
+                choices: (wrong + [correct]).shuffled(),
                 correctAnswer: correct,
                 sourceReference: .neuroanatomy
             )

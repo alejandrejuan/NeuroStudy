@@ -25,6 +25,9 @@ targets:
         type: group
         excludes:
           - "Resources/*.pdf"
+          # Internal dev notes. Without this they are copied into the app bundle
+          # as resources and ship to users inside the IPA.
+          - "**/*.md"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.neurostudy.app

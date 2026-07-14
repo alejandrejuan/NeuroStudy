@@ -31,6 +31,7 @@ class BrainMapViewModel {
             selectedID = nil
             highlightedIDs = []
         } else {
+            showView(containing: structureID)
             selectedID = structureID
             if let structure = BrainStructureStore.structure(byID: structureID) {
                 highlightedIDs = Set(structure.connections)
@@ -59,6 +60,22 @@ class BrainMapViewModel {
         selectedID = nil
         highlightedIDs = []
         showLabels = false
+        showView(containing: targetID)
+    }
+
+    /// Switches to a diagram view that actually renders `structureID`.
+    /// Most structures appear on only one surface, so without this a medial
+    /// target (hippocampus, thalamus, brainstem…) would be untappable while the
+    /// lateral map is showing.
+    func showView(containing structureID: String) {
+        guard !BrainHotspotRegistry.hotspots(for: currentView)
+            .contains(where: { $0.structureID == structureID }) else { return }
+
+        if BrainHotspotRegistry.lateral.contains(where: { $0.structureID == structureID }) {
+            currentView = .lateral
+        } else if BrainHotspotRegistry.medial.contains(where: { $0.structureID == structureID }) {
+            currentView = .medial
+        }
     }
 
     func exitQuizMode() {

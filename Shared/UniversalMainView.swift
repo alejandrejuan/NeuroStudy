@@ -89,6 +89,15 @@ struct UniversalMainView: View {
             ModernProgressDashboardView(progressStore: progressStore)
                 .tabItem { Label("Progress", systemImage: "chart.bar.fill") }
                 .tag(MainSection.progress)
+
+            // Without this tab the Settings pane — and with it the Privacy Policy
+            // link, the Terms link, and the educational-use disclaimer — is
+            // unreachable on every iPhone in portrait.
+            NavigationStack {
+                SettingsView()
+            }
+            .tabItem { Label("Settings", systemImage: "gearshape") }
+            .tag(MainSection.settings)
         }
         .tint(.accentColor)
     }
@@ -120,9 +129,10 @@ struct UniversalMainView: View {
         case .progress:
             ModernProgressDashboardView(progressStore: progressStore)
         case .settings:
-            SettingsView()
+            // NavigationStack so the About link inside Settings has somewhere to push.
+            NavigationStack { SettingsView() }
         case .about:
-            AboutView()
+            NavigationStack { AboutView() }
         }
     }
 }
@@ -158,6 +168,10 @@ struct SettingsView: View {
             Section("About") {
                 LabeledContent("Version", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
                 LabeledContent("Build", value: Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1")
+
+                NavigationLink("About NeuroStudy") {
+                    AboutView()
+                }
 
                 Link("Privacy Policy", destination: URL(string: "https://alejandrejuan.github.io/NeuroStudy/privacy-policy.html")!)
                 Link("Terms of Service", destination: URL(string: "https://alejandrejuan.github.io/NeuroStudy/terms-of-service.html")!)
@@ -203,7 +217,7 @@ struct AboutView: View {
                         Text("About NeuroStudy")
                             .font(.headline)
                         
-                        Text("NeuroStudy is a comprehensive neuroanatomy learning platform designed for medical students, residents, and healthcare professionals. Our content is verified against clinical standards including the DSM-5-TR, authoritative neurology textbooks, and peer-reviewed research.")
+                        Text("NeuroStudy is a study tool for learning neuroanatomy and neuropathology. It is built for students, and its content is written as study material — not as a clinical reference. Use it to learn and revise; use your course materials and a qualified clinician for anything that matters.")
                             .font(.body)
                             .foregroundStyle(.secondary)
                     }
@@ -218,7 +232,7 @@ struct AboutView: View {
                         FeatureRow(
                             icon: "brain.head.profile",
                             title: "Interactive Atlas",
-                            description: "Explore 67+ brain structures with detailed anatomical information"
+                            description: "Explore \(BrainStructureStore.all.count) brain structures across lateral and medial views"
                         )
                         
                         FeatureRow(
@@ -238,10 +252,10 @@ struct AboutView: View {
                 // Credits
                 LiquidGlassCard(cornerRadius: 20, padding: 20) {
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Medical References")
+                        Text("Suggested Reading")
                             .font(.headline)
-                        
-                        Text("• DSM-5-TR (American Psychiatric Association)\n• Neuroanatomy Through Clinical Cases (Blumenfeld)\n• Principles of Neural Science (Kandel et al.)\n• Neurology Board Review (Noseworthy)")
+
+                        Text("NeuroStudy is not a substitute for a textbook. To go deeper, or to check anything you read here:\n\n• Principles of Neural Science (Kandel et al.)\n• Neuroanatomy Through Clinical Cases (Blumenfeld)")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }

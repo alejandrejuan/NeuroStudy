@@ -14,6 +14,31 @@ struct ModernProgressDashboardView: View {
         case week = "Week"
         case month = "Month"
         case all = "All Time"
+
+        /// How many days of history the chart shows.
+        var dayCount: Int {
+            switch self {
+            case .week: return 7
+            case .month: return 30
+            case .all: return 365
+            }
+        }
+
+        /// Keeps the x-axis from turning into an unreadable smear of labels.
+        var axisStride: Int {
+            switch self {
+            case .week: return 1
+            case .month: return 7
+            case .all: return 90
+            }
+        }
+
+        var axisFormat: Date.FormatStyle {
+            switch self {
+            case .week: return .dateTime.weekday(.narrow)
+            case .month, .all: return .dateTime.month(.abbreviated).day()
+            }
+        }
     }
     
     var body: some View {
@@ -209,34 +234,57 @@ struct ModernProgressDashboardView: View {
                     .frame(width: 200)
                 }
                 
-                // Chart placeholder (would implement with real data)
                 activityChart
                     .frame(height: 180)
             }
         }
     }
-    
-    private static let placeholderBarHeights: [CGFloat] = [60, 100, 80, 120, 55, 90, 140]
 
+    private var activityData: [(date: Date, count: Int)] {
+        progressStore.recentActivity(days: selectedTimeframe.dayCount)
+    }
+
+    @ViewBuilder
     private var activityChart: some View {
-        HStack(spacing: 8) {
-            ForEach(0..<7) { day in
-                VStack(spacing: 4) {
-                    Spacer()
+        let data = activityData
 
-                    RoundedRectangle(cornerRadius: 6, style: .continuous)
-                        .fill(
-                            LinearGradient(
-                                colors: [.blue, .purple],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
-                        .frame(height: Self.placeholderBarHeights[day])
-
-                    Text(["M", "T", "W", "T", "F", "S", "S"][day])
-                        .font(.system(size: 11, weight: .medium, design: .rounded))
-                        .foregroundStyle(.secondary)
+        if data.allSatisfy({ $0.count == 0 }) {
+            // An empty chart drawn as bars reads as "the feature is broken". Say what
+            // is actually true instead: nothing has been studied yet.
+            VStack(spacing: 8) {
+                Image(systemName: "chart.bar.xaxis")
+                    .font(.system(size: 28))
+                    .foregroundStyle(.tertiary)
+                Text("No study activity yet")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                Text("Answer a few quiz questions and your activity will show up here.")
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
+                    .multilineTextAlignment(.center)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else {
+            Chart(data, id: \.date) { entry in
+                BarMark(
+                    x: .value("Day", entry.date, unit: .day),
+                    y: .value("Answers", entry.count)
+                )
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [.blue, .purple],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .cornerRadius(6)
+            }
+            .chartYAxis {
+                AxisMarks(position: .leading)
+            }
+            .chartXAxis {
+                AxisMarks(values: .stride(by: .day, count: selectedTimeframe.axisStride)) { value in
+                    AxisValueLabel(format: selectedTimeframe.axisFormat)
                 }
             }
         }
