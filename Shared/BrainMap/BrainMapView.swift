@@ -253,10 +253,7 @@ struct BrainMapView: View {
                     viewModel.select(hotspot.structureID)
                 }
             }
-            #if os(iOS)
-            let generator = UIImpactFeedbackGenerator(style: .light)
-            generator.impactOccurred()
-            #endif
+            Haptics.lightImpact()
         }
         #if os(macOS)
         .onHover { hovering in

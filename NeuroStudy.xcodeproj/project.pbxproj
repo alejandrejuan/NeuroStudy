@@ -28,6 +28,7 @@
 		46C470FFCBBAEEC1EAFFBA49 /* PathologyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15BE40AEBE598A6C47BAC7D /* PathologyQuizView.swift */; };
 		46E2A4A0EDF2ABFD99C27ACE /* UniversalMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7EEC20F93F0243AA91E0B0 /* UniversalMainView.swift */; };
 		48682CA873D05BBF549D86B0 /* LiquidGlass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE3D9F323D219086A25F60 /* LiquidGlass.swift */; };
+		4868AEB9F120B9579B872E48 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5386B46B26129222D30051 /* Haptics.swift */; };
 		4D99258306D8FDDD0CFDB7DC /* PathologyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B5C7DA03A3EB499B5DCFAB /* PathologyStore.swift */; };
 		4FB5CA8E0019FC3CB1EACC2D /* BrainRenderEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F493D506307D9AA7C8CA82D /* BrainRenderEffects.swift */; };
 		527A264B9C71547F706ECEA3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */; };
@@ -60,6 +61,7 @@
 		BBC3D1A0BEF8C51A47CB054C /* ModernQuizHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C38866C8A7A6367D67872C /* ModernQuizHomeView.swift */; };
 		BDB9423C4725F1709298DD9A /* QuizResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31628D0CF6C252C15568120B /* QuizResultsView.swift */; };
 		BE1E6E5BBEDE8CFD60D61EA9 /* BrainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC92131AFE65197C9A9C804 /* BrainMapView.swift */; };
+		C8B67537E48488EB744F39EE /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5386B46B26129222D30051 /* Haptics.swift */; };
 		C94148487061B773762F1C5D /* BrainRenderEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F493D506307D9AA7C8CA82D /* BrainRenderEffects.swift */; };
 		C9AB6345447899D6AED2C105 /* BrainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC92131AFE65197C9A9C804 /* BrainMapView.swift */; };
 		CADEFEDCF38E62A5091EB984 /* MultipleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029A583054B38D467A7CB354 /* MultipleChoiceView.swift */; };
@@ -118,6 +120,7 @@
 		C61E8421DDF6EFC475A09844 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		CFDA2FBF57EFA60F2F151A27 /* ModernDesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernDesignSystem.swift; sourceTree = "<group>"; };
 		D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGlassStyle.swift; sourceTree = "<group>"; };
+		DA5386B46B26129222D30051 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		E1B5C7DA03A3EB499B5DCFAB /* PathologyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathologyStore.swift; sourceTree = "<group>"; };
 		E393C28461A3D889358E85D8 /* NeuroStudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeuroStudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E47720808E26F924BA29CFF7 /* BrainStructureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainStructureStore.swift; sourceTree = "<group>"; };
@@ -209,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				886AF33244B0412DDFFD76C8 /* AppTypography.swift */,
+				DA5386B46B26129222D30051 /* Haptics.swift */,
 				4CBE3D9F323D219086A25F60 /* LiquidGlass.swift */,
 				D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */,
 				CFDA2FBF57EFA60F2F151A27 /* ModernDesignSystem.swift */,
@@ -412,6 +416,7 @@
 				A768B3242E04DB8B4CD4E805 /* BrainStructureStore.swift in Sources */,
 				3A1D6A9C77BD8787FE0BDF11 /* FlashcardView.swift in Sources */,
 				7A62635A3A85CFB50F89229D /* GlassComponents.swift in Sources */,
+				4868AEB9F120B9579B872E48 /* Haptics.swift in Sources */,
 				48682CA873D05BBF549D86B0 /* LiquidGlass.swift in Sources */,
 				AFDE40E93AE14F5D63172509 /* LiquidGlassStyle.swift in Sources */,
 				2BA07433427198D7B2EEC4D4 /* ModernDesignSystem.swift in Sources */,
@@ -450,6 +455,7 @@
 				88698E2610BE4E711AD231ED /* BrainStructureStore.swift in Sources */,
 				06DAF3B9CC72C96D19550CDE /* FlashcardView.swift in Sources */,
 				29189F8E21DAA32E59C4E6E1 /* GlassComponents.swift in Sources */,
+				C8B67537E48488EB744F39EE /* Haptics.swift in Sources */,
 				CCF1703BE758F0CA16E8C83F /* LiquidGlass.swift in Sources */,
 				DE35B4B88287EBC69B571A65 /* LiquidGlassStyle.swift in Sources */,
 				6369FECF419198837BB095E9 /* ModernDesignSystem.swift in Sources */,

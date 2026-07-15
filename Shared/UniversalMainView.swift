@@ -140,7 +140,6 @@ struct UniversalMainView: View {
 // MARK: - Settings View
 
 struct SettingsView: View {
-    @AppStorage("reducedMotion") private var reducedMotion = false
     @AppStorage("hapticFeedback") private var hapticFeedback = true
     @AppStorage("darkMode") private var darkMode = false
     @AppStorage("defaultQuizLength") private var defaultQuizLength = 10
@@ -148,7 +147,6 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Section("Appearance") {
-                Toggle("Reduced Motion", isOn: $reducedMotion)
                 Toggle("Dark Mode", isOn: $darkMode)
             }
 

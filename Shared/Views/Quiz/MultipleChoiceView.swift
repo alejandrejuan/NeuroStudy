@@ -120,10 +120,7 @@ struct MultipleChoiceQuizView: View {
             selectedAnswer = choice
             viewModel.submitMultipleChoiceAnswer(choice)
 
-            #if os(iOS)
-            let generator = UINotificationFeedbackGenerator()
-            generator.notificationOccurred(viewModel.lastAnswerCorrect ? .success : .error)
-            #endif
+            Haptics.result(correct: viewModel.lastAnswerCorrect)
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {

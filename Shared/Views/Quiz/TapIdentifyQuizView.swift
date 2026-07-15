@@ -105,10 +105,7 @@ struct TapIdentifyQuizView: View {
         viewModel.submitTapAnswer(structureID)
         feedbackIsCorrect = viewModel.lastAnswerCorrect
 
-        #if os(iOS)
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(feedbackIsCorrect ? .success : .error)
-        #endif
+        Haptics.result(correct: feedbackIsCorrect)
 
         if feedbackIsCorrect {
             brainMap.selectedID = structureID

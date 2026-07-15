@@ -64,7 +64,7 @@ NeuroStudy 1.0: a hand-shaded brain atlas with adaptive quizzes and spaced-repet
 ```
 NeuroStudy is a focused way to learn the human brain.
 
-Each region is shaded with depth, light, and contour — gyri, sulci, and cortical layers rendered the way an illustrator would draw them. Tap a structure to read about it. Pinch to zoom in. The atlas fills the screen on iPhone and the canvas on iPad.
+Each region is shaded with depth, light, and contour — gyri, sulci, and cortical layers rendered the way an illustrator would draw them. Tap a structure to read about it, then switch between lateral and medial views to reach the deep structures. The atlas fills the screen on iPhone and the canvas on iPad.
 
 Quiz yourself with tap-to-identify questions on anatomy and pathology. A spaced-repetition engine surfaces the structures you keep missing, so review time goes where it counts. Your progress is tracked locally — see what you've mastered and what still needs work.
 

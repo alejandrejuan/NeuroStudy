@@ -134,10 +134,7 @@ struct PathologyQuizView: View {
             selectedAnswer = choice
             viewModel.submitAnswer(choice)
 
-            #if os(iOS)
-            let generator = UINotificationFeedbackGenerator()
-            generator.notificationOccurred(viewModel.lastAnswerCorrect ? .success : .error)
-            #endif
+            Haptics.result(correct: viewModel.lastAnswerCorrect)
         } label: {
             HStack {
                 Text(choice)

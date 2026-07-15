@@ -197,9 +197,7 @@ struct ModernExploreView: View {
             withAnimation(.spring(response: 0.28, dampingFraction: 0.68)) {
                 selectedRegionFilter = region
             }
-            #if os(iOS)
-            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
-            #endif
+            Haptics.softImpact()
         } label: {
             HStack(spacing: 5) {
                 if let r = region {
