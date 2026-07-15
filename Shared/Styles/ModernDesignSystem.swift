@@ -11,48 +11,30 @@ extension Font {
 
 // MARK: - Liquid Glass Card Component
 
-/// Modern glass card with enhanced visual hierarchy and performance
+/// Modern glass card. Renders true Liquid Glass on iOS 26+ and a material fallback on
+/// earlier systems via `glassSurface` (see LiquidGlass.swift). The public API is
+/// unchanged so existing call sites are untouched.
 struct LiquidGlassCard<Content: View>: View {
     var cornerRadius: CGFloat = 20
     var padding: CGFloat = 16
     var interactive: Bool = false
     var prominent: Bool = false
     @ViewBuilder let content: () -> Content
-    
+
+    private var shape: RoundedRectangle {
+        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+    }
+
     var body: some View {
         content()
             .padding(padding)
-            .background {
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .fill(.ultraThinMaterial)
-                    .shadow(
-                        color: .black.opacity(0.08), 
-                        radius: prominent ? 14 : 10, 
-                        y: prominent ? 5 : 3
-                    )
-            }
-            .overlay {
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .strokeBorder(
-                        LinearGradient(
-                            colors: [
-                                .white.opacity(prominent ? 0.6 : 0.45), 
-                                .white.opacity(0.08)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: prominent ? 1 : 0.5
-                    )
-            }
-            // Add subtle glow for prominent cards
-            .overlay {
-                if prominent {
-                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                        .stroke(Color.accentColor.opacity(0.15), lineWidth: 2)
-                        .blur(radius: 8)
-                }
-            }
+            .glassSurface(
+                in: shape,
+                tint: prominent ? Color.accentColor : nil,
+                interactive: interactive,
+                shadowRadius: prominent ? 14 : 10,
+                shadowY: prominent ? 5 : 3
+            )
     }
 }
 
@@ -394,34 +376,3 @@ extension View {
 }
 #endif
 
-// MARK: - Lazy Loading Container
-
-/// Container that defers rendering for improved scroll performance
-struct LazyRenderContainer<Content: View>: View {
-    let threshold: CGFloat
-    @ViewBuilder let content: () -> Content
-    
-    @State private var isVisible = false
-    
-    init(threshold: CGFloat = 100, @ViewBuilder content: @escaping () -> Content) {
-        self.threshold = threshold
-        self.content = content
-    }
-    
-    var body: some View {
-        Group {
-            if isVisible {
-                content()
-                    .transition(.opacity.combined(with: .scale(scale: 0.98)))
-            } else {
-                Color.clear
-                    .frame(height: 100)
-                    .onAppear {
-                        withAnimation(.easeOut(duration: 0.3)) {
-                            isVisible = true
-                        }
-                    }
-            }
-        }
-    }
-}

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		045B21CD1C260B7BD8D28E36 /* BrainPathData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75138F19D66E9A1DC7444F37 /* BrainPathData.swift */; };
-		05BDD7963DFA10451AD63BEC /* Brain3DViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A19DD90DE8458BBC74814 /* Brain3DViewModel.swift */; };
 		06DAF3B9CC72C96D19550CDE /* FlashcardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170D7A15D5D37414F759B0A7 /* FlashcardView.swift */; };
 		0873060076F714444D75D8F6 /* NeuroStudyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034CBA1AED71AD650A0681C /* NeuroStudyApp.swift */; };
 		094B741486A07E40B4AC02FD /* ModernProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E3D89AD4A75BB47A9FC522 /* ModernProgressDashboardView.swift */; };
@@ -28,8 +27,8 @@
 		46C236757A861AE9D69AD68D /* ModernQuizHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C38866C8A7A6367D67872C /* ModernQuizHomeView.swift */; };
 		46C470FFCBBAEEC1EAFFBA49 /* PathologyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15BE40AEBE598A6C47BAC7D /* PathologyQuizView.swift */; };
 		46E2A4A0EDF2ABFD99C27ACE /* UniversalMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7EEC20F93F0243AA91E0B0 /* UniversalMainView.swift */; };
+		48682CA873D05BBF549D86B0 /* LiquidGlass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE3D9F323D219086A25F60 /* LiquidGlass.swift */; };
 		4D99258306D8FDDD0CFDB7DC /* PathologyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B5C7DA03A3EB499B5DCFAB /* PathologyStore.swift */; };
-		4DBC8632796591ADDFAF951F /* BrainIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EADE39DF105432016F0C8D /* BrainIllustrationView.swift */; };
 		4FB5CA8E0019FC3CB1EACC2D /* BrainRenderEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F493D506307D9AA7C8CA82D /* BrainRenderEffects.swift */; };
 		527A264B9C71547F706ECEA3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */; };
 		5A5D401EC2FBD372D4584DE9 /* BrainRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E1C4BAD3C96A2ECB3AC94 /* BrainRegion.swift */; };
@@ -43,15 +42,12 @@
 		76D5B3A1DC6B3D5CF6BAC8B8 /* PathologyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF7725D2E1527DB24F1555 /* PathologyData.swift */; };
 		77D60B5B512FC3D1A3B6ECFD /* ProgressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846B3B5497475D14055CEB96 /* ProgressStore.swift */; };
 		791F6BD5CA3456AB39562409 /* AppTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886AF33244B0412DDFFD76C8 /* AppTypography.swift */; };
-		7940F268B59BAE00240B95FA /* Brain3DView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD9F7C3D28DDA908679E370 /* Brain3DView.swift */; };
 		7A62635A3A85CFB50F89229D /* GlassComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D4F3B912CD378B9D90ECE /* GlassComponents.swift */; };
 		7E6F2126D2B19171C10E81F6 /* BrainStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FC9A1F90F4D473DE8E2E5 /* BrainStructure.swift */; };
 		7F5F7111B637470E5721C4C0 /* BrainRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E1C4BAD3C96A2ECB3AC94 /* BrainRegion.swift */; };
 		88698E2610BE4E711AD231ED /* BrainStructureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47720808E26F924BA29CFF7 /* BrainStructureStore.swift */; };
 		967F30224640FAF3F19A691E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C61E8421DDF6EFC475A09844 /* Media.xcassets */; };
 		993B7C5AAE18C074D71B032D /* PathologyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15BE40AEBE598A6C47BAC7D /* PathologyQuizView.swift */; };
-		99BFBFBB2684D5E62EFC5B6A /* BrainIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EADE39DF105432016F0C8D /* BrainIllustrationView.swift */; };
-		9D5138151F691A10A2DB969A /* Brain3DView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD9F7C3D28DDA908679E370 /* Brain3DView.swift */; };
 		A768B3242E04DB8B4CD4E805 /* BrainStructureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47720808E26F924BA29CFF7 /* BrainStructureStore.swift */; };
 		AAFD0E5DEB43F33EB622411C /* QuizResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31628D0CF6C252C15568120B /* QuizResultsView.swift */; };
 		AE6E17A8543017DE64F1BD0B /* QuizQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1284EBC8180B361D2B86E11B /* QuizQuestion.swift */; };
@@ -60,15 +56,14 @@
 		B1F68A0D739ADA861FB7DA05 /* StructureDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4FC106EB9F049E4512E2EC /* StructureDetailView.swift */; };
 		B634CB79934E494E276B4772 /* BrainHotspot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4652787F297CCE688A6C3100 /* BrainHotspot.swift */; };
 		B9CFAAD0AB85934B458283E1 /* UniversalMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7EEC20F93F0243AA91E0B0 /* UniversalMainView.swift */; };
-		BA47D6F8F3C77A318CE979CE /* Brain3DScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331CE660655D1A87436A586C /* Brain3DScene.swift */; };
 		BB3E5090969B87731567EB83 /* PathologyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B5C7DA03A3EB499B5DCFAB /* PathologyStore.swift */; };
 		BBC3D1A0BEF8C51A47CB054C /* ModernQuizHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C38866C8A7A6367D67872C /* ModernQuizHomeView.swift */; };
 		BDB9423C4725F1709298DD9A /* QuizResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31628D0CF6C252C15568120B /* QuizResultsView.swift */; };
 		BE1E6E5BBEDE8CFD60D61EA9 /* BrainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC92131AFE65197C9A9C804 /* BrainMapView.swift */; };
-		C073610543DB962753FD9CFF /* Brain3DScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331CE660655D1A87436A586C /* Brain3DScene.swift */; };
 		C94148487061B773762F1C5D /* BrainRenderEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F493D506307D9AA7C8CA82D /* BrainRenderEffects.swift */; };
 		C9AB6345447899D6AED2C105 /* BrainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC92131AFE65197C9A9C804 /* BrainMapView.swift */; };
 		CADEFEDCF38E62A5091EB984 /* MultipleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029A583054B38D467A7CB354 /* MultipleChoiceView.swift */; };
+		CCF1703BE758F0CA16E8C83F /* LiquidGlass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE3D9F323D219086A25F60 /* LiquidGlass.swift */; };
 		CF7B7943DD1AF46C55C104CA /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */; };
 		D06B43A0C1BF2BCEDEE0A3BA /* ProgressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846B3B5497475D14055CEB96 /* ProgressStore.swift */; };
 		D3DDC683981C41B9A1DD4465 /* BrainStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FC9A1F90F4D473DE8E2E5 /* BrainStructure.swift */; };
@@ -76,7 +71,6 @@
 		D9883F88B3B0F5D0D20D80A2 /* MultipleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029A583054B38D467A7CB354 /* MultipleChoiceView.swift */; };
 		DBF91236200E3E8BB2DAA4C2 /* ModernExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442BFC60E119CC072FC7112C /* ModernExploreView.swift */; };
 		DE35B4B88287EBC69B571A65 /* LiquidGlassStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */; };
-		EB3F645377CF61E719F7D52E /* Brain3DViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685A19DD90DE8458BBC74814 /* Brain3DViewModel.swift */; };
 		EC01E24F0FF262B2804C815A /* BrainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9F1D05EAF7806B0E9CB253 /* BrainMapViewModel.swift */; };
 		F65D7C4A21FA11935A0C6E9C /* AppTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886AF33244B0412DDFFD76C8 /* AppTypography.swift */; };
 		F68FEB224B4E9AAE29532A76 /* SpacedRepetitionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF999B7C0FE4375D4469CF9 /* SpacedRepetitionEngine.swift */; };
@@ -100,17 +94,14 @@
 		170D7A15D5D37414F759B0A7 /* FlashcardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardView.swift; sourceTree = "<group>"; };
 		247E697F887109916D2B4727 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		31628D0CF6C252C15568120B /* QuizResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultsView.swift; sourceTree = "<group>"; };
-		31EADE39DF105432016F0C8D /* BrainIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainIllustrationView.swift; sourceTree = "<group>"; };
-		331CE660655D1A87436A586C /* Brain3DScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain3DScene.swift; sourceTree = "<group>"; };
 		35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		42C02FD658C3F7B90FA54C33 /* StudyProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyProgress.swift; sourceTree = "<group>"; };
 		442BFC60E119CC072FC7112C /* ModernExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernExploreView.swift; sourceTree = "<group>"; };
 		4652787F297CCE688A6C3100 /* BrainHotspot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainHotspot.swift; sourceTree = "<group>"; };
-		4AD9F7C3D28DDA908679E370 /* Brain3DView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain3DView.swift; sourceTree = "<group>"; };
+		4CBE3D9F323D219086A25F60 /* LiquidGlass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGlass.swift; sourceTree = "<group>"; };
 		4F493D506307D9AA7C8CA82D /* BrainRenderEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainRenderEffects.swift; sourceTree = "<group>"; };
 		5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapIdentifyQuizView.swift; sourceTree = "<group>"; };
 		652FC9A1F90F4D473DE8E2E5 /* BrainStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainStructure.swift; sourceTree = "<group>"; };
-		685A19DD90DE8458BBC74814 /* Brain3DViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain3DViewModel.swift; sourceTree = "<group>"; };
 		736D4F3B912CD378B9D90ECE /* GlassComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassComponents.swift; sourceTree = "<group>"; };
 		75138F19D66E9A1DC7444F37 /* BrainPathData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainPathData.swift; sourceTree = "<group>"; };
 		846B3B5497475D14055CEB96 /* ProgressStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStore.swift; sourceTree = "<group>"; };
@@ -195,11 +186,7 @@
 		36BEB49F43BB3C2EB2D95289 /* BrainMap */ = {
 			isa = PBXGroup;
 			children = (
-				331CE660655D1A87436A586C /* Brain3DScene.swift */,
-				4AD9F7C3D28DDA908679E370 /* Brain3DView.swift */,
-				685A19DD90DE8458BBC74814 /* Brain3DViewModel.swift */,
 				4652787F297CCE688A6C3100 /* BrainHotspot.swift */,
-				31EADE39DF105432016F0C8D /* BrainIllustrationView.swift */,
 				8CC92131AFE65197C9A9C804 /* BrainMapView.swift */,
 				EA9F1D05EAF7806B0E9CB253 /* BrainMapViewModel.swift */,
 				75138F19D66E9A1DC7444F37 /* BrainPathData.swift */,
@@ -222,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				886AF33244B0412DDFFD76C8 /* AppTypography.swift */,
+				4CBE3D9F323D219086A25F60 /* LiquidGlass.swift */,
 				D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */,
 				CFDA2FBF57EFA60F2F151A27 /* ModernDesignSystem.swift */,
 			);
@@ -414,11 +402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				791F6BD5CA3456AB39562409 /* AppTypography.swift in Sources */,
-				C073610543DB962753FD9CFF /* Brain3DScene.swift in Sources */,
-				9D5138151F691A10A2DB969A /* Brain3DView.swift in Sources */,
-				05BDD7963DFA10451AD63BEC /* Brain3DViewModel.swift in Sources */,
 				3BA7BFC2D29A2614CDC9C483 /* BrainHotspot.swift in Sources */,
-				99BFBFBB2684D5E62EFC5B6A /* BrainIllustrationView.swift in Sources */,
 				BE1E6E5BBEDE8CFD60D61EA9 /* BrainMapView.swift in Sources */,
 				EC01E24F0FF262B2804C815A /* BrainMapViewModel.swift in Sources */,
 				045B21CD1C260B7BD8D28E36 /* BrainPathData.swift in Sources */,
@@ -428,6 +412,7 @@
 				A768B3242E04DB8B4CD4E805 /* BrainStructureStore.swift in Sources */,
 				3A1D6A9C77BD8787FE0BDF11 /* FlashcardView.swift in Sources */,
 				7A62635A3A85CFB50F89229D /* GlassComponents.swift in Sources */,
+				48682CA873D05BBF549D86B0 /* LiquidGlass.swift in Sources */,
 				AFDE40E93AE14F5D63172509 /* LiquidGlassStyle.swift in Sources */,
 				2BA07433427198D7B2EEC4D4 /* ModernDesignSystem.swift in Sources */,
 				DBF91236200E3E8BB2DAA4C2 /* ModernExploreView.swift in Sources */,
@@ -455,11 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F65D7C4A21FA11935A0C6E9C /* AppTypography.swift in Sources */,
-				BA47D6F8F3C77A318CE979CE /* Brain3DScene.swift in Sources */,
-				7940F268B59BAE00240B95FA /* Brain3DView.swift in Sources */,
-				EB3F645377CF61E719F7D52E /* Brain3DViewModel.swift in Sources */,
 				B634CB79934E494E276B4772 /* BrainHotspot.swift in Sources */,
-				4DBC8632796591ADDFAF951F /* BrainIllustrationView.swift in Sources */,
 				C9AB6345447899D6AED2C105 /* BrainMapView.swift in Sources */,
 				44D68FB176EAA33C9EE2BA64 /* BrainMapViewModel.swift in Sources */,
 				AF7ECDFCEEF2A66AA15F3890 /* BrainPathData.swift in Sources */,
@@ -469,6 +450,7 @@
 				88698E2610BE4E711AD231ED /* BrainStructureStore.swift in Sources */,
 				06DAF3B9CC72C96D19550CDE /* FlashcardView.swift in Sources */,
 				29189F8E21DAA32E59C4E6E1 /* GlassComponents.swift in Sources */,
+				CCF1703BE758F0CA16E8C83F /* LiquidGlass.swift in Sources */,
 				DE35B4B88287EBC69B571A65 /* LiquidGlassStyle.swift in Sources */,
 				6369FECF419198837BB095E9 /* ModernDesignSystem.swift in Sources */,
 				7391B89F41E16B5811365C0B /* ModernExploreView.swift in Sources */,

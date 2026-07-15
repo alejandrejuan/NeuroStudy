@@ -78,7 +78,7 @@ struct ModernExploreView: View {
                             .toolbar {
                                 ToolbarItem(placement: .confirmationAction) {
                                     Button("Done") { showingDetail = false }
-                                        .buttonStyle(ModernGlassButtonStyle(isProminent: true, size: .small))
+                                        .glassButton(prominent: true, controlSize: .small)
                                 }
                             }
                     }
@@ -323,7 +323,7 @@ struct ModernExploreView: View {
                         Label("Full Details", systemImage: "arrow.right.circle.fill")
                             .font(.system(.subheadline, design: .rounded, weight: .semibold))
                     }
-                    .buttonStyle(ModernGlassButtonStyle(isProminent: true))
+                    .glassButton(prominent: true)
 
                     Spacer()
                     let prog = progressStore.progress(for: structure.id)

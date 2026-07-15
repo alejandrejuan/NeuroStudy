@@ -245,7 +245,7 @@ struct PathologyQuizView: View {
                             .font(.system(.subheadline, design: .rounded, weight: .semibold))
                             .frame(maxWidth: .infinity)
                     }
-                    .buttonStyle(ModernGlassButtonStyle(isProminent: true))
+                    .glassButton(prominent: true)
                 }
             }
             .padding(.horizontal, 16)
@@ -282,7 +282,7 @@ struct PathologyResultsView: View {
                     Label("Done", systemImage: "checkmark")
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(ModernGlassButtonStyle(isProminent: true))
+                .glassButton(prominent: true)
                 .opacity(appeared ? 1 : 0)
                 .animation(.spring(response: 0.5, dampingFraction: 0.8).delay(0.3), value: appeared)
             }

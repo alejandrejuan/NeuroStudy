@@ -156,36 +156,3 @@ struct ScoreDisplayView: View {
     }
 }
 
-// MARK: - Gradient Background
-
-struct GradientBackground: View {
-    @Environment(\.colorScheme) private var colorScheme
-
-    var body: some View {
-        ZStack {
-            if colorScheme == .dark {
-                Color.black
-                LinearGradient(
-                    colors: [
-                        Color(red: 0.08, green: 0.05, blue: 0.15),
-                        Color(red: 0.03, green: 0.08, blue: 0.12),
-                        Color(red: 0.05, green: 0.03, blue: 0.10)
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            } else {
-                LinearGradient(
-                    colors: [
-                        Color(red: 0.93, green: 0.94, blue: 0.98),
-                        Color(red: 0.96, green: 0.95, blue: 0.98),
-                        Color(red: 0.94, green: 0.96, blue: 0.99)
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            }
-        }
-        .ignoresSafeArea()
-    }
-}

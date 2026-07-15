@@ -100,10 +100,10 @@ struct StructureDetailView: View {
     // MARK: - Header
 
     private var header: some View {
-        GlassCard {
+        LiquidGlassCard {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
-                    RegionBadge(region: structure.region)
+                    ModernRegionBadge(region: structure.region)
                     Spacer()
                     if let brodmann = structure.brodmannAreas, !brodmann.isEmpty {
                         Text("BA \(brodmann.map(String.init).joined(separator: ", "))")
@@ -132,7 +132,7 @@ struct StructureDetailView: View {
     // MARK: - Section Card
 
     private func sectionCard<Content: View>(title: String, sfSymbol: String, @ViewBuilder content: @escaping () -> Content) -> some View {
-        GlassCard {
+        LiquidGlassCard {
             VStack(alignment: .leading, spacing: 12) {
                 HStack(spacing: 6) {
                     Image(systemName: sfSymbol)
@@ -150,7 +150,7 @@ struct StructureDetailView: View {
     // MARK: - Details Card
 
     private var detailsCard: some View {
-        GlassCard {
+        LiquidGlassCard {
             VStack(alignment: .leading, spacing: 12) {
                 HStack(spacing: 6) {
                     Image(systemName: "info.circle.fill")
@@ -175,7 +175,7 @@ struct StructureDetailView: View {
     // MARK: - Progress Card
 
     private var progressCard: some View {
-        GlassCard {
+        LiquidGlassCard {
             let progress = progressStore.progress(for: structure.id)
 
             VStack(alignment: .leading, spacing: 12) {
@@ -185,7 +185,7 @@ struct StructureDetailView: View {
                     Text("Study Progress")
                         .font(.sectionHeader)
                     Spacer()
-                    MasteryBadge(level: progress.masteryLevel)
+                    ModernMasteryBadge(level: progress.masteryLevel)
                 }
 
                 if progress.totalAttempts > 0 {

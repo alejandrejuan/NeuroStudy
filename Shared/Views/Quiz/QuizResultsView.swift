@@ -258,6 +258,6 @@ struct QuizResultsView: View {
             Label("Done", systemImage: "checkmark")
                 .frame(maxWidth: .infinity)
         }
-        .buttonStyle(ModernGlassButtonStyle(isProminent: true))
+        .glassButton(prominent: true)
     }
 }

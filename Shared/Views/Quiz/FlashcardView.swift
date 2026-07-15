@@ -196,7 +196,7 @@ struct FlashcardQuizView: View {
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
                     }
-                    .buttonStyle(ModernGlassButtonStyle(isProminent: grade == .good))
+                    .glassButton(prominent: grade == .good)
                 }
             }
         }
