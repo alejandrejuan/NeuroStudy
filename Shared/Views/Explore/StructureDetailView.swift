@@ -90,7 +90,7 @@ struct StructureDetailView: View {
             }
             .padding()
         }
-        .background { AdaptiveGradientBackground() }
+        .background { AppBackground() }
         .navigationTitle(structure.name)
         #if os(iOS)
         .navigationBarTitleDisplayMode(.large)

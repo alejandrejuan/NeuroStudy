@@ -11,7 +11,7 @@ struct PathologyQuizView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                AdaptiveGradientBackground()
+                AppBackground()
 
                 if viewModel.isComplete {
                     PathologyResultsView(viewModel: viewModel)
@@ -285,7 +285,7 @@ struct PathologyResultsView: View {
             }
             .padding()
         }
-        .background { AdaptiveGradientBackground() }
+        .background { AppBackground() }
         .task {
             appeared = true
             try? await Task.sleep(nanoseconds: 400_000_000)

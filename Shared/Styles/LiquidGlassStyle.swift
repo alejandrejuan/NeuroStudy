@@ -15,14 +15,9 @@ struct SourceReferenceBadge: View {
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
-        .background {
-            Capsule(style: .continuous)
-                .fill(.ultraThinMaterial)
-        }
-        .overlay {
-            Capsule(style: .continuous)
-                .strokeBorder(.primary.opacity(0.12), lineWidth: 0.5)
-        }
+        // A flat chip, not a material. This badge always sits inside a glass card, and
+        // stacking a second material there muddies both surfaces.
+        .softChip()
         .foregroundStyle(.secondary)
     }
 }

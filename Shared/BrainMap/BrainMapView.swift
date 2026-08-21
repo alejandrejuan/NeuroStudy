@@ -243,7 +243,9 @@ struct BrainMapView: View {
                 }
             }
         }
-        .drawingGroup()
+        // No .drawingGroup() here: it was rasterizing each hotspot into its own
+        // offscreen buffer, up to 34 of them per render, which is the opposite of what
+        // drawingGroup is for (one buffer around many elements, not one buffer each).
         .contentShape(shapePath)
         .onTapGesture {
             withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {

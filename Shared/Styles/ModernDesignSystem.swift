@@ -28,12 +28,14 @@ struct LiquidGlassCard<Content: View>: View {
     var body: some View {
         content()
             .padding(padding)
+            // Prominence is carried by depth, not colour. Tinting these cards with the
+            // accent washed the whole surface blue and left tinted content on top of it
+            // — a yellow region badge on blue glass, for instance — barely readable.
             .glassSurface(
                 in: shape,
-                tint: prominent ? Color.accentColor : nil,
                 interactive: interactive,
-                shadowRadius: prominent ? 14 : 10,
-                shadowY: prominent ? 5 : 3
+                shadowRadius: prominent ? 16 : 10,
+                shadowY: prominent ? 6 : 3
             )
     }
 }
@@ -112,47 +114,6 @@ struct ModernGlassButtonStyle: ButtonStyle {
 // MARK: - Adaptive Gradient Background
 
 /// Performance-optimized gradient background with platform detection
-struct AdaptiveGradientBackground: View {
-    @Environment(\.colorScheme) private var colorScheme
-    
-    #if os(macOS)
-    private let useSimpleGradient = true
-    #else
-    private let useSimpleGradient = false
-    #endif
-    
-    var body: some View {
-        ZStack {
-            if colorScheme == .dark {
-                Color.black
-                LinearGradient(
-                    colors: [
-                        Color(red: 0.08, green: 0.05, blue: 0.15),
-                        Color(red: 0.03, green: 0.08, blue: 0.12),
-                        Color(red: 0.05, green: 0.03, blue: 0.10)
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .opacity(0.95)
-            } else {
-                LinearGradient(
-                    colors: [
-                        Color(red: 0.93, green: 0.94, blue: 0.98),
-                        Color(red: 0.96, green: 0.95, blue: 0.98),
-                        Color(red: 0.94, green: 0.96, blue: 0.99)
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            }
-        }
-        .ignoresSafeArea()
-        // Reduce animation complexity on macOS
-        .drawingGroup(opaque: useSimpleGradient)
-    }
-}
-
 // MARK: - Enhanced Region Badge
 
 /// Modernized region badge with improved visual hierarchy
@@ -166,12 +127,18 @@ struct ModernRegionBadge: View {
     
     var body: some View {
         HStack(spacing: style == .compact ? 3 : 4) {
+            // The icon carries the region's colour; the label does not. Several region
+            // colours (yellow and green especially) fall near 1.8:1 against a light
+            // background as text, well under the 4.5:1 minimum — so the wordmark uses
+            // the system label colour and stays readable in both schemes.
             Image(systemName: region.sfSymbol)
                 .font(.system(size: symbolSize, weight: .semibold))
-            
+                .foregroundStyle(region.color)
+
             if style != .compact {
                 Text(region.displayName)
                     .font(style == .prominent ? .regionBadge : .microText)
+                    .foregroundStyle(.primary)
             }
         }
         .padding(.horizontal, horizontalPadding)
@@ -187,12 +154,6 @@ struct ModernRegionBadge: View {
                     lineWidth: style == .prominent ? 1 : 0.5
                 )
         }
-        .foregroundStyle(region.color)
-        .shadow(
-            color: style == .prominent ? region.color.opacity(0.3) : .clear,
-            radius: 4,
-            y: 2
-        )
     }
     
     private var symbolSize: CGFloat {
@@ -320,8 +281,6 @@ struct OptimizedCircularProgress: View {
                     style: StrokeStyle(lineWidth: lineWidth, lineCap: .round)
                 )
                 .rotationEffect(.degrees(-90))
-                // Performance optimization: use drawingGroup for complex paths
-                .drawingGroup()
             
             // Center label
             VStack(spacing: 1) {

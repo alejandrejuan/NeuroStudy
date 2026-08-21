@@ -364,9 +364,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5867BAB00C9AACC979A28B9F /* NeuroStudyUITests */,
 				8792CD7E92775DA92FB11BC4 /* NeuroStudy_iOS */,
 				2A47719868A63AEC3D36D399 /* NeuroStudy_macOS */,
+				5867BAB00C9AACC979A28B9F /* NeuroStudyUITests */,
 			);
 		};
 /* End PBXProject section */

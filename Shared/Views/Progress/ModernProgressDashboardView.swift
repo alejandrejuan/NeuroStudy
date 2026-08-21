@@ -44,7 +44,7 @@ struct ModernProgressDashboardView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                AdaptiveGradientBackground()
+                AppBackground()
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 20) {
@@ -84,6 +84,7 @@ struct ModernProgressDashboardView: View {
                     .frame(maxWidth: horizontalSizeClass == .regular ? 800 : .infinity)
                     .frame(maxWidth: .infinity)
                 }
+                .softScrollEdges()
             }
             .navigationTitle("Your Progress")
             #if os(iOS)

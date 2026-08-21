@@ -9,7 +9,7 @@ struct TapIdentifyQuizView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                AdaptiveGradientBackground()
+                AppBackground()
 
                 if viewModel.isComplete {
                     QuizResultsView(viewModel: viewModel)

@@ -17,7 +17,7 @@ struct ModernQuizHomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                AdaptiveGradientBackground()
+                AppBackground()
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 16) {

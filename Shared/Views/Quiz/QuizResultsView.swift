@@ -37,7 +37,7 @@ struct QuizResultsView: View {
             }
             .padding()
         }
-        .background { AdaptiveGradientBackground() }
+        .background { AppBackground() }
         .task {
             appeared = true
             try? await Task.sleep(nanoseconds: 400_000_000)

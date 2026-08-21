@@ -28,7 +28,7 @@ struct ModernExploreView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                AdaptiveGradientBackground()
+                AppBackground()
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 0) {
@@ -59,6 +59,7 @@ struct ModernExploreView: View {
                     .padding(.bottom, 28)
                 }
                 .scrollDismissesKeyboard(.interactively)
+                .softScrollEdges()
             }
             .navigationTitle("Brain Atlas")
             #if os(iOS)
@@ -166,24 +167,23 @@ struct ModernExploreView: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 7)
         .padding(.horizontal, 10)
-        .background {
-            Capsule(style: .continuous)
-                .fill(.ultraThinMaterial)
-                .overlay {
-                    Capsule(style: .continuous)
-                        .strokeBorder(color.opacity(0.25), lineWidth: 0.5)
-                }
-        }
+        // Untinted on purpose: the coloured icon supplies the accent, and plain glass
+        // keeps the row quiet and the numbers legible.
+        .glassSurface(in: Capsule(style: .continuous), shadowRadius: 6, shadowY: 2)
     }
 
     // MARK: - Region Filter
 
     private var regionFilterSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
-                filterChip(label: "All", region: nil)
-                ForEach(BrainRegion.allCases) { region in
-                    filterChip(label: region.displayName, region: region)
+            // Grouping the chips lets their glass shapes blend into one another as they
+            // scroll past, instead of reading as a row of separate frosted rectangles.
+            GlassGroup(spacing: 8) {
+                HStack(spacing: 8) {
+                    filterChip(label: "All", region: nil)
+                    ForEach(BrainRegion.allCases) { region in
+                        filterChip(label: region.displayName, region: region)
+                    }
                 }
             }
             .padding(.horizontal, 16)
@@ -210,17 +210,21 @@ struct ModernExploreView: View {
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 7)
-            .background {
-                Capsule(style: .continuous)
-                    .fill(isSelected ? (region?.color.opacity(0.18) ?? Color.accentColor.opacity(0.18)) : .clear)
-                    .background(Capsule(style: .continuous).fill(.ultraThinMaterial))
-            }
+            .glassSurface(
+                in: Capsule(style: .continuous),
+                tint: isSelected ? (region?.color ?? .accentColor) : nil,
+                interactive: true,
+                shadowRadius: 6,
+                shadowY: 2
+            )
             .overlay {
-                Capsule(style: .continuous)
-                    .strokeBorder(
-                        isSelected ? (region?.color ?? .accentColor) : .white.opacity(0.2),
-                        lineWidth: isSelected ? 1.5 : 0.5
-                    )
+                // Only the selected chip carries a ring; unselected chips rely on the
+                // glass itself for definition. The previous white.opacity(0.2) outline
+                // was invisible against a light background.
+                if isSelected {
+                    Capsule(style: .continuous)
+                        .strokeBorder(region?.color ?? .accentColor, lineWidth: 1.5)
+                }
             }
         }
         .buttonStyle(.plain)
@@ -243,7 +247,7 @@ struct ModernExploreView: View {
                     } label: {
                         Image(systemName: "xmark.circle.fill")
                             .font(.system(size: 22, weight: .medium))
-                            .foregroundStyle(.secondary, .ultraThinMaterial)
+                            .foregroundStyle(.secondary, .quaternary)
                     }
                     .buttonStyle(.plain)
                 }

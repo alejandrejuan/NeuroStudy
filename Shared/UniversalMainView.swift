@@ -99,6 +99,7 @@ struct UniversalMainView: View {
             .tabItem { Label("Settings", systemImage: "gearshape") }
             .tag(MainSection.settings)
         }
+        .minimizingTabBar()
         .tint(.accentColor)
     }
 
@@ -281,7 +282,7 @@ struct AboutView: View {
             }
             .padding(.horizontal, 20)
         }
-        .background(AdaptiveGradientBackground())
+        .background(AppBackground())
         .navigationTitle("About")
         #if os(iOS)
         .navigationBarTitleDisplayMode(.large)
