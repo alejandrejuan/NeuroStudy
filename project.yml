@@ -28,6 +28,16 @@ targets:
           # Internal dev notes. Without this they are copied into the app bundle
           # as resources and ship to users inside the IPA.
           - "**/*.md"
+          # The Icon Composer bundle is added below as a single file reference;
+          # recursing into it would ship icon.json and the layer PNG as loose files.
+          - "AppIcon.icon"
+          - "AppIcon.icon/**"
+      # Liquid Glass app icon (iOS 26+). actool compiles it and derives the
+      # light, dark, tinted, and clear variants. AppIcon.appiconset stays as the
+      # fallback for iOS 17-25.
+      - path: Shared/AppIcon.icon
+        type: file
+        buildPhase: resources
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.neurostudy.app
