@@ -18,7 +18,6 @@
 		32400DFBD4252BCF8842BC32 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C61E8421DDF6EFC475A09844 /* Media.xcassets */; };
 		3370DCD14A8B9F8F9C655F26 /* StudyProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C02FD658C3F7B90FA54C33 /* StudyProgress.swift */; };
 		3507E5A9B63A49C35B9CDC2B /* StudyProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C02FD658C3F7B90FA54C33 /* StudyProgress.swift */; };
-		37F1DCB3977CDD4663D74478 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 3B42D67E9511423EFA82FFA9 /* AppIcon.icon */; };
 		3A1D6A9C77BD8787FE0BDF11 /* FlashcardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170D7A15D5D37414F759B0A7 /* FlashcardView.swift */; };
 		3BA7BFC2D29A2614CDC9C483 /* BrainHotspot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4652787F297CCE688A6C3100 /* BrainHotspot.swift */; };
 		401038D8E768B6FDD0FD4939 /* TapIdentifyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */; };
@@ -74,7 +73,6 @@
 		D9883F88B3B0F5D0D20D80A2 /* MultipleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029A583054B38D467A7CB354 /* MultipleChoiceView.swift */; };
 		DBF91236200E3E8BB2DAA4C2 /* ModernExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442BFC60E119CC072FC7112C /* ModernExploreView.swift */; };
 		DE35B4B88287EBC69B571A65 /* LiquidGlassStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */; };
-		E76203E659B312AE7779105C /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 3B42D67E9511423EFA82FFA9 /* AppIcon.icon */; };
 		EC01E24F0FF262B2804C815A /* BrainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9F1D05EAF7806B0E9CB253 /* BrainMapViewModel.swift */; };
 		F65D7C4A21FA11935A0C6E9C /* AppTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886AF33244B0412DDFFD76C8 /* AppTypography.swift */; };
 		F68FEB224B4E9AAE29532A76 /* SpacedRepetitionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF999B7C0FE4375D4469CF9 /* SpacedRepetitionEngine.swift */; };
@@ -99,7 +97,6 @@
 		247E697F887109916D2B4727 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		31628D0CF6C252C15568120B /* QuizResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultsView.swift; sourceTree = "<group>"; };
 		35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		3B42D67E9511423EFA82FFA9 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = wrapper.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		42C02FD658C3F7B90FA54C33 /* StudyProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyProgress.swift; sourceTree = "<group>"; };
 		442BFC60E119CC072FC7112C /* ModernExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernExploreView.swift; sourceTree = "<group>"; };
 		4652787F297CCE688A6C3100 /* BrainHotspot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainHotspot.swift; sourceTree = "<group>"; };
@@ -235,7 +232,6 @@
 		BF194099A921EC43F0CEC97C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				3B42D67E9511423EFA82FFA9 /* AppIcon.icon */,
 				C61E8421DDF6EFC475A09844 /* Media.xcassets */,
 				0034CBA1AED71AD650A0681C /* NeuroStudyApp.swift */,
 				35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */,
@@ -380,7 +376,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E76203E659B312AE7779105C /* AppIcon.icon in Resources */,
 				32400DFBD4252BCF8842BC32 /* Media.xcassets in Resources */,
 				527A264B9C71547F706ECEA3 /* PrivacyInfo.xcprivacy in Resources */,
 			);
@@ -390,7 +385,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37F1DCB3977CDD4663D74478 /* AppIcon.icon in Resources */,
 				967F30224640FAF3F19A691E /* Media.xcassets in Resources */,
 				CF7B7943DD1AF46C55C104CA /* PrivacyInfo.xcprivacy in Resources */,
 			);
