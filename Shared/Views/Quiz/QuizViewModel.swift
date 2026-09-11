@@ -51,7 +51,7 @@ class QuizViewModel {
                 QuizQuestion(
                     targetStructure: structure,
                     mode: .tapIdentify,
-                    prompt: "Tap the \(structure.name) on the 3D brain",
+                    prompt: "Tap the \(structure.name) on the brain map",
                     choices: nil,
                     correctAnswer: structure.id,
                     sourceReference: .neuroanatomy
@@ -73,7 +73,7 @@ class QuizViewModel {
         case .multipleChoice:
             let templates = QuizQuestionTemplate.allCases
             return selected.map { structure in
-                let template = templates.randomElement()!
+                let template = templates.randomElement() ?? .identifyFunction
                 return template.generate(for: structure, allStructures: allStructures)
             }
         }
@@ -130,6 +130,9 @@ class QuizViewModel {
 
 @Observable
 class PathologyQuizViewModel {
+    /// Optional so previews and tests can construct the model without a store; the
+    /// app always supplies one so answers count toward study activity.
+    private let progressStore: ProgressStore?
     private(set) var questions: [PathologyQuizQuestion] = []
     private(set) var currentIndex: Int = 0
     private(set) var correctCount: Int = 0
@@ -150,7 +153,8 @@ class PathologyQuizViewModel {
         return Double(currentIndex) / Double(totalQuestions)
     }
 
-    init(count: Int = 10, sources: Set<ContentReference> = Set(ContentReference.allCases)) {
+    init(count: Int = 10, sources: Set<ContentReference> = Set(ContentReference.allCases), progressStore: ProgressStore? = nil) {
+        self.progressStore = progressStore
         self.questions = generateQuestions(count: count, sources: sources)
     }
 
@@ -205,6 +209,7 @@ class PathologyQuizViewModel {
         questions[currentIndex].userAnswer = answer
         let answered = questions[currentIndex]
         answeredQuestions.append((question: answered, wasCorrect: correct))
+        progressStore?.recordAnswer()
         showingFeedback = true
     }
 

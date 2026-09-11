@@ -19,9 +19,9 @@ enum QuizMode: String, CaseIterable, Identifiable {
 
     var description: String {
         switch self {
-        case .tapIdentify:    return "Tap the correct brain region on the 3D model"
+        case .tapIdentify:    return "Tap the correct structure on the brain map"
         case .flashcard:      return "Review structures and self-assess your recall"
-        case .multipleChoice: return "Answer questions sourced from DSM-5 and clinical references"
+        case .multipleChoice: return "Identify functions, structures, and lesion effects"
         }
     }
 }

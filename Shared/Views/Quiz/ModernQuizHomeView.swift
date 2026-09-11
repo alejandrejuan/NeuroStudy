@@ -11,7 +11,7 @@ struct ModernQuizHomeView: View {
     @State private var appeared = false
     @State private var activeSession: QuizSession?
     @State private var showingPathologyQuiz = false
-    @State private var pathologyQuizVM = PathologyQuizViewModel()
+    @State private var pathologyQuizVM = PathologyQuizViewModel(progressStore: nil)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     var body: some View {
@@ -307,7 +307,7 @@ struct ModernQuizHomeView: View {
                 .padding(.horizontal, 4)
 
             Button {
-                pathologyQuizVM = PathologyQuizViewModel(count: questionCount)
+                pathologyQuizVM = PathologyQuizViewModel(count: questionCount, progressStore: progressStore)
                 showingPathologyQuiz = true
             } label: {
                 LiquidGlassCard(cornerRadius: 20, padding: 16) {

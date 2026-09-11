@@ -100,7 +100,7 @@ struct ModernGlassButtonStyle: ButtonStyle {
                         .fill(.ultraThinMaterial)
                         .overlay {
                             Capsule(style: .continuous)
-                                .strokeBorder(.white.opacity(0.25), lineWidth: 0.5)
+                                .strokeBorder(.primary.opacity(0.12), lineWidth: 0.5)
                         }
                 }
             }
@@ -111,9 +111,6 @@ struct ModernGlassButtonStyle: ButtonStyle {
     }
 }
 
-// MARK: - Adaptive Gradient Background
-
-/// Performance-optimized gradient background with platform detection
 // MARK: - Enhanced Region Badge
 
 /// Modernized region badge with improved visual hierarchy
@@ -206,6 +203,7 @@ struct ModernMasteryBadge: View {
     var animated: Bool = false
     
     @State private var pulseAnimation = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     
     var body: some View {
         HStack(spacing: 3) {
@@ -233,7 +231,9 @@ struct ModernMasteryBadge: View {
         }
         .foregroundStyle(masteryColor)
         .onAppear {
-            if animated && level == .mastered {
+            // An unbounded repeatForever keeps ticking for as long as the view lives,
+            // so honour Reduce Motion rather than pulsing indefinitely regardless.
+            if animated && level == .mastered && !reduceMotion {
                 withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
                     pulseAnimation = true
                 }

@@ -290,7 +290,7 @@ struct BrainMapView: View {
                 }
                 .overlay {
                     Capsule(style: .continuous)
-                        .strokeBorder(.white.opacity(0.3), lineWidth: 0.5)
+                        .strokeBorder(.primary.opacity(0.12), lineWidth: 0.5)
                 }
                 .position(x: anchor.x, y: max(anchor.y - 25, 20))
                 .transition(.scale.combined(with: .opacity))

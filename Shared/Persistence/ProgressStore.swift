@@ -142,6 +142,15 @@ class ProgressStore {
         persistAll()
     }
 
+    /// Records an answer that has no single brain structure to attribute it to, such
+    /// as a pathology-quiz question. It counts toward daily study activity so the
+    /// Progress chart reflects the work, without inventing mastery for any structure.
+    /// Before this existed, an entire pathology quiz left Progress completely unchanged.
+    func recordAnswer() {
+        recordActivity()
+        persistAll()
+    }
+
     private func recordActivity() {
         let key = Self.dayKey(for: .now)
         activity[key, default: 0] += 1

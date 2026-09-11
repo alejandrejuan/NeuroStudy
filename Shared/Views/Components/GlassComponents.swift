@@ -56,6 +56,7 @@ struct AnimatedXMark: View {
 struct PulseHighlight: ViewModifier {
     let isActive: Bool
     @State private var isPulsing = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     func body(content: Content) -> some View {
         content
@@ -66,10 +67,11 @@ struct PulseHighlight: ViewModifier {
                         .scaleEffect(isPulsing ? 1.04 : 1.0)
                         .opacity(isPulsing ? 0.3 : 0.8)
                         .animation(
-                            .easeInOut(duration: 0.9).repeatForever(autoreverses: true),
+                            // Static ring under Reduce Motion instead of an endless pulse.
+                            reduceMotion ? nil : .easeInOut(duration: 0.9).repeatForever(autoreverses: true),
                             value: isPulsing
                         )
-                        .onAppear { isPulsing = true }
+                        .onAppear { if !reduceMotion { isPulsing = true } }
                 }
             }
     }
