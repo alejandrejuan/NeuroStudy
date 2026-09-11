@@ -331,7 +331,7 @@ struct ModernQuizHomeView: View {
                             Text("DSM-5 & Neuropsychology")
                                 .font(.system(.body, design: .rounded, weight: .semibold))
                                 .foregroundStyle(.primary)
-                            Text("Diagnostic criteria, Lezak test profiles, and brain imaging findings")
+                            Text("Diagnostic criteria, neuropsychological test profiles, and brain imaging findings")
                                 .font(.system(size: 13))
                                 .foregroundStyle(.secondary)
                                 .lineLimit(2)

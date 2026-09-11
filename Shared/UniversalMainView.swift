@@ -275,7 +275,7 @@ struct AboutView: View {
                 }
 
                 // Copyright
-                Text("© 2026 NeuroStudy. All rights reserved.")
+                Text("© 2026 Juan Alejandre. All rights reserved.")
                     .font(.caption)
                     .foregroundStyle(.tertiary)
                     .padding(.vertical, 20)

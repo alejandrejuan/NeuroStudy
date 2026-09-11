@@ -5,8 +5,8 @@ import Foundation
 /// Identifies which authoritative reference a piece of content is sourced from.
 enum ContentReference: String, Codable, CaseIterable {
     case dsm5        = "DSM-5-TR"
-    case lezak       = "Lezak: Neuropsychological Assessment, 5th Ed."
-    case brainImaging = "A Short Guide to Brain Imaging"
+    case lezak       = "Neuropsychology"
+    case brainImaging = "Neuroimaging"
     case neuroanatomy = "Neuroanatomy Reference"
 
     var sfSymbol: String {
@@ -21,7 +21,7 @@ enum ContentReference: String, Codable, CaseIterable {
     var shortLabel: String {
         switch self {
         case .dsm5:         return "DSM-5"
-        case .lezak:        return "Lezak"
+        case .lezak:        return "Neuropsych"
         case .brainImaging: return "Imaging"
         case .neuroanatomy: return "Neuroanat."
         }

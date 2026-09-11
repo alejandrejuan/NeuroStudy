@@ -257,6 +257,12 @@ struct BrainMapView: View {
             }
             Haptics.lightImpact()
         }
+        // Every region is a VoiceOver button. Without this the whole atlas is a
+        // single silent image and the app's core interaction is unusable non-visually.
+        .accessibilityElement()
+        .accessibilityLabel(BrainStructureStore.structure(byID: hotspot.structureID)?.name ?? hotspot.structureID)
+        .accessibilityHint(viewModel.isQuizMode ? "Double tap to answer" : "Double tap to view details")
+        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
         #if os(macOS)
         .onHover { hovering in
             viewModel.hover(hotspot.structureID, isHovering: hovering)

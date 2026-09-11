@@ -286,11 +286,11 @@ enum PathologyQuestionTemplate {
 
         return PathologyQuizQuestion(
             pathology: pathology,
-            prompt: "On neuropsychological testing (per Lezak), which pattern is most consistent with \(pathology.name)?",
+            prompt: "On neuropsychological testing, which pattern is most consistent with \(pathology.name)?",
             choices: choices,
             correctAnswer: correct,
             sourceReference: .lezak,
-            explanation: "Lezak's Neuropsychological Assessment describes \(pathology.name) as showing: \(correct)."
+            explanation: "\(pathology.name) typically shows: \(correct)."
         )
     }
 

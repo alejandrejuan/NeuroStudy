@@ -86,7 +86,7 @@ Designed and built by an independent developer.
 ### Keywords — `97 / 100`
 *(Comma-separated, no spaces — Apple counts every character including commas. Singular forms preferred; Apple auto-handles plurals.)*
 ```
-brain,neuroanatomy,anatomy,medical,USMLE,quiz,study,medschool,neuroscience,flashcard,nervous,cns
+brain,neuroanatomy,anatomy,medical,boards,quiz,study,medschool,neuroscience,flashcard,nervous,cns
 ```
 
 ### Support URL
