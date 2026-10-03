@@ -748,7 +748,7 @@ struct BrainStructureStore {
             region: .whiteTracts,
             aliases: ["AC"],
             description: "The anterior commissure is a small white matter bundle crossing the midline anterior to the columns of the fornix. It connects the temporal lobes and olfactory structures of both hemispheres.",
-            functions: ["Interhemispheric temporal lobe connection", "Olfactory information transfer", "Pain signal crossing", "Emotional memory transfer"],
+            functions: ["Interhemispheric temporal lobe connection", "Olfactory information transfer", "Interhemispheric amygdala connections", "Emotional memory transfer"],
             clinicalSignificance: "Though smaller than the corpus callosum, it provides critical interhemispheric connections for temporal lobe structures. In patients with callosal agenesis, the anterior commissure may partially compensate for missing callosal connections.",
             associatedDisorders: ["Disconnection Syndromes", "Callosal Agenesis (compensatory)"],
             connections: ["corpus-callosum", "amygdala", "hippocampus", "orbitofrontal-cortex"],

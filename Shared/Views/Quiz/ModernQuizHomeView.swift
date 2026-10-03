@@ -8,7 +8,6 @@ struct ModernQuizHomeView: View {
     @State private var selectedRegion: BrainRegion?
     @AppStorage("defaultQuizLength") private var defaultQuizLength = 10
     @State private var questionCount: Int = 10
-    @State private var appeared = false
     @State private var activeSession: QuizSession?
     @State private var showingPathologyQuiz = false
     @State private var pathologyQuizVM = PathologyQuizViewModel(progressStore: nil)
@@ -21,17 +20,9 @@ struct ModernQuizHomeView: View {
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 16) {
-                        // Hero stats card
-                        heroStatsCard
-                            .opacity(appeared ? 1 : 0)
-                            .offset(y: appeared ? 0 : 10)
-                            .animation(.spring(response: 0.5, dampingFraction: 0.8), value: appeared)
                         
                         // Due for review banner
                         dueForReviewBanner
-                            .opacity(appeared ? 1 : 0)
-                            .offset(y: appeared ? 0 : 10)
-                            .animation(.spring(response: 0.5, dampingFraction: 0.8).delay(0.1), value: appeared)
                         
                         // Quiz modes with enhanced cards
                         quizModesSection
@@ -41,9 +32,6 @@ struct ModernQuizHomeView: View {
 
                         // Quick settings
                         quickSettingsSection
-                            .opacity(appeared ? 1 : 0)
-                            .offset(y: appeared ? 0 : 8)
-                            .animation(.spring(response: 0.5, dampingFraction: 0.8).delay(0.3), value: appeared)
                     }
                     .padding(.horizontal, 16)
                     .padding(.top, 8)
@@ -52,7 +40,7 @@ struct ModernQuizHomeView: View {
                     .frame(maxWidth: .infinity)
                 }
             }
-            .navigationTitle("Practice Quiz")
+            .navigationTitle("Quiz")
             #if os(iOS)
             .navigationBarTitleDisplayMode(.large)
             #endif
@@ -75,85 +63,11 @@ struct ModernQuizHomeView: View {
             #endif
             .task {
                 questionCount = defaultQuizLength
-                await animateAppearance()
             }
         }
     }
     
     // MARK: - Hero Stats Card
-    
-    private var heroStatsCard: some View {
-        LiquidGlassCard(cornerRadius: 24, padding: 20, prominent: true) {
-            VStack(spacing: 16) {
-                // Progress ring
-                OptimizedCircularProgress(
-                    progress: overallProgress,
-                    label: "Mastery",
-                    lineWidth: 10,
-                    size: 130,
-                    accentColors: [.blue, .purple, .pink, .orange]
-                )
-                
-                // Stats grid
-                HStack(spacing: 0) {
-                    statColumn(
-                        value: "\(progressStore.studiedCount())",
-                        label: "Studied",
-                        icon: "book.fill",
-                        color: .blue
-                    )
-                    .frame(maxWidth: .infinity)
-                    
-                    Divider()
-                        .frame(height: 40)
-                        .overlay(.quaternary)
-                    
-                    statColumn(
-                        value: "\(progressStore.masteredCount())",
-                        label: "Mastered",
-                        icon: "star.fill",
-                        color: .green
-                    )
-                    .frame(maxWidth: .infinity)
-                    
-                    Divider()
-                        .frame(height: 40)
-                        .overlay(.quaternary)
-                    
-                    statColumn(
-                        value: "\(Int(progressStore.overallAccuracy() * 100))%",
-                        label: "Accuracy",
-                        icon: "target",
-                        color: .orange
-                    )
-                    .frame(maxWidth: .infinity)
-                }
-                .padding(.top, 4)
-            }
-        }
-    }
-    
-    private func statColumn(value: String, label: String, icon: String, color: Color) -> some View {
-        VStack(spacing: 6) {
-            Image(systemName: icon)
-                .font(.system(size: 16, weight: .medium))
-                .foregroundStyle(color)
-            
-            Text(value)
-                .font(.system(.title3, design: .rounded, weight: .bold))
-                .foregroundStyle(.primary)
-            
-            Text(label)
-                .font(.system(size: 11, weight: .medium, design: .rounded))
-                .foregroundStyle(.secondary)
-        }
-    }
-    
-    private var overallProgress: Double {
-        let total = BrainStructureStore.all.count
-        guard total > 0 else { return 0 }
-        return Double(progressStore.masteredCount()) / Double(total)
-    }
     
     // MARK: - Due for Review Banner
     
@@ -225,15 +139,8 @@ struct ModernQuizHomeView: View {
                 .font(.sectionHeader)
                 .padding(.horizontal, 4)
             
-            ForEach(Array(QuizMode.allCases.enumerated()), id: \.element.id) { index, mode in
+            ForEach(QuizMode.allCases) { mode in
                 quizModeCard(mode)
-                    .opacity(appeared ? 1 : 0)
-                    .offset(y: appeared ? 0 : CGFloat(12 + index * 6))
-                    .animation(
-                        .spring(response: 0.5, dampingFraction: 0.8)
-                            .delay(Double(index) * 0.08 + 0.15),
-                        value: appeared
-                    )
             }
         }
     }
@@ -355,9 +262,6 @@ struct ModernQuizHomeView: View {
             }
             .buttonStyle(.plain)
             .pressableScale()
-            .opacity(appeared ? 1 : 0)
-            .offset(y: appeared ? 0 : 10)
-            .animation(.spring(response: 0.5, dampingFraction: 0.8).delay(0.28), value: appeared)
         }
     }
     
@@ -460,11 +364,6 @@ struct ModernQuizHomeView: View {
         )
     }
     
-    private func animateAppearance() async {
-        withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
-            appeared = true
-        }
-    }
 }
 
 // MARK: - Pressable Scale Modifier

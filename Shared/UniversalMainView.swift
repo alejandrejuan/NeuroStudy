@@ -6,9 +6,9 @@ private enum MainSection: String, CaseIterable, Identifiable, Hashable {
     var id: String { rawValue }
     var title: String {
         switch self {
-        case .explore: return "Explore Atlas"
-        case .quiz: return "Practice Quiz"
-        case .progress: return "Your Progress"
+        case .explore: return "Atlas"
+        case .quiz: return "Quiz"
+        case .progress: return "Progress"
         case .settings: return "Settings"
         case .about: return "About"
         }
@@ -32,11 +32,8 @@ struct UniversalMainView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State private var selection: MainSection? = .explore
     @State private var columnVisibility: NavigationSplitViewVisibility = .automatic
-    @AppStorage("darkMode") private var darkMode = false
-
     var body: some View {
         content
-            .preferredColorScheme(darkMode ? .dark : nil)
     }
 
     @ViewBuilder
@@ -79,7 +76,7 @@ struct UniversalMainView: View {
             set: { selection = $0 }
         )) {
             ModernExploreView(progressStore: progressStore)
-                .tabItem { Label("Explore", systemImage: "brain.head.profile") }
+                .tabItem { Label("Atlas", systemImage: "brain.head.profile") }
                 .tag(MainSection.explore)
 
             ModernQuizHomeView(progressStore: progressStore)
@@ -108,7 +105,7 @@ struct UniversalMainView: View {
     private var macOSLayout: some View {
         NavigationSplitView {
             List(MainSection.allCases, selection: $selection) { section in
-                Label(section.title.replacingOccurrences(of: "Atlas", with: ""), systemImage: section.systemImage)
+                Label(section.title, systemImage: section.systemImage)
                     .tag(section)
             }
             .navigationTitle("NeuroStudy")
@@ -142,15 +139,10 @@ struct UniversalMainView: View {
 
 struct SettingsView: View {
     @AppStorage("hapticFeedback") private var hapticFeedback = true
-    @AppStorage("darkMode") private var darkMode = false
     @AppStorage("defaultQuizLength") private var defaultQuizLength = 10
 
     var body: some View {
         Form {
-            Section("Appearance") {
-                Toggle("Dark Mode", isOn: $darkMode)
-            }
-
             Section("Interactions") {
                 Toggle("Haptic Feedback", isOn: $hapticFeedback)
             }
@@ -216,7 +208,7 @@ struct AboutView: View {
                         Text("About NeuroStudy")
                             .font(.headline)
                         
-                        Text("NeuroStudy is a study tool for learning neuroanatomy and neuropathology. It is built for students, and its content is written as study material — not as a clinical reference. Use it to learn and revise; use your course materials and a qualified clinician for anything that matters.")
+                        Text("NeuroStudy is a study tool for learning neuroanatomy and neuropathology. It is built for students, and its content is written as study material, not as a clinical reference. Use it to learn and revise; use your course materials and a qualified clinician for anything that matters.")
                             .font(.body)
                             .foregroundStyle(.secondary)
                     }
@@ -268,7 +260,7 @@ struct AboutView: View {
                             .fontWeight(.semibold)
                             .foregroundStyle(.orange)
 
-                        Text("NeuroStudy is an educational tool designed for students and academic study of neuroanatomy and neuropsychology. All content — including DSM-5 diagnostic criteria, clinical descriptions, and neuroimaging findings — is presented for learning purposes only and does not constitute medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional for clinical decisions.")
+                        Text("NeuroStudy is an educational tool designed for students and academic study of neuroanatomy and neuropsychology. All content, including DSM-5 diagnostic criteria, clinical descriptions, and neuroimaging findings, is presented for learning purposes only and does not constitute medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional for clinical decisions.")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }

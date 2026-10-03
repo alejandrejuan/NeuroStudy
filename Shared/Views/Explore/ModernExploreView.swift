@@ -8,7 +8,6 @@ struct ModernExploreView: View {
     @State private var searchText = ""
     @State private var selectedRegionFilter: BrainRegion?
     @State private var showingDetail = false
-    @State private var appeared = false
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     private var filteredStructures: [BrainStructure] {
@@ -33,13 +32,9 @@ struct ModernExploreView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 0) {
                         brainMapSection
-                            .opacity(appeared ? 1 : 0)
-                            .offset(y: appeared ? 0 : 14)
 
                         regionFilterSection
                             .padding(.top, 14)
-                            .opacity(appeared ? 1 : 0)
-                            .offset(y: appeared ? 0 : 8)
 
                         if let structure = brainMap.selectedStructure {
                             selectedStructureCard(structure)
@@ -61,7 +56,7 @@ struct ModernExploreView: View {
                 .scrollDismissesKeyboard(.interactively)
                 .softScrollEdges()
             }
-            .navigationTitle("Brain Atlas")
+            .navigationTitle("Atlas")
             #if os(iOS)
             .navigationBarTitleDisplayMode(.large)
             .searchable(
@@ -89,10 +84,6 @@ struct ModernExploreView: View {
                     #endif
                 }
             }
-            .task {
-                try? await Task.sleep(nanoseconds: 100_000_000)
-                withAnimation(.easeOut(duration: 0.55)) { appeared = true }
-            }
         }
     }
 
@@ -116,7 +107,6 @@ struct ModernExploreView: View {
             }
             .padding(.horizontal, 20)
             .padding(.top, 6)
-            .opacity(appeared ? 1 : 0)
 
             // Brain Map
             BrainMapView(
@@ -130,46 +120,7 @@ struct ModernExploreView: View {
             .padding(.horizontal, 16)
             .frame(maxHeight: horizontalSizeClass == .regular ? 500 : 340)
 
-            // Quick stats
-            if brainMap.selectedStructure == nil {
-                quickStatsBar
-                    .padding(.horizontal, 16)
-                    .padding(.top, 6)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
-            }
         }
-    }
-
-    private var quickStatsBar: some View {
-        HStack(spacing: 8) {
-            statPill(icon: "brain.head.profile.fill", value: "\(BrainStructureStore.all.count)",
-                     label: "Structures", color: .blue)
-            statPill(icon: "star.fill", value: "\(progressStore.masteredCount())",
-                     label: "Mastered", color: .green)
-            statPill(icon: "chart.bar.fill", value: "\(Int(progressStore.overallAccuracy() * 100))%",
-                     label: "Accuracy", color: .orange)
-        }
-    }
-
-    private func statPill(icon: String, value: String, label: String, color: Color) -> some View {
-        HStack(spacing: 5) {
-            Image(systemName: icon)
-                .font(.system(size: 11, weight: .semibold))
-                .foregroundStyle(color)
-            VStack(alignment: .leading, spacing: 0) {
-                Text(value)
-                    .font(.system(size: 13, weight: .bold, design: .rounded))
-                Text(label)
-                    .font(.system(size: 9, weight: .medium, design: .rounded))
-                    .foregroundStyle(.secondary)
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 7)
-        .padding(.horizontal, 10)
-        // Untinted on purpose: the coloured icon supplies the accent, and plain glass
-        // keeps the row quiet and the numbers legible.
-        .glassSurface(in: Capsule(style: .continuous), shadowRadius: 6, shadowY: 2)
     }
 
     // MARK: - Region Filter
@@ -346,27 +297,13 @@ struct ModernExploreView: View {
                         GridItem(.flexible(), spacing: 10),
                         GridItem(.flexible(), spacing: 10)
                     ], spacing: 10) {
-                        ForEach(Array(filteredStructures.enumerated()), id: \.element.id) { idx, structure in
+                        ForEach(filteredStructures) { structure in
                             structureRow(structure)
-                                .opacity(appeared ? 1 : 0)
-                                .offset(y: appeared ? 0 : 8)
-                                .animation(
-                                    .spring(response: 0.4, dampingFraction: 0.8)
-                                    .delay(Double(idx % 10) * 0.04),
-                                    value: appeared
-                                )
                         }
                     }
                 } else {
-                    ForEach(Array(filteredStructures.enumerated()), id: \.element.id) { idx, structure in
+                    ForEach(filteredStructures) { structure in
                         structureRow(structure)
-                            .opacity(appeared ? 1 : 0)
-                            .offset(y: appeared ? 0 : 6)
-                            .animation(
-                                .spring(response: 0.4, dampingFraction: 0.8)
-                                .delay(Double(idx % 12) * 0.035),
-                                value: appeared
-                            )
                     }
                 }
             } header: {

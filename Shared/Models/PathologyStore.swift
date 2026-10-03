@@ -416,7 +416,7 @@ struct PathologyStore {
                     "Difficulty swallowing, coughing on liquids",
                     "Hoarse voice and nasal speech",
                     "Veering gait to the ipsilateral side",
-                    "Head tilted away from lesion",
+                    "Head tilt and body lateropulsion toward the side of the lesion",
                     "One pupil smaller than the other",
                     "Reports intense spinning sensation"
                 ],
@@ -546,24 +546,24 @@ struct PathologyStore {
             etiology: "Highly heritable (~75%). Involves dopamine and norepinephrine dysregulation in frontostriatal circuits. Environmental factors: prenatal tobacco/alcohol exposure, low birth weight.",
             dsm5Criteria: DSM5CriteriaData(
                 criterionA: [
-                    "INATTENTION domain — overlooks details or makes careless errors in work or activities",
-                    "Inattention — struggles to hold attention on tasks or play",
-                    "Inattention — seems not to listen when spoken to directly",
-                    "Inattention — starts tasks but drifts off and fails to finish work or chores",
-                    "Inattention — finds it hard to organize tasks, materials, and time",
-                    "Inattention — avoids or dislikes activities needing sustained mental effort",
-                    "Inattention — misplaces items needed for daily tasks",
-                    "Inattention — is easily pulled off-task by unrelated stimuli",
-                    "Inattention — forgets routine daily activities and obligations",
-                    "HYPERACTIVITY–IMPULSIVITY domain — fidgets, taps, or squirms when seated",
-                    "Hyperactivity–impulsivity — leaves the seat when staying seated is expected",
-                    "Hyperactivity–impulsivity — feels restless (in children, runs or climbs at inappropriate times)",
-                    "Hyperactivity–impulsivity — cannot easily play or work quietly",
-                    "Hyperactivity–impulsivity — seems constantly in motion, as if driven without an off switch",
-                    "Hyperactivity–impulsivity — talks more than the situation calls for",
-                    "Hyperactivity–impulsivity — answers before a question is finished",
-                    "Hyperactivity–impulsivity — finds waiting for a turn difficult",
-                    "Hyperactivity–impulsivity — interrupts or intrudes on conversations and activities"
+                    "INATTENTION domain: overlooks details or makes careless errors in work or activities",
+                    "Inattention: struggles to hold attention on tasks or play",
+                    "Inattention: seems not to listen when spoken to directly",
+                    "Inattention: starts tasks but drifts off and fails to finish work or chores",
+                    "Inattention: finds it hard to organize tasks, materials, and time",
+                    "Inattention: avoids or dislikes activities needing sustained mental effort",
+                    "Inattention: misplaces items needed for daily tasks",
+                    "Inattention: is easily pulled off-task by unrelated stimuli",
+                    "Inattention: forgets routine daily activities and obligations",
+                    "HYPERACTIVITY–IMPULSIVITY domain: fidgets, taps, or squirms when seated",
+                    "Hyperactivity–impulsivity: leaves the seat when staying seated is expected",
+                    "Hyperactivity–impulsivity: feels restless (in children, runs or climbs at inappropriate times)",
+                    "Hyperactivity–impulsivity: cannot easily play or work quietly",
+                    "Hyperactivity–impulsivity: seems constantly in motion, as if driven without an off switch",
+                    "Hyperactivity–impulsivity: talks more than the situation calls for",
+                    "Hyperactivity–impulsivity: answers before a question is finished",
+                    "Hyperactivity–impulsivity: finds waiting for a turn difficult",
+                    "Hyperactivity–impulsivity: interrupts or intrudes on conversations and activities"
                 ],
                 minimumSymptomCount: 6,
                 durationRequirement: "≥6 months",
@@ -657,11 +657,11 @@ struct PathologyStore {
             etiology: "Neurodevelopmental disorder with genetic susceptibility (~80% heritability) and environmental triggers (obstetric complications, urban upbringing, cannabis use). Dopamine, glutamate, and serotonin dysregulation.",
             dsm5Criteria: DSM5CriteriaData(
                 criterionA: [
-                    "Delusions — fixed false beliefs held despite contrary evidence",
-                    "Hallucinations — perceptions arising without any external stimulus",
-                    "Disorganized speech — derailment, tangentiality, or incoherence",
+                    "Delusions: fixed false beliefs held despite contrary evidence",
+                    "Hallucinations: perceptions arising without any external stimulus",
+                    "Disorganized speech: derailment, tangentiality, or incoherence",
                     "Grossly disorganized behavior or catatonia",
-                    "Negative symptoms — blunted emotional expression or loss of motivation (avolition)"
+                    "Negative symptoms: blunted emotional expression or loss of motivation (avolition)"
                 ],
                 minimumSymptomCount: 2,
                 durationRequirement: "≥6 months (including ≥1 month of active-phase symptoms)",
@@ -754,7 +754,7 @@ struct PathologyStore {
                     "The disorder requires obsessions, compulsions, or both",
                     "Obsessions are recurrent intrusive thoughts, urges, or images that feel unwanted and drive anxiety",
                     "The person tries to push these away or cancel them out, often by performing a compulsion",
-                    "Compulsions are repeated acts — washing, ordering, checking — or mental rituals such as counting or silent repeating",
+                    "Compulsions are repeated acts, such as washing, ordering, or checking, or mental rituals such as counting or silent repeating",
                     "The rituals are meant to relieve anxiety or ward off a feared outcome, though they are not realistically connected to it",
                     "Together the obsessions and compulsions consume significant time (often more than an hour a day)"
                 ],
@@ -845,30 +845,30 @@ struct PathologyStore {
             etiology: "Trauma exposure with failure of fear extinction learning. Amygdala-prefrontal circuit dysregulation. HPA axis abnormalities (low cortisol). Genetic vulnerability (~30% heritability).",
             dsm5Criteria: DSM5CriteriaData(
                 criterionA: [
-                    "Criterion A (exposure) — facing actual or threatened death, serious injury, or sexual violence, whether directly, by witnessing it, by learning it happened to someone close, or through repeated exposure to its aftermath",
-                    "Criterion B (intrusion, ≥1) — unbidden distressing memories of the event",
-                    "Intrusion — flashbacks in which the event feels like it is recurring",
-                    "Intrusion — distressing dreams tied to the event",
-                    "Intrusion — intense distress when reminded of the event",
-                    "Intrusion — strong bodily reactions to reminders",
-                    "Criterion C (avoidance, ≥1) — steering away from thoughts or feelings about the event",
-                    "Avoidance — steering away from people, places, or activities that recall it",
-                    "Criterion D (negative mood/cognition, ≥2) — unable to recall an important part of the event",
-                    "Negative cognition — persistent bleak beliefs about oneself or the world",
-                    "Negative cognition — distorted self-blame or blame of others for the event",
-                    "Negative mood — a lasting negative emotional state",
-                    "Negative mood — markedly reduced interest in activities",
-                    "Negative mood — feeling detached or estranged from others",
-                    "Negative mood — inability to feel positive emotions",
-                    "Criterion E (arousal, ≥2) — hypervigilance",
-                    "Arousal — an exaggerated startle response",
-                    "Arousal — irritability or angry outbursts",
-                    "Arousal — reckless or self-destructive behavior",
-                    "Arousal — difficulty concentrating",
-                    "Arousal — disturbed sleep"
+                    "Criterion A (exposure): facing actual or threatened death, serious injury, or sexual violence, whether directly, by witnessing it, by learning it happened to someone close, or through repeated exposure to its aftermath",
+                    "Criterion B (intrusion, ≥1): unbidden distressing memories of the event",
+                    "Intrusion: flashbacks in which the event feels like it is recurring",
+                    "Intrusion: distressing dreams tied to the event",
+                    "Intrusion: intense distress when reminded of the event",
+                    "Intrusion: strong bodily reactions to reminders",
+                    "Criterion C (avoidance, ≥1): steering away from thoughts or feelings about the event",
+                    "Avoidance: steering away from people, places, or activities that recall it",
+                    "Criterion D (negative mood/cognition, ≥2): unable to recall an important part of the event",
+                    "Negative cognition: persistent bleak beliefs about oneself or the world",
+                    "Negative cognition: distorted self-blame or blame of others for the event",
+                    "Negative mood: a lasting negative emotional state",
+                    "Negative mood: markedly reduced interest in activities",
+                    "Negative mood: feeling detached or estranged from others",
+                    "Negative mood: inability to feel positive emotions",
+                    "Criterion E (arousal, ≥2): hypervigilance",
+                    "Arousal: an exaggerated startle response",
+                    "Arousal: irritability or angry outbursts",
+                    "Arousal: reckless or self-destructive behavior",
+                    "Arousal: difficulty concentrating",
+                    "Arousal: disturbed sleep"
                 ],
                 minimumSymptomCount: nil,
-                durationRequirement: "≥1 month (intrusion ≥1, avoidance ≥1, negative mood/cognition ≥2, arousal ≥2)",
+                durationRequirement: ">1 month (intrusion ≥1, avoidance ≥1, negative mood/cognition ≥2, arousal ≥2)",
                 criterionBCDE: "F: The disturbance lasts more than a month and causes significant distress or impairment. G: Not attributable to a substance or medical condition. Specify: with dissociative symptoms (depersonalization or derealization); with delayed expression (full criteria not met until ≥6 months after the event). Wording is an original paraphrase of DSM-5-TR for study use.",
                 specifiers: [
                     "With dissociative symptoms: depersonalization",
@@ -1168,7 +1168,7 @@ struct PathologyStore {
                 otherModalities: []
             ),
             relatedStructures: ["parietal-inferior", "parietal-superior", "superior-temporal-sulcus", "prefrontal-cortex"],
-            epidemiology: "Occurs in ~25-30% of right hemisphere stroke patients acutely. Left neglect (from right hemisphere damage) is far more common and severe than right neglect.",
+            epidemiology: "Reported in roughly a quarter to half of patients acutely after right-hemisphere stroke; estimates vary widely with the assessment used. Left neglect (from right hemisphere damage) is far more common and severe than right neglect.",
             etiology: "Right hemisphere lesion disrupting spatial attention networks. Most commonly right MCA territory ischemic stroke involving parietal or temporal cortex."
         ),
 
@@ -1180,11 +1180,11 @@ struct PathologyStore {
             category: .epileptic,
             clinicalPresentation: ClinicalPresentation(
                 signsAndSymptoms: [
-                    "Focal seizures with dyscognitive features (formerly complex partial)",
+                    "Focal impaired awareness seizures (formerly complex partial)",
                     "Aura: rising epigastric sensation, deja vu, fear, olfactory hallucinations",
                     "Automatisms: lip smacking, hand rubbing, swallowing",
                     "Post-ictal confusion and aphasia (if left temporal)",
-                    "Possible secondary generalization (tonic-clonic)",
+                    "Possible focal to bilateral tonic-clonic seizures (formerly secondary generalization)",
                     "Interictal behavioral/personality changes (Geschwind syndrome)"
                 ],
                 observableBehaviors: [
@@ -1196,7 +1196,7 @@ struct PathologyStore {
                     "Memory complaints and cognitive difficulties"
                 ],
                 onset: "Often begins in childhood or adolescence. History of febrile seizures is common risk factor.",
-                progression: "Chronic condition. May become refractory to medications. Surgical resection curative in ~60-80% of mesial TLE."
+                progression: "Chronic condition. May become refractory to medications. Surgical resection leads to seizure freedom in roughly 60-80% of carefully selected patients with mesial TLE."
             ),
             neuropsychProfile: NeuropsychProfile(
                 cognitiveDomainsAffected: [
@@ -1276,7 +1276,7 @@ struct PathologyStore {
                     "Lacks concern about memory failures"
                 ],
                 onset: "Typically develops after untreated Wernicke encephalopathy. Chronic alcohol use is most common cause.",
-                progression: "Persistent once established. ~25% recover partially with thiamine treatment and abstinence. Most have chronic memory impairment."
+                progression: "Persistent once established. With thiamine and abstinence, roughly a quarter recover substantially and about half improve partially; many retain lasting memory impairment."
             ),
             neuropsychProfile: NeuropsychProfile(
                 cognitiveDomainsAffected: [
@@ -1325,7 +1325,7 @@ struct PathologyStore {
                 otherModalities: []
             ),
             relatedStructures: ["mammillary-bodies", "thalamus", "hippocampus", "fornix"],
-            epidemiology: "Occurs in ~12.5% of chronic alcohol users. Often underdiagnosed. Prevalence in alcohol-dependent populations estimated at 10-12%.",
+            epidemiology: "Autopsy studies find Wernicke-Korsakoff lesions in roughly 12-13% of people with alcohol dependence, far more than are diagnosed during life.",
             etiology: "Thiamine (vitamin B1) deficiency, most commonly from chronic alcoholism. Also occurs with malnutrition, bariatric surgery, prolonged vomiting, or hyperemesis gravidarum."
         ),
 
@@ -1408,9 +1408,9 @@ struct PathologyStore {
             etiology: "Highly heritable (~80%). Polygenetic with hundreds of risk genes. Prenatal environmental factors (advanced parental age, prenatal infections, valproate exposure). Altered neural connectivity and synaptic function.",
             dsm5Criteria: DSM5CriteriaData(
                 criterionA: [
-                    "All THREE social-communication deficits are required. First — reduced social and emotional give-and-take, such as little shared interest or affect and difficulty with ordinary back-and-forth conversation",
-                    "Second — differences in nonverbal communication, such as reduced eye contact, atypical body language, or gesture and speech that do not fit together",
-                    "Third — difficulty forming, keeping, and understanding relationships, such as trouble adapting to social settings or limited interest in peers"
+                    "First: reduced social and emotional give-and-take, such as little shared interest or affect and difficulty with ordinary back-and-forth conversation",
+                    "Second: differences in nonverbal communication, such as reduced eye contact, atypical body language, or gesture and speech that do not fit together",
+                    "Third: difficulty forming, keeping, and understanding relationships, such as trouble adapting to social settings or limited interest in peers"
                 ],
                 minimumSymptomCount: nil,
                 durationRequirement: "Present in early development (may surface only once social demands exceed capacity)",
@@ -1457,12 +1457,12 @@ struct PathologyStore {
                 cognitiveDomainsAffected: [
                     CognitiveDomain(domain: "Visual Recognition", severity: .severe, description: "Visual agnosia: inability to recognize objects by sight despite intact vision."),
                     CognitiveDomain(domain: "Emotional Processing", severity: .severe, description: "Absent fear response, emotional blunting, inability to evaluate threat."),
-                    CognitiveDomain(domain: "Memory", severity: .severe, description: "Severe amnesia (bilateral temporal lobe involvement damages hippocampi).")
+                    CognitiveDomain(domain: "Memory", severity: .variable, description: "Not a core feature, but severe amnesia is common when the hippocampi are also damaged (e.g., herpes simplex encephalitis).")
                 ],
                 expectedTestPatterns: [
                     "Object recognition: Severely impaired visually (may identify by touch/sound)",
                     "Fear conditioning: Absent or markedly reduced",
-                    "Memory testing: Severe anterograde amnesia",
+                    "Memory testing: Severe anterograde amnesia when the hippocampi are involved",
                     "Behavioral observation reveals full syndrome"
                 ],
                 preservedFunctions: [

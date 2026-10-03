@@ -204,111 +204,229 @@ enum QuizQuestionTemplate: CaseIterable {
 
 enum PathologyQuestionTemplate {
 
+    // MARK: - Distractor safety
+    //
+    // Every multiple-choice question here builds its wrong answers from OTHER disorders'
+    // data. That is only safe if the borrowed answer is actually false for the disorder
+    // being asked about, and many disorders share findings (impaired CVLT recall in
+    // Alzheimer's, PTSD, TLE and Korsakoff; hippocampal volume loss in three of them;
+    // "standard testing impossible" for both locked-in and akinetic mutism). Without a
+    // guard a student gets marked wrong for a correct answer. Two guards apply:
+    //   1. Distractors only come from a disorder in a different clinical family.
+    //   2. A distractor is rejected if it shares a key concept with anything listed for
+    //      the target disorder.
+
+    /// Disorders whose test patterns, imaging, or criteria overlap enough that one can
+    /// never serve as a wrong answer for another.
+    private static let family: [String: Int] = [
+        // Memory / mesial temporal
+        "alzheimers-disease": 1, "ptsd": 1, "temporal-lobe-epilepsy": 1, "korsakoff-syndrome": 1, "kluver-bucy": 1,
+        // Frontostriatal / executive / neurodevelopmental
+        "frontotemporal-dementia": 2, "ocd": 2, "parkinsons-disease": 2, "huntingtons-disease": 2,
+        "adhd": 2, "schizophrenia": 2, "autism-spectrum": 2,
+        // Brainstem and states where testing is impossible or normal
+        "wallenberg-syndrome": 3, "locked-in-syndrome": 3, "akinetic-mutism": 3,
+        // Language and MCA territory
+        "stroke-mca": 4, "brocas-aphasia": 4, "wernickes-aphasia": 4, "hemispatial-neglect": 4,
+        // Higher visual / disconnection
+        "prosopagnosia": 5, "split-brain-syndrome": 5,
+    ]
+
+    /// Concepts that are clinically the same even when worded differently.
+    private static let synonyms: [(stem: String, concept: String)] = [
+        ("concentrat", "attention"), ("attent", "attention"), ("focus", "attention"), ("distract", "attention"),
+        ("sleep", "sleep"), ("irritab", "irritability"), ("anger", "irritability"), ("angry", "irritability"),
+        ("outburst", "irritability"), ("impuls", "impulsivity"), ("reckless", "impulsivity"),
+        ("forget", "memory"), ("recall", "memory"), ("remember", "memory"), ("amnesi", "memory"),
+        ("ritual", "repetition"), ("routine", "repetition"), ("repetit", "repetition"), ("stereotyp", "repetition"),
+        ("ventric", "ventricles"), ("hippocamp", "hippocampus"), ("caudate", "caudate"),
+        ("restless", "restlessness"), ("fidget", "restlessness"), ("delusion", "delusion"), ("hallucinat", "hallucination"),
+        ("normal", "normal"), ("impossible", "untestable"),
+    ]
+    private static let stopWords: Set<String> = [
+        "impaired", "reduced", "increased", "finding", "findings", "replicated", "lesion", "lesions", "volume",
+        "often", "relatively", "preserved", "pattern", "patterns", "severely", "marked", "showing", "during",
+        "activities", "others", "things",
+    ]
+
+    private static func concepts(_ text: String) -> Set<String> {
+        let words = text.lowercased().split { !$0.isLetter }.map(String.init)
+        var out = Set<String>()
+        for w in words where w.count >= 5 && !stopWords.contains(w) {
+            if let hit = synonyms.first(where: { w.hasPrefix($0.stem) }) { out.insert("#" + hit.concept) }
+            else { out.insert(w) }
+        }
+        return out
+    }
+
+    /// True when `candidate` would plausibly also be a correct answer for the target.
+    private static func overlaps(_ candidate: String, with targetTexts: [String]) -> Bool {
+        let c = concepts(candidate)
+        let t = targetTexts.reduce(into: Set<String>()) { $0.formUnion(concepts($1)) }
+        let shared = c.intersection(t)
+        // One shared clinical concept (e.g. both about attention) is enough; plain words need two.
+        return shared.contains { $0.hasPrefix("#") } || shared.count >= 2
+    }
+
+    private static func safeDistractors(
+        for pathology: Pathology,
+        from all: [Pathology],
+        targetTexts: [String],
+        candidates: (Pathology) -> [String],
+        count: Int = 3
+    ) -> [String]? {
+        let fam = family[pathology.id]
+        var seen = Set<String>(targetTexts)
+        var out: [String] = []
+        for other in all.shuffled() where other.id != pathology.id && (fam == nil || family[other.id] != fam) {
+            for text in candidates(other).shuffled() {
+                guard !seen.contains(text), !overlaps(text, with: targetTexts) else { continue }
+                seen.insert(text); out.append(text); break
+            }
+            if out.count == count { break }
+        }
+        // Better no question than a two-choice question.
+        return out.count == count ? out : nil
+    }
+
+    /// Criteria are stored with a leading label ("INATTENTION domain: ...") for the
+    /// detail screen. In a quiz the label would give away which disorder a line is from.
+    private static func symptomText(_ item: String) -> String {
+        guard let range = item.range(of: ": ") else { return item }
+        let text = item[range.upperBound...]
+        return text.prefix(1).uppercased() + text.dropFirst()
+    }
+
+    /// Criterion items that are not symptoms (PTSD's exposure requirement) or that only
+    /// introduce a rule must not be offered as "a symptom".
+    private static func symptoms(of criteria: DSM5CriteriaData) -> [String] {
+        criteria.criterionA
+            .filter { !$0.hasPrefix("Criterion A (exposure)") && !$0.hasPrefix("The disorder requires") }
+            .map(symptomText)
+    }
+
+    private static func firstSentence(_ text: String) -> String {
+        guard let end = text.range(of: ". ") else { return text }
+        return String(text[..<end.lowerBound]) + "."
+    }
+
+    // MARK: - Templates
+
     /// DSM-5: How many Criterion A symptoms are required?
     static func dsm5SymptomCount(for pathology: Pathology, allPathologies: [Pathology]) -> PathologyQuizQuestion? {
         guard let criteria = pathology.dsm5Criteria,
               let minimum = criteria.minimumSymptomCount else { return nil }
 
         let correct = "\(minimum) or more"
-        let distractors: [String] = {
-            let pool = [minimum - 1, minimum + 1, minimum + 2, minimum - 2]
-                .filter { $0 > 0 && $0 != minimum }
-                .map { "\($0) or more" }
-            return Array(Set(pool)).shuffled()
-        }()
-        let choices = (distractors.prefix(3) + [correct]).shuffled()
+        let pool = [minimum - 1, minimum + 1, minimum + 2, minimum - 2]
+            .filter { $0 > 0 && $0 != minimum }
+            .map { "\($0) or more" }
+        let choices = (Array(Set(pool)).shuffled().prefix(3) + [correct]).shuffled()
+
+        // ADHD's threshold applies within ONE domain (and drops to 5 at age 17), so the
+        // question has to say so or "6 of 18 symptoms" reads as correct.
+        let perDomain = criteria.criterionBCDE.contains("SINGLE domain")
+        let prompt = perDomain
+            ? "Under DSM-5, how many symptoms within a single domain (inattention or hyperactivity–impulsivity) are required for a diagnosis of \(pathology.name) before age 17?"
+            : "According to DSM-5, a diagnosis of \(pathology.name) requires at least how many Criterion A symptoms?"
 
         return PathologyQuizQuestion(
             pathology: pathology,
-            prompt: "According to DSM-5, a diagnosis of \(pathology.name) requires at least how many Criterion A symptoms?",
+            prompt: prompt,
             choices: Array(choices),
             correctAnswer: correct,
             sourceReference: .dsm5,
-            explanation: "DSM-5 Criterion A for \(pathology.name) specifies \(minimum) or more of the listed symptoms. Duration: \(criteria.durationRequirement)."
+            explanation: firstSentence(criteria.criterionBCDE)
         )
     }
 
-    /// DSM-5: Duration requirement question
+    /// DSM-5: How long must symptoms be present?
     static func dsm5Duration(for pathology: Pathology, allPathologies: [Pathology]) -> PathologyQuizQuestion? {
         guard let criteria = pathology.dsm5Criteria else { return nil }
 
-        let correct = criteria.durationRequirement
-        let durationPool = ["≥1 week", "≥2 weeks", "≥1 month", "≥3 months",
-                            "≥6 months", "≥1 year", "≥2 years", "Most of the day, nearly every day for ≥2 weeks"]
-            .filter { $0 != correct }
-        let choices = (Array(durationPool.shuffled().prefix(3)) + [correct]).shuffled()
+        // Only disorders with an actual DSM duration criterion. OCD and autism have none,
+        // and the old version asked anyway with a non-duration "correct" answer.
+        let canonical = criteria.durationRequirement
+            .components(separatedBy: " (").first?
+            .trimmingCharacters(in: .whitespaces) ?? ""
+        guard canonical.hasPrefix("≥") || canonical.hasPrefix(">") else { return nil }
+
+        // Compare on the span alone so "≥1 month" can never be offered as a wrong answer
+        // when the real criterion is ">1 month".
+        func span(_ s: String) -> String { s.trimmingCharacters(in: CharacterSet(charactersIn: "≥> ")) }
+        let pool = ["≥1 week", "≥2 weeks", "≥1 month", "≥3 months", "≥6 months", "≥1 year", "≥2 years"]
+            .filter { span($0) != span(canonical) }
+        let choices = (Array(pool.shuffled().prefix(3)) + [canonical]).shuffled()
 
         return PathologyQuizQuestion(
             pathology: pathology,
-            prompt: "According to DSM-5, symptoms of \(pathology.name) must be present for:",
+            prompt: "According to DSM-5, how long must the symptoms of \(pathology.name) be present?",
             choices: choices,
-            correctAnswer: correct,
+            correctAnswer: canonical,
             sourceReference: .dsm5,
-            explanation: "DSM-5 specifies a duration of \(correct) for \(pathology.name) (\(criteria.criterionBCDE))."
+            explanation: "DSM-5 requires \(criteria.durationRequirement) for \(pathology.name)."
         )
     }
 
-    /// DSM-5: Which is NOT a Criterion A symptom?
+    /// DSM-5: Which of these is NOT a Criterion A symptom?
     static func dsm5NotACriterion(for pathology: Pathology, allPathologies: [Pathology]) -> PathologyQuizQuestion? {
-        guard let criteria = pathology.dsm5Criteria, criteria.criterionA.count >= 3 else { return nil }
+        guard let criteria = pathology.dsm5Criteria else { return nil }
+        let real = symptoms(of: criteria)
+        guard real.count >= 3 else { return nil }
+        let targetTexts = criteria.criterionA + [criteria.criterionBCDE]
 
-        // Pull a distractor symptom from a different disorder
-        let otherPathologies = allPathologies.filter { $0.id != pathology.id }
-        guard let otherCriteria = otherPathologies.compactMap({ $0.dsm5Criteria }).first,
-              let distractor = otherCriteria.criterionA.first(where: { !criteria.criterionA.contains($0) }) else {
-            return nil
-        }
+        guard let distractor = safeDistractors(
+            for: pathology, from: allPathologies, targetTexts: targetTexts,
+            candidates: { $0.dsm5Criteria.map(symptoms(of:)) ?? [] }, count: 1
+        )?.first else { return nil }
 
-        let realSymptoms = Array(criteria.criterionA.shuffled().prefix(3))
-        let choices = (realSymptoms + [distractor]).shuffled()
-
+        let shown = Array(real.shuffled().prefix(3))
         return PathologyQuizQuestion(
             pathology: pathology,
-            prompt: "According to DSM-5, which of the following is NOT a Criterion A symptom for \(pathology.name)?",
-            choices: choices,
+            prompt: "Which of the following is NOT a DSM-5 Criterion A feature of \(pathology.name)?",
+            choices: (shown + [distractor]).shuffled(),
             correctAnswer: distractor,
             sourceReference: .dsm5,
-            explanation: "\"\(distractor)\" is not part of \(pathology.name)'s DSM-5 Criterion A. The actual criteria include: \(realSymptoms.joined(separator: "; "))."
+            explanation: "\"\(distractor)\" is not part of \(pathology.name)'s Criterion A. The other three are."
         )
     }
 
-    /// Lezak: Which neuropsych test pattern matches this disorder?
+    /// Neuropsychology: Which test pattern fits this disorder?
     static func neuropsychProfile(for pathology: Pathology, allPathologies: [Pathology]) -> PathologyQuizQuestion? {
         let patterns = pathology.neuropsychProfile.expectedTestPatterns
         guard let correct = patterns.first else { return nil }
+        let targetTexts = patterns + pathology.neuropsychProfile.cognitiveDomainsAffected.map(\.description)
 
-        let otherPatterns = allPathologies
-            .filter { $0.id != pathology.id }
-            .compactMap { $0.neuropsychProfile.expectedTestPatterns.first }
-            .filter { $0 != correct }
-
-        let choices = (Array(otherPatterns.shuffled().prefix(3)) + [correct]).shuffled()
+        guard let wrong = safeDistractors(
+            for: pathology, from: allPathologies, targetTexts: targetTexts,
+            candidates: { $0.neuropsychProfile.expectedTestPatterns.prefix(1).map { $0 } }
+        ) else { return nil }
 
         return PathologyQuizQuestion(
             pathology: pathology,
             prompt: "On neuropsychological testing, which pattern is most consistent with \(pathology.name)?",
-            choices: choices,
+            choices: (wrong + [correct]).shuffled(),
             correctAnswer: correct,
             sourceReference: .lezak,
             explanation: "\(pathology.name) typically shows: \(correct)."
         )
     }
 
-    /// Brain Imaging: Classic imaging finding for this condition
+    /// Imaging: Which MRI finding is characteristic?
     static func imagingFindings(for pathology: Pathology, allPathologies: [Pathology]) -> PathologyQuizQuestion? {
-        guard let correct = pathology.neuroimaging.mri.first else { return nil }
+        let mri = pathology.neuroimaging.mri
+        guard let correct = mri.first else { return nil }
+        let targetTexts = mri + pathology.neuroimaging.ct + pathology.neuroimaging.pet
 
-        let otherFindings = allPathologies
-            .filter { $0.id != pathology.id }
-            .compactMap { $0.neuroimaging.mri.first }
-            .filter { $0 != correct }
-
-        let choices = (Array(otherFindings.shuffled().prefix(3)) + [correct]).shuffled()
+        guard let wrong = safeDistractors(
+            for: pathology, from: allPathologies, targetTexts: targetTexts,
+            candidates: { $0.neuroimaging.mri.prefix(1).map { $0 } }
+        ) else { return nil }
 
         return PathologyQuizQuestion(
             pathology: pathology,
             prompt: "On MRI, \(pathology.name) characteristically shows:",
-            choices: choices,
+            choices: (wrong + [correct]).shuffled(),
             correctAnswer: correct,
             sourceReference: .brainImaging,
             explanation: "Brain imaging in \(pathology.name): \(correct)."

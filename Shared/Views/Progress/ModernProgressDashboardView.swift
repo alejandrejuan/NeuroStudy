@@ -6,7 +6,6 @@ import Charts
 /// Enhanced progress tracking with data visualization and Liquid Glass design
 struct ModernProgressDashboardView: View {
     let progressStore: ProgressStore
-    @State private var appeared = false
     @State private var selectedTimeframe: Timeframe = .week
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
@@ -50,33 +49,19 @@ struct ModernProgressDashboardView: View {
                     VStack(spacing: 20) {
                         // Hero progress card
                         heroProgressCard
-                            .opacity(appeared ? 1 : 0)
-                            .offset(y: appeared ? 0 : 12)
                         
                         // Achievement highlights
                         achievementsSection
-                            .opacity(appeared ? 1 : 0)
-                            .offset(y: appeared ? 0 : 10)
                         
                         // Activity chart
                         activityChartSection
-                            .opacity(appeared ? 1 : 0)
-                            .offset(y: appeared ? 0 : 8)
                         
                         // Region breakdown
                         regionBreakdownSection
-                            .opacity(appeared ? 1 : 0)
-                            .offset(y: appeared ? 0 : 6)
                         
                         // Due for review
                         dueForReviewSection
-                            .opacity(appeared ? 1 : 0)
-                            .offset(y: appeared ? 0 : 4)
                         
-                        // All structures mastery
-                        masteryListSection
-                            .opacity(appeared ? 1 : 0)
-                            .offset(y: appeared ? 0 : 2)
                     }
                     .padding(.horizontal, 16)
                     .padding(.top, 8)
@@ -86,13 +71,10 @@ struct ModernProgressDashboardView: View {
                 }
                 .softScrollEdges()
             }
-            .navigationTitle("Your Progress")
+            .navigationTitle("Progress")
             #if os(iOS)
             .navigationBarTitleDisplayMode(.large)
             #endif
-            .task {
-                await animateAppearance()
-            }
         }
     }
     
@@ -118,9 +100,10 @@ struct ModernProgressDashboardView: View {
                     
                     Text("\(progressStore.masteredCount()) of \(BrainStructureStore.all.count) structures")
                         .font(.microText)
-                        .foregroundStyle(.tertiary)
+                        .foregroundStyle(.secondary)
                 }
             }
+            .frame(maxWidth: .infinity)
         }
     }
     
@@ -441,30 +424,8 @@ struct ModernProgressDashboardView: View {
     
     // MARK: - Mastery List Section
     
-    private var masteryListSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("All Structures")
-                .font(.sectionHeader)
-                .padding(.horizontal, 4)
-            
-            LazyVStack(spacing: 8) {
-                ForEach(BrainStructureStore.all) { structure in
-                    CompactStructureRow(
-                        structure: structure,
-                        progress: progressStore.progress(for: structure.id)
-                    )
-                }
-            }
-        }
-    }
-    
     // MARK: - Helper Methods
     
-    private func animateAppearance() async {
-        withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
-            appeared = true
-        }
-    }
 }
 
 // MARK: - Compact Structure Row Component
