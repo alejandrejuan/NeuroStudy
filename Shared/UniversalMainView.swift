@@ -183,16 +183,15 @@ struct AboutView: View {
             VStack(spacing: 24) {
                 // App Icon and Title
                 VStack(spacing: 12) {
-                    Image(systemName: "brain.head.profile")
-                        .font(.system(size: 80))
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [.blue, .purple],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                    
+                    // The real app icon, rendered from AppIcon.icon by ictool (light and
+                    // dark variants). The PNG already carries the squircle mask.
+                    Image("AppIconDisplay")
+                        .resizable()
+                        .interpolation(.high)
+                        .frame(width: 112, height: 112)
+                        .shadow(color: .black.opacity(0.18), radius: 12, y: 6)
+                        .accessibilityLabel("NeuroStudy app icon")
+
                     Text("NeuroStudy")
                         .font(.system(.largeTitle, design: .rounded, weight: .bold))
                     

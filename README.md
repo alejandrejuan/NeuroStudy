@@ -1,4 +1,6 @@
-# NeuroStudy — Project Structure
+<p align="center"><img src="docs/assets/icon.png" width="128" alt="NeuroStudy app icon"></p>
+
+# NeuroStudy: Project Structure
 
 This is the canonical home for the NeuroStudy iOS/iPadOS app.
 
