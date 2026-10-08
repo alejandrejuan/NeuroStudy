@@ -91,7 +91,7 @@ struct ModernProgressDashboardView: View {
             HStack(spacing: 22) {
                 OptimizedCircularProgress(
                     progress: overallMasteryProgress,
-                    label: "Mastery",
+                    label: "",
                     lineWidth: 12,
                     size: 116
                 )
@@ -109,7 +109,7 @@ struct ModernProgressDashboardView: View {
                             .foregroundStyle(.secondary)
                     }
                     Text("structures")
-                        .font(.footnote)
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
                 .monospacedDigit()
@@ -129,21 +129,21 @@ struct ModernProgressDashboardView: View {
 
     private var statsRow: some View {
         HStack(spacing: 0) {
-            stat("Studied", value: "\(progressStore.studiedCount())", symbol: "book.fill", color: Theme.violet)
+            stat("Studied", value: "\(progressStore.studiedCount())", symbol: "book.fill")
             Divider().padding(.vertical, 14)
-            stat("Accuracy", value: "\(Int(progressStore.overallAccuracy() * 100))%", symbol: "target", color: Theme.emerald)
+            stat("Accuracy", value: "\(Int(progressStore.overallAccuracy() * 100))%", symbol: "target")
             Divider().padding(.vertical, 14)
-            stat("Due", value: "\(progressStore.dueForReview().count)", symbol: "clock.arrow.circlepath", color: .orange)
+            stat("Due", value: "\(progressStore.dueForReview().count)", symbol: "clock.arrow.circlepath")
         }
         .contentSurface()
     }
 
-    private func stat(_ title: String, value: String, symbol: String, color: Color) -> some View {
+    private func stat(_ title: String, value: String, symbol: String) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             Label(title.uppercased(), systemImage: symbol)
                 .font(.statLabel)
                 .foregroundStyle(.secondary)
-                .labelStyle(StatLabelStyle(color: color))
+                .labelStyle(StatLabelStyle())
             Text(value)
                 .font(.numeral(26))
                 .monospacedDigit()
@@ -194,7 +194,7 @@ struct ModernProgressDashboardView: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                 Text("Answer a few quiz questions and your activity will show up here.")
-                    .font(.caption)
+                    .font(.footnote)
                     .foregroundStyle(.tertiary)
                     .multilineTextAlignment(.center)
             }
@@ -277,7 +277,7 @@ struct ModernProgressDashboardView: View {
                 }
                 if dueIDs.count > 5 {
                     Text("\(dueIDs.count - 5) more in your next review")
-                        .font(.footnote)
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .padding(.horizontal, 4)
                 }
@@ -288,12 +288,11 @@ struct ModernProgressDashboardView: View {
 
 // MARK: - Stat Label Style
 
-/// A tinted symbol beside an uppercase caption.
+/// A symbol beside an uppercase caption, tighter than the default Label spacing.
 private struct StatLabelStyle: LabelStyle {
-    let color: Color
     func makeBody(configuration: Configuration) -> some View {
         HStack(spacing: 4) {
-            configuration.icon.foregroundStyle(color)
+            configuration.icon
             configuration.title
         }
     }
@@ -319,7 +318,7 @@ struct CompactStructureRow: View {
                         Text("Not yet studied")
                     }
                 }
-                .font(.footnote)
+                .font(.subheadline)
                 .foregroundStyle(.secondary)
             }
 

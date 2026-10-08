@@ -177,14 +177,26 @@ struct ModernMasteryBadge: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     
     var body: some View {
+        if showLabel {
+            labeled
+        } else {
+            // In a list, status is a quiet dot; the full badge is for detail views.
+            Circle()
+                .fill(masteryColor)
+                .frame(width: 8, height: 8)
+                .accessibilityLabel(level.rawValue)
+        }
+    }
+
+    private var labeled: some View {
         HStack(spacing: 3) {
             Image(systemName: level.sfSymbol)
-                .font(.system(size: 9, weight: .semibold))
+                .font(.system(size: 10, weight: .semibold))
                 .scaleEffect(pulseAnimation && level == .mastered ? 1.1 : 1.0)
             
             if showLabel {
                 Text(level.rawValue)
-                    .font(.system(size: 10, weight: .semibold))
+                    .font(.system(size: 11.5, weight: .semibold))
             }
         }
         .padding(.horizontal, showLabel ? 7 : 5)
@@ -260,9 +272,11 @@ struct OptimizedCircularProgress: View {
                 Text("\(Int(animatedProgress * 100))%")
                     .font(.numeral(size * 0.2))
                     .contentTransition(.numericText())
-                Text(label.uppercased())
-                    .font(.statLabel)
-                    .foregroundStyle(.secondary)
+                if !label.isEmpty {
+                    Text(label.uppercased())
+                        .font(.statLabel)
+                        .foregroundStyle(.secondary)
+                }
             }
         }
         .frame(width: size, height: size)

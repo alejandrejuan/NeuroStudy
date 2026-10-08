@@ -64,7 +64,7 @@ struct QuizResultsView: View {
                             .font(.body)
                         if let function = question.targetStructure.functions.first {
                             Text(function)
-                                .font(.footnote)
+                                .font(.subheadline)
                                 .foregroundStyle(.secondary)
                                 .lineLimit(1)
                         }

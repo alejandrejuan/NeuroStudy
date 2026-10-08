@@ -112,7 +112,7 @@ struct PathologyQuizView: View {
         ) {
             VStack(alignment: .leading, spacing: 14) {
                 Text(question.explanation)
-                    .font(.callout)
+                    .font(.body)
                     .foregroundStyle(.secondary)
                     .lineLimit(6)
                     .fixedSize(horizontal: false, vertical: true)
@@ -159,11 +159,11 @@ struct PathologyResultsView: View {
                                     Text(question.pathology.name)
                                         .font(.body.weight(.semibold))
                                     Text(question.prompt)
-                                        .font(.footnote)
+                                        .font(.subheadline)
                                         .foregroundStyle(.secondary)
                                         .lineLimit(2)
                                     Text("Answer: \(question.correctAnswer)")
-                                        .font(.footnote.weight(.medium))
+                                        .font(.subheadline.weight(.medium))
                                         .foregroundStyle(Theme.emerald)
                                         .lineLimit(2)
                                 }

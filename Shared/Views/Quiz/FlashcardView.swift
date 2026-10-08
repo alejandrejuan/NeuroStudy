@@ -35,7 +35,7 @@ struct FlashcardQuizView: View {
                                 .transition(.move(edge: .bottom).combined(with: .opacity))
                         } else {
                             Label("Tap the card to reveal", systemImage: "hand.tap")
-                                .font(.footnote.weight(.medium))
+                                .font(.subheadline.weight(.medium))
                                 .foregroundStyle(.secondary)
                         }
                     }
@@ -100,16 +100,15 @@ struct FlashcardQuizView: View {
                             .minimumScaleFactor(0.7)
                         if let alias = structure.aliases.first {
                             Text(alias)
-                                .font(.callout)
+                                .font(.body)
                                 .foregroundStyle(.secondary)
                         }
                         Spacer(minLength: 0)
-                        SourceReferenceBadge(reference: question.sourceReference)
                     }
                     .frame(maxWidth: .infinity)
                 } else {
                     VStack(alignment: .leading, spacing: 16) {
-                        backSection("Functions", color: Theme.violet) {
+                        backSection("Functions") {
                             VStack(alignment: .leading, spacing: 6) {
                                 ForEach(structure.functions, id: \.self) { function in
                                     Label {
@@ -125,18 +124,18 @@ struct FlashcardQuizView: View {
 
                         Divider()
 
-                        backSection("Clinical Significance", color: .orange) {
+                        backSection("Clinical Significance") {
                             Text(structure.clinicalSignificance)
-                                .font(.callout)
+                                .font(.body)
                                 .foregroundStyle(.secondary)
                                 .lineLimit(5)
                         }
 
                         if !structure.associatedDisorders.isEmpty {
                             Divider()
-                            backSection("Disorders", color: .red) {
+                            backSection("Disorders") {
                                 Text(structure.associatedDisorders.joined(separator: ", "))
-                                    .font(.callout)
+                                    .font(.body)
                                     .foregroundStyle(.secondary)
                             }
                         }
@@ -148,11 +147,11 @@ struct FlashcardQuizView: View {
         }
     }
 
-    private func backSection<Content: View>(_ title: String, color: Color, @ViewBuilder content: () -> Content) -> some View {
+    private func backSection<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title.uppercased())
                 .font(.statLabel)
-                .foregroundStyle(color)
+                .foregroundStyle(.secondary)
             content()
         }
     }

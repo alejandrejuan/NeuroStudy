@@ -33,16 +33,18 @@ extension Font {
     }
 
     /// Small uppercase label that sits above or below a numeral.
-    static let statLabel = Font.system(.caption2, weight: .semibold)
+    static let statLabel = Font.system(.caption, weight: .semibold)
 }
 
 // MARK: - App Background
 
 /// The single background for every screen.
 ///
-/// A static mesh, deliberately not animated and never rasterized with `.drawingGroup()`,
-/// so Liquid Glass above it has real colour to refract. Under Reduce Transparency it
-/// falls back to the plain grouped background, since the glow is purely decorative.
+/// A static mesh, heavily blurred so the colours melt into one another with no
+/// visible seams, under a fixed film grain like Apple Invites' backgrounds. Nothing
+/// animates and nothing is rasterized with `.drawingGroup()`, so Liquid Glass above
+/// it has real colour to refract. Reduce Transparency drops both the glow and the
+/// grain for the plain grouped background, since they are purely decorative.
 struct AppBackground: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
@@ -52,9 +54,12 @@ struct AppBackground: View {
             base
             if !reduceTransparency {
                 glow
+                    .blur(radius: 60, opaque: true)
+                grain
             }
         }
         .ignoresSafeArea()
+        .accessibilityHidden(true)
     }
 
     private var isDark: Bool { colorScheme == .dark }
@@ -64,8 +69,8 @@ struct AppBackground: View {
         if reduceTransparency { return Color(uiColor: .systemGroupedBackground) }
         #endif
         return isDark
-            ? Color(red: 0.035, green: 0.035, blue: 0.065)
-            : Color(red: 0.962, green: 0.960, blue: 0.980)
+            ? Color(red: 0.040, green: 0.040, blue: 0.065)
+            : Color(red: 0.965, green: 0.963, blue: 0.980)
     }
 
     @ViewBuilder
@@ -75,7 +80,7 @@ struct AppBackground: View {
                 width: 3, height: 3,
                 points: [
                     [0, 0], [0.5, 0], [1, 0],
-                    [0, 0.42], [0.58, 0.36], [1, 0.48],
+                    [0, 0.45], [0.55, 0.40], [1, 0.42],
                     [0, 1], [0.5, 1], [1, 1],
                 ],
                 colors: meshColors
@@ -90,23 +95,59 @@ struct AppBackground: View {
     }
 
     /// Violet top-left, emerald top-right, both settling into the base by mid-screen.
+    /// Kept a touch below full saturation so the glow reads as light, not paint.
     private var meshColors: [Color] {
+        let b = base
         if isDark {
-            let b = base
             return [
-                Color(red: 0.25, green: 0.17, blue: 0.60), Color(red: 0.17, green: 0.12, blue: 0.42), Color(red: 0.03, green: 0.30, blue: 0.23),
-                Color(red: 0.10, green: 0.075, blue: 0.21), Color(red: 0.06, green: 0.055, blue: 0.12), Color(red: 0.03, green: 0.14, blue: 0.11),
+                Color(red: 0.22, green: 0.16, blue: 0.52), Color(red: 0.15, green: 0.11, blue: 0.36), Color(red: 0.05, green: 0.25, blue: 0.20),
+                Color(red: 0.09, green: 0.075, blue: 0.18), Color(red: 0.06, green: 0.055, blue: 0.11), Color(red: 0.05, green: 0.10, blue: 0.09),
                 b, b, b,
             ]
         } else {
-            let b = base
             return [
-                Color(red: 0.83, green: 0.80, blue: 0.99), Color(red: 0.89, green: 0.87, blue: 0.99), Color(red: 0.78, green: 0.94, blue: 0.87),
-                Color(red: 0.93, green: 0.92, blue: 0.99), Color(red: 0.955, green: 0.952, blue: 0.985), Color(red: 0.91, green: 0.965, blue: 0.94),
+                Color(red: 0.85, green: 0.83, blue: 0.98), Color(red: 0.90, green: 0.89, blue: 0.98), Color(red: 0.82, green: 0.94, blue: 0.89),
+                Color(red: 0.935, green: 0.93, blue: 0.985), Color(red: 0.955, green: 0.953, blue: 0.982), Color(red: 0.925, green: 0.96, blue: 0.945),
                 b, b, b,
             ]
         }
     }
+
+    /// Film grain: a fixed monochrome noise tile, repeated. Faint enough to feel like
+    /// texture rather than noise, slightly stronger in dark mode where it would vanish.
+    @ViewBuilder
+    private var grain: some View {
+        if let tile = FilmGrain.tile {
+            Image(decorative: tile, scale: 2)
+                .interpolation(.none)
+                .resizable(resizingMode: .tile)
+                .opacity(isDark ? 0.07 : 0.07)
+                .blendMode(isDark ? .screen : .multiply)
+                .allowsHitTesting(false)
+        }
+    }
+}
+
+/// One noise tile, generated once from a fixed seed so the grain never shimmers or
+/// changes between screens.
+private enum FilmGrain {
+    static let tile: CGImage? = {
+        let size = 256
+        var state: UInt64 = 0x9E37_79B9_7F4A_7C15
+        var pixels = [UInt8](repeating: 0, count: size * size)
+        for i in pixels.indices {
+            state = state &* 6_364_136_223_846_793_005 &+ 1_442_695_040_888_963_407
+            pixels[i] = UInt8(truncatingIfNeeded: state >> 56)
+        }
+        guard let provider = CGDataProvider(data: Data(pixels) as CFData) else { return nil }
+        return CGImage(
+            width: size, height: size,
+            bitsPerComponent: 8, bitsPerPixel: 8, bytesPerRow: size,
+            space: CGColorSpaceCreateDeviceGray(),
+            bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue),
+            provider: provider, decode: nil, shouldInterpolate: false, intent: .defaultIntent
+        )
+    }()
 }
 
 // MARK: - Content Surface

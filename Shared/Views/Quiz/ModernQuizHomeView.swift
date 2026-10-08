@@ -109,7 +109,7 @@ struct ModernQuizHomeView: View {
                  ? "Spaced repetition brings these back right before you would forget them."
                  : selectedRegion.map { "\(questionCount) questions on the \($0.displayName)." }
                     ?? "\(questionCount) questions from across the atlas.")
-                .font(.subheadline)
+                .font(.callout)
                 .foregroundStyle(.white.opacity(0.8))
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 2)
@@ -163,7 +163,7 @@ struct ModernQuizHomeView: View {
                         .font(.body.weight(.semibold))
                         .foregroundStyle(.primary)
                     Text(mode.description)
-                        .font(.footnote)
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 }
@@ -194,21 +194,14 @@ struct ModernQuizHomeView: View {
         } label: {
             HStack(spacing: 14) {
                 GlyphTile(systemName: "stethoscope", color: .orange, size: 36)
-                VStack(alignment: .leading, spacing: 6) {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("DSM-5 & Neuropsychology")
-                            .font(.body.weight(.semibold))
-                            .foregroundStyle(.primary)
-                        Text("Diagnostic criteria, test profiles, and imaging findings")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                    HStack(spacing: 6) {
-                        ForEach([ContentReference.dsm5, .lezak, .brainImaging], id: \.rawValue) { ref in
-                            SourceReferenceBadge(reference: ref)
-                        }
-                    }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("DSM-5 & Neuropsychology")
+                        .font(.body.weight(.semibold))
+                        .foregroundStyle(.primary)
+                    Text("Criteria, test profiles, and imaging")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 Spacer(minLength: 8)
                 Image(systemName: "chevron.right")

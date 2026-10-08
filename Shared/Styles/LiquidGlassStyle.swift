@@ -9,9 +9,9 @@ struct SourceReferenceBadge: View {
     var body: some View {
         HStack(spacing: 4) {
             Image(systemName: reference.sfSymbol)
-                .font(.system(size: 9, weight: .semibold))
-            Text(reference.shortLabel)
                 .font(.system(size: 10, weight: .semibold))
+            Text(reference.shortLabel)
+                .font(.system(size: 11, weight: .semibold))
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 4)

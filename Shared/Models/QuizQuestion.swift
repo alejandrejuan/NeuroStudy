@@ -19,9 +19,9 @@ enum QuizMode: String, CaseIterable, Identifiable {
 
     var description: String {
         switch self {
-        case .tapIdentify:    return "Tap the correct structure on the brain map"
-        case .flashcard:      return "Review structures and self-assess your recall"
-        case .multipleChoice: return "Identify functions, structures, and lesion effects"
+        case .tapIdentify:    return "Find structures on the brain map"
+        case .flashcard:      return "Recall functions, then rate yourself"
+        case .multipleChoice: return "Functions, structures, and lesions"
         }
     }
 }
@@ -185,8 +185,19 @@ enum QuizQuestionTemplate: CaseIterable {
         return disorderGroups.contains { $0.contains(ka) && $0.contains(kb) }
     }
 
+    /// An answer-length version of a clinical note: its first sentence, and only if
+    /// that is still long, cut at a word boundary. Cutting at a fixed 100 characters
+    /// left answers ending mid-word ("auditory process...").
     private static func truncate(_ text: String) -> String {
-        text.count > 100 ? String(text.prefix(100)) + "..." : text
+        var sentence = text
+        if let end = text.range(of: ". ") {
+            sentence = String(text[..<end.lowerBound]) + "."
+        }
+        let limit = 120
+        guard sentence.count > limit else { return sentence }
+        let head = sentence.prefix(limit)
+        let cut = head.lastIndex(of: " ").map { head[..<$0] } ?? head
+        return cut.trimmingCharacters(in: .punctuationCharacters.union(.whitespaces)) + "…"
     }
 
     func generate(for structure: BrainStructure, allStructures: [BrainStructure]) -> QuizQuestion {

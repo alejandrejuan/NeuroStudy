@@ -94,7 +94,7 @@ struct ModernExploreView: View {
         VStack(spacing: 10) {
             HStack {
                 Label("Tap a region", systemImage: "hand.tap")
-                    .font(.footnote.weight(.medium))
+                    .font(.subheadline.weight(.medium))
                     .foregroundStyle(.secondary)
                 Spacer()
                 BrainViewToggle(currentView: Binding(
@@ -122,19 +122,17 @@ struct ModernExploreView: View {
 
     private var regionFilterSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            // Grouped so the chips' glass shapes blend into one another as they scroll.
-            GlassGroup(spacing: 8) {
-                HStack(spacing: 8) {
-                    filterChip(label: "All", region: nil)
-                    ForEach(BrainRegion.allCases) { region in
-                        filterChip(label: region.displayName, region: region)
-                    }
+            HStack(spacing: 8) {
+                filterChip(label: "All", region: nil)
+                ForEach(BrainRegion.allCases) { region in
+                    filterChip(label: region.displayName, region: region)
                 }
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 4)
         }
         .scrollBounceBehavior(.basedOnSize)
+        .scrollClipDisabled()
     }
 
     private func filterChip(label: String, region: BrainRegion?) -> some View {
@@ -188,7 +186,7 @@ struct ModernExploreView: View {
                             .font(.title3.weight(.bold))
                         if let alias = structure.aliases.first {
                             Text(alias)
-                                .font(.footnote)
+                                .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
                     }
@@ -211,7 +209,7 @@ struct ModernExploreView: View {
                 }
 
                 Text(structure.description)
-                    .font(.callout)
+                    .font(.body)
                     .foregroundStyle(.secondary)
                     .lineLimit(3)
                     .fixedSize(horizontal: false, vertical: true)
@@ -233,11 +231,8 @@ struct ModernExploreView: View {
 
                 if let disorder = structure.associatedDisorders.first {
                     Label("Associated with \(disorder)", systemImage: "stethoscope")
-                        .font(.footnote.weight(.medium))
-                        .foregroundStyle(.orange)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 6)
-                        .softChip(tint: .orange, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
                 }
 
                 HStack(spacing: 10) {
@@ -344,7 +339,7 @@ struct ModernExploreView: View {
                         .foregroundStyle(.primary)
                     if let function = structure.functions.first {
                         Text(function)
-                            .font(.footnote)
+                            .font(.subheadline)
                             .foregroundStyle(.secondary)
                             .lineLimit(1)
                     }

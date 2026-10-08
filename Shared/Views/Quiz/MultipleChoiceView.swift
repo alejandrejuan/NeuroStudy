@@ -68,8 +68,7 @@ struct MultipleChoiceQuizView: View {
         VStack(alignment: .leading, spacing: 10) {
             QuestionEyebrow(
                 title: question.targetStructure.region.displayName,
-                color: question.targetStructure.region.color,
-                reference: question.sourceReference
+                color: question.targetStructure.region.color
             )
             Text(question.prompt)
                 .font(.title2.weight(.bold))
