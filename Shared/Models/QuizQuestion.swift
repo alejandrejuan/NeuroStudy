@@ -96,7 +96,9 @@ enum QuizQuestionTemplate: CaseIterable {
         value: (BrainStructure) -> T?,
         isAlsoCorrect: (BrainStructure) -> Bool
     ) -> [T] {
-        let pool = allStructures.filter { $0.id != structure.id && !isAlsoCorrect($0) }
+        let pool = allStructures.filter {
+            $0.id != structure.id && !Self.overlaps(structure.id, $0.id) && !isAlsoCorrect($0)
+        }
         let sameRegion = pool.filter { $0.region == structure.region }.shuffled()
         let otherRegions = pool.filter { $0.region != structure.region }.shuffled()
 
@@ -109,6 +111,78 @@ enum QuizQuestionTemplate: CaseIterable {
             result.append(v)
         }
         return result
+    }
+
+    // MARK: - Anatomical overlap
+
+    /// Structures in the atlas that contain, or substantially overlap, other atlas
+    /// entries. A part and its whole can never be offered against each other: asking
+    /// which structure is associated with ADHD and listing both Prefrontal Cortex and
+    /// the Orbitofrontal Cortex (which is prefrontal cortex) makes the "wrong" option
+    /// defensible. Symmetric: either side rules out the other.
+    private static let containment: [String: Set<String>] = [
+        "prefrontal-cortex": ["orbitofrontal-cortex", "superior-frontal-gyrus", "middle-frontal-gyrus", "frontal-eye-fields", "brocas-area"],
+        "superior-frontal-gyrus": ["supplementary-motor-area"],
+        "middle-frontal-gyrus": ["frontal-eye-fields"],
+        "paracentral-lobule": ["primary-motor-cortex", "primary-somatosensory-cortex", "supplementary-motor-area"],
+        "parietal-inferior": ["angular-gyrus", "supramarginal-gyrus"],
+        "parahippocampal-gyrus": ["entorhinal-cortex"],
+        "superior-temporal-sulcus": ["wernickes-area"],
+        "cuneus-lingual": ["primary-visual-cortex", "visual-association"],
+        "midbrain": ["substantia-nigra", "superior-colliculus", "inferior-colliculus", "reticular-formation"],
+        "brainstem-pons": ["reticular-formation"],
+        "medulla": ["reticular-formation"],
+    ]
+
+    private static func overlaps(_ a: String, _ b: String) -> Bool {
+        containment[a]?.contains(b) == true || containment[b]?.contains(a) == true
+    }
+
+    // MARK: - Disorder matching
+
+    /// Disorder names that mean the same thing even though the atlas words them
+    /// differently. Exact string matching missed all of these.
+    private static let disorderGroups: [Set<String>] = [
+        ["amnesia", "anterograde amnesia", "korsakoff syndrome", "wernicke-korsakoff syndrome", "memory deficits"],
+        ["frontotemporal dementia", "behavioral variant ftd", "semantic dementia"],
+        ["antisocial personality disorder", "acquired sociopathy"],
+        ["substance use disorders", "addiction"],
+        ["sleep-wake disorders", "sleep-wake disturbances"],
+        ["agenesis of corpus callosum", "callosal agenesis"],
+        ["parinaud syndrome", "dorsal midbrain syndrome"],
+        ["visual agnosia", "visual object agnosia", "visual form agnosia"],
+        ["topographical disorientation", "topographical amnesia", "spatial navigation deficits"],
+        ["disconnection syndromes", "callosal disconnection syndrome", "split-brain syndrome"],
+        ["depression", "major depression"],
+    ]
+
+    /// Disorders too diffuse to point at one structure. "Which structure is most
+    /// associated with frontotemporal dementia?" has half the frontal lobe as a
+    /// defensible answer, so these are skipped in favour of the structure's next,
+    /// more specific listed disorder.
+    private static let nonLocalizing: Set<String> = [
+        "frontotemporal dementia", "major depression", "depression", "schizophrenia", "stroke", "brain tumors",
+    ]
+
+    /// The disorder a structure's association question asks about, if any is specific enough.
+    static func localizingDisorder(of structure: BrainStructure) -> String? {
+        structure.associatedDisorders.first { !nonLocalizing.contains(disorderKey($0)) }
+    }
+
+    /// Lowercased, with any parenthetical qualifier dropped:
+    /// "Alzheimer's Disease (earliest site)" becomes "alzheimer's disease".
+    private static func disorderKey(_ name: String) -> String {
+        var key = name.lowercased()
+        if let paren = key.firstIndex(of: "(") { key = String(key[..<paren]) }
+        return key.trimmingCharacters(in: .whitespaces)
+    }
+
+    /// True when two listed disorders are the same condition, or one names a form of
+    /// the other ("Apraxia" and "Speech Apraxia", "Stroke" and "ACA Stroke Syndrome").
+    static func sameDisorder(_ a: String, _ b: String) -> Bool {
+        let ka = disorderKey(a), kb = disorderKey(b)
+        if ka == kb || ka.contains(kb) || kb.contains(ka) { return true }
+        return disorderGroups.contains { $0.contains(ka) && $0.contains(kb) }
     }
 
     private static func truncate(_ text: String) -> String {
@@ -175,7 +249,7 @@ enum QuizQuestionTemplate: CaseIterable {
             )
 
         case .disorderAssociation:
-            guard let disorder = structure.associatedDisorders.first else {
+            guard let disorder = Self.localizingDisorder(of: structure) else {
                 return QuizQuestionTemplate.identifyFunction.generate(for: structure, allStructures: allStructures)
             }
             let correct = structure.name
@@ -186,7 +260,7 @@ enum QuizQuestionTemplate: CaseIterable {
                 for: structure,
                 from: allStructures,
                 value: { $0.name },
-                isAlsoCorrect: { $0.associatedDisorders.contains(disorder) }
+                isAlsoCorrect: { $0.associatedDisorders.contains { Self.sameDisorder($0, disorder) } }
             )
             return QuizQuestion(
                 targetStructure: structure,

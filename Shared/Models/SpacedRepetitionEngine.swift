@@ -83,7 +83,12 @@ struct SpacedRepetitionEngine {
     }
 
     static func prioritize(_ structures: [BrainStructure], using progressMap: [String: StudyProgress]) -> [BrainStructure] {
-        structures.sorted { a, b in
+        // Unstudied structures tie on every key below. Without a random tie-break they
+        // fell back to atlas order, so a new user got the same first ten frontal-lobe
+        // structures in every quiz.
+        let tieBreak = Dictionary(uniqueKeysWithValues: structures.map { ($0.id, Double.random(in: 0..<1)) })
+
+        return structures.sorted { a, b in
             let pa = progressMap[a.id] ?? StudyProgress(structureID: a.id)
             let pb = progressMap[b.id] ?? StudyProgress(structureID: b.id)
 
@@ -96,7 +101,10 @@ struct SpacedRepetitionEngine {
                 return pa.easeFactor < pb.easeFactor
             }
             // Then by fewest repetitions (least studied)
-            return pa.repetitions < pb.repetitions
+            if pa.repetitions != pb.repetitions {
+                return pa.repetitions < pb.repetitions
+            }
+            return tieBreak[a.id, default: 0] < tieBreak[b.id, default: 0]
         }
     }
 }
