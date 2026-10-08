@@ -70,6 +70,8 @@ struct UniversalMainView: View {
 
     // MARK: - iPhone Layout (Tab Bar)
 
+    #if os(iOS)
+
     private var iPhoneLayout: some View {
         TabView(selection: Binding(
             get: { selection ?? .explore },
@@ -99,6 +101,8 @@ struct UniversalMainView: View {
         .minimizingTabBar()
         .tint(.accentColor)
     }
+
+    #endif
 
     // MARK: - macOS Layout
 
