@@ -7,89 +7,86 @@ struct StructureDetailView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                // Header
+            VStack(alignment: .leading, spacing: 28) {
                 header
+                statsStrip
 
-                // Functions
-                sectionCard(title: "Functions", sfSymbol: "gearshape.2.fill") {
-                    VStack(alignment: .leading, spacing: 8) {
+                section("Functions") {
+                    VStack(alignment: .leading, spacing: 10) {
                         ForEach(structure.functions, id: \.self) { function in
-                            HStack(alignment: .top, spacing: 8) {
-                                Circle()
-                                    .fill(structure.region.color)
-                                    .frame(width: 6, height: 6)
-                                    .padding(.top, 6)
-                                Text(function)
-                                    .font(.bodyText)
+                            Label {
+                                Text(function).font(.body)
+                            } icon: {
+                                Image(systemName: "circle.fill")
+                                    .font(.system(size: 6))
+                                    .foregroundStyle(structure.region.color)
                             }
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(16)
+                    .contentSurface()
                 }
 
-                // Clinical Significance
-                sectionCard(title: "Clinical Significance", sfSymbol: "stethoscope") {
+                section("Clinical Significance") {
                     Text(structure.clinicalSignificance)
-                        .font(.bodyText)
-                        .foregroundStyle(.secondary)
+                        .font(.body)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(16)
+                        .contentSurface()
                 }
 
-                // Associated Disorders
                 if !structure.associatedDisorders.isEmpty {
-                    sectionCard(title: "Associated Disorders", sfSymbol: "exclamationmark.triangle.fill") {
+                    section("Associated Disorders") {
                         FlowLayout(spacing: 8) {
                             ForEach(structure.associatedDisorders, id: \.self) { disorder in
                                 Text(disorder)
-                                    .font(.system(.caption, design: .rounded, weight: .medium))
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 6)
-                                    .background {
-                                        Capsule(style: .continuous)
-                                            .fill(.red.opacity(0.1))
-                                    }
-                                    .overlay {
-                                        Capsule(style: .continuous)
-                                            .strokeBorder(.red.opacity(0.2), lineWidth: 0.5)
-                                    }
-                                    .foregroundStyle(.red)
+                                    .font(.subheadline)
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 7)
+                                    .contentSurface(cornerRadius: 100)
                             }
                         }
                     }
                 }
 
-                // Connections
-                if !structure.connections.isEmpty {
-                    sectionCard(title: "Connected Structures", sfSymbol: "link") {
+                if !connectedStructures.isEmpty {
+                    section("Connected Structures") {
                         FlowLayout(spacing: 8) {
-                            ForEach(structure.connections, id: \.self) { connectionID in
-                                if let connected = BrainStructureStore.structure(byID: connectionID) {
-                                    HStack(spacing: 4) {
-                                        Circle()
-                                            .fill(connected.region.color)
-                                            .frame(width: 8, height: 8)
-                                        Text(connected.name)
-                                            .font(.system(.caption, design: .rounded))
-                                    }
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 6)
-                                    .background {
-                                        Capsule(style: .continuous)
-                                            .fill(.ultraThinMaterial)
-                                    }
+                            ForEach(connectedStructures) { connected in
+                                HStack(spacing: 6) {
+                                    Circle().fill(connected.region.color).frame(width: 7, height: 7)
+                                    Text(connected.name).font(.subheadline)
                                 }
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 7)
+                                .contentSurface(cornerRadius: 100)
                             }
                         }
                     }
                 }
 
-                // Details
-                detailsCard
-
-                // Study Progress
-                progressCard
+                section("Details") {
+                    VStack(spacing: 0) {
+                        detailRow("Region", value: structure.region.displayName)
+                        Divider().padding(.leading, 16)
+                        detailRow("Lateralization", value: structure.lateralization.rawValue.capitalized)
+                        Divider().padding(.leading, 16)
+                        detailRow("Diagram View", value: structure.diagramView.rawValue.capitalized)
+                        if let brodmann = structure.brodmannAreas, !brodmann.isEmpty {
+                            Divider().padding(.leading, 16)
+                            detailRow("Brodmann Areas", value: brodmann.map(String.init).joined(separator: ", "))
+                        }
+                    }
+                    .contentSurface()
+                }
             }
-            .padding()
+            .padding(.horizontal, 16)
+            .padding(.bottom, 28)
+            .frame(maxWidth: 720)
+            .frame(maxWidth: .infinity)
         }
+        .softScrollEdges()
         .background { AppBackground() }
         .navigationTitle(structure.name)
         #if os(iOS)
@@ -97,131 +94,109 @@ struct StructureDetailView: View {
         #endif
     }
 
+    private var connectedStructures: [BrainStructure] {
+        structure.connections.compactMap { BrainStructureStore.structure(byID: $0) }
+    }
+
     // MARK: - Header
 
+    /// The large navigation title already carries the name, so the header leads with
+    /// the region and goes straight into the description, App Store product-page style.
     private var header: some View {
-        LiquidGlassCard {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    ModernRegionBadge(region: structure.region)
-                    Spacer()
-                    if let brodmann = structure.brodmannAreas, !brodmann.isEmpty {
-                        Text("BA \(brodmann.map(String.init).joined(separator: ", "))")
-                            .font(.detailLabel)
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 12) {
+                GlyphTile(systemName: structure.region.sfSymbol, color: structure.region.color, size: 44)
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(structure.region.displayName.uppercased())
+                        .font(.statLabel)
+                        .foregroundStyle(.secondary)
+                    if !structure.aliases.isEmpty {
+                        Text(structure.aliases.joined(separator: ", "))
+                            .font(.subheadline)
                             .foregroundStyle(.secondary)
+                            .lineLimit(2)
                     }
                 }
-
-                Text(structure.name)
-                    .font(.structureTitle)
-
-                if !structure.aliases.isEmpty {
-                    Text(structure.aliases.joined(separator: " | "))
-                        .font(.system(.caption, design: .rounded))
-                        .foregroundStyle(.tertiary)
-                }
-
-                Text(structure.description)
-                    .font(.bodyText)
-                    .foregroundStyle(.secondary)
-                    .lineSpacing(4)
-            }
-        }
-    }
-
-    // MARK: - Section Card
-
-    private func sectionCard<Content: View>(title: String, sfSymbol: String, @ViewBuilder content: @escaping () -> Content) -> some View {
-        LiquidGlassCard {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack(spacing: 6) {
-                    Image(systemName: sfSymbol)
-                        .font(.system(.subheadline, weight: .semibold))
-                        .foregroundStyle(structure.region.color)
-                    Text(title)
-                        .font(.sectionHeader)
-                }
-
-                content()
-            }
-        }
-    }
-
-    // MARK: - Details Card
-
-    private var detailsCard: some View {
-        LiquidGlassCard {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack(spacing: 6) {
-                    Image(systemName: "info.circle.fill")
-                        .foregroundStyle(structure.region.color)
-                    Text("Details")
-                        .font(.sectionHeader)
-                }
-
-                LabeledContent("Lateralization") {
-                    Text(structure.lateralization.rawValue.capitalized)
-                        .font(.structureSubtitle)
-                }
-
-                LabeledContent("Diagram View") {
-                    Text(structure.diagramView.rawValue.capitalized)
-                        .font(.structureSubtitle)
-                }
-            }
-        }
-    }
-
-    // MARK: - Progress Card
-
-    private var progressCard: some View {
-        LiquidGlassCard {
-            let progress = progressStore.progress(for: structure.id)
-
-            VStack(alignment: .leading, spacing: 12) {
-                HStack(spacing: 6) {
-                    Image(systemName: "chart.line.uptrend.xyaxis")
-                        .foregroundStyle(structure.region.color)
-                    Text("Study Progress")
-                        .font(.sectionHeader)
-                    Spacer()
+                Spacer(minLength: 8)
+                let progress = progressStore.progress(for: structure.id)
+                if progress.totalAttempts > 0 {
                     ModernMasteryBadge(level: progress.masteryLevel)
                 }
+            }
 
-                if progress.totalAttempts > 0 {
-                    HStack(spacing: 20) {
-                        VStack {
-                            Text("\(progress.totalAttempts)")
-                                .font(.system(.title3, design: .rounded, weight: .bold))
-                            Text("Attempts")
-                                .font(.detailLabel)
-                                .foregroundStyle(.secondary)
-                        }
+            Text(structure.description)
+                .font(.body)
+                .lineSpacing(2)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.top, 4)
+    }
 
-                        VStack {
-                            Text("\(Int(progress.accuracy * 100))%")
-                                .font(.system(.title3, design: .rounded, weight: .bold))
-                            Text("Accuracy")
-                                .font(.detailLabel)
-                                .foregroundStyle(.secondary)
-                        }
+    // MARK: - Stats
 
-                        VStack {
-                            Text("\(progress.streakBest)")
-                                .font(.system(.title3, design: .rounded, weight: .bold))
-                            Text("Best Streak")
-                                .font(.detailLabel)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                } else {
-                    Text("Not yet studied. Start a quiz to track progress!")
-                        .font(.bodyText)
-                        .foregroundStyle(.secondary)
+    private var statsStrip: some View {
+        let progress = progressStore.progress(for: structure.id)
+
+        return Group {
+            if progress.totalAttempts > 0 {
+                HStack(spacing: 0) {
+                    stat("Attempts", "\(progress.totalAttempts)")
+                    Divider().padding(.vertical, 12)
+                    stat("Accuracy", "\(Int(progress.accuracy * 100))%")
+                    Divider().padding(.vertical, 12)
+                    stat("Best Streak", "\(progress.streakBest)")
                 }
+            } else {
+                HStack(spacing: 12) {
+                    Image(systemName: "sparkles")
+                        .foregroundStyle(Theme.violet)
+                    Text("Not studied yet. Quiz yourself to start tracking it.")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                    Spacer(minLength: 0)
+                }
+                .padding(16)
             }
         }
+        .contentSurface()
+    }
+
+    private func stat(_ title: String, _ value: String) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(title.uppercased())
+                .font(.statLabel)
+                .foregroundStyle(.secondary)
+            Text(value)
+                .font(.numeral(24))
+                .monospacedDigit()
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 16)
+        .padding(.top, 14)
+        .padding(.bottom, 14)
+        .accessibilityElement(children: .combine)
+    }
+
+    // MARK: - Building Blocks
+
+    private func section<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            SectionHeader(title)
+            content()
+        }
+    }
+
+    private func detailRow(_ label: String, value: String) -> some View {
+        HStack {
+            Text(label)
+            Spacer()
+            Text(value)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.trailing)
+        }
+        .font(.body)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
     }
 }
 

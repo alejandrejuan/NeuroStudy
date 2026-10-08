@@ -29,18 +29,21 @@ enum BrainRegion: String, Codable, CaseIterable, Identifiable {
         }
     }
 
+    /// Ten hues spaced around the wheel so no two regions read alike, at a saturation
+    /// that stays anatomical on the brain map and clean as an icon tint. (Temporal and
+    /// limbic used to share a yellow.) These tint icons and map fills, never body text.
     var color: Color {
         switch self {
-        case .frontalLobe: return Color(red: 0.55, green: 0.72, blue: 0.92)     // Soft blue
-        case .parietalLobe: return Color(red: 0.76, green: 0.60, blue: 0.85)     // Soft purple
-        case .temporalLobe: return Color(red: 0.95, green: 0.82, blue: 0.40)     // Warm yellow
-        case .occipitalLobe: return Color(red: 0.55, green: 0.82, blue: 0.58)    // Soft green
-        case .cerebellum: return Color(red: 0.90, green: 0.62, blue: 0.68)       // Soft pink
-        case .brainstem: return Color(red: 0.95, green: 0.72, blue: 0.45)        // Soft orange
-        case .limbicSystem: return Color(red: 0.95, green: 0.80, blue: 0.45)     // Golden yellow
-        case .basalGanglia: return Color(red: 0.82, green: 0.52, blue: 0.52)     // Muted rose
-        case .diencephalon: return Color(red: 0.58, green: 0.78, blue: 0.82)     // Teal
-        case .whiteTracts: return Color(red: 0.88, green: 0.88, blue: 0.92)      // Light gray
+        case .limbicSystem: return Color(red: 0.96, green: 0.42, blue: 0.40)    // Coral, 0°
+        case .brainstem: return Color(red: 0.98, green: 0.60, blue: 0.28)       // Orange, 28°
+        case .temporalLobe: return Color(red: 0.97, green: 0.78, blue: 0.24)    // Yellow, 45°
+        case .occipitalLobe: return Color(red: 0.30, green: 0.78, blue: 0.48)   // Green, 140°
+        case .diencephalon: return Color(red: 0.22, green: 0.74, blue: 0.78)    // Teal, 183°
+        case .frontalLobe: return Color(red: 0.30, green: 0.60, blue: 0.98)     // Blue, 215°
+        case .basalGanglia: return Color(red: 0.44, green: 0.44, blue: 0.94)    // Indigo, 240°
+        case .parietalLobe: return Color(red: 0.68, green: 0.46, blue: 0.94)    // Purple, 268°
+        case .cerebellum: return Color(red: 0.94, green: 0.44, blue: 0.70)      // Pink, 325°
+        case .whiteTracts: return Color(red: 0.62, green: 0.64, blue: 0.70)     // Graphite
         }
     }
 

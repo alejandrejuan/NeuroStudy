@@ -7,36 +7,14 @@ import SwiftUI
 // its own material, and so the iOS 26 adoption is gated in exactly one place.
 //
 // Design rules this layer enforces (all straight from Apple's Liquid Glass guidance):
-//   1. Glass refracts CONTENT. The app background is therefore a plain system color —
-//      never a decorative gradient, and never rasterized with .drawingGroup(), both of
-//      which leave the material with nothing meaningful to sample.
+//   1. Glass is for the controls layer only. Content uses `contentSurface` / `SurfaceCard`
+//      (Theme.swift). The background (`AppBackground`, also in Theme.swift) is a static
+//      mesh and is never rasterized with .drawingGroup(), so the glass has real colour
+//      to refract.
 //   2. Never stack glass on glass. Elements sitting inside a glass card use `softChip`
 //      (a flat, opaque-ish fill), not another material.
 //   3. Group adjacent glass so the shapes merge and flow instead of reading as separate
 //      blurred rectangles — that is what `glassGroup` is for.
-
-// MARK: - App Background
-
-/// The single background for every screen.
-///
-/// Deliberately flat. The previous design painted a hardcoded purple/blue gradient here
-/// and rasterized it, which is precisely what prevents Liquid Glass from working: the
-/// material could only ever sample a frozen gradient. A plain system background lets
-/// real content scroll beneath the glass and gives the refraction something to do, and
-/// it adapts to light/dark and accessibility settings for free.
-struct AppBackground: View {
-    var body: some View {
-        backgroundColor.ignoresSafeArea()
-    }
-
-    private var backgroundColor: Color {
-        #if os(iOS)
-        Color(uiColor: .systemGroupedBackground)
-        #else
-        Color(nsColor: .windowBackgroundColor)
-        #endif
-    }
-}
 
 // MARK: - Glass Surfaces
 

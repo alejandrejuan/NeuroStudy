@@ -11,7 +11,7 @@ import UIKit
 enum Haptics {
     /// Defaults to `true` — matching the Settings default and the state before the
     /// user has ever opened Settings (no stored value yet).
-    private static var isEnabled: Bool {
+    static var isEnabled: Bool {
         UserDefaults.standard.object(forKey: "hapticFeedback") as? Bool ?? true
     }
 

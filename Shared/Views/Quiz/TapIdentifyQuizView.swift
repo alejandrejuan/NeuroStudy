@@ -14,21 +14,19 @@ struct TapIdentifyQuizView: View {
                 if viewModel.isComplete {
                     QuizResultsView(viewModel: viewModel)
                 } else {
-                    VStack(spacing: 16) {
+                    VStack(spacing: 18) {
                         progressBar
+                            .padding(.horizontal)
 
                         if let question = viewModel.currentQuestion {
                             promptCard(question)
+                                .padding(.horizontal)
                         }
 
                         BrainMapView(viewModel: brainMap) { structureID in
                             handleTap(structureID)
                         }
                         .padding(.horizontal)
-
-                        Text("Tap the structure on the brain map")
-                            .font(.detailLabel)
-                            .foregroundStyle(.secondary)
 
                         Spacer()
                     }
@@ -41,15 +39,7 @@ struct TapIdentifyQuizView: View {
                 }
             }
             .animation(.spring(response: 0.4, dampingFraction: 0.8), value: viewModel.showingFeedback)
-            .navigationTitle("Tap to Identify")
-            #if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-            #endif
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("End Quiz") { dismiss() }
-                }
-            }
+            .quizChrome(title: "Tap to Identify") { dismiss() }
             .onAppear {
                 if let question = viewModel.currentQuestion {
                     brainMap.enterQuizMode(targetID: question.correctAnswer)
@@ -58,43 +48,31 @@ struct TapIdentifyQuizView: View {
         }
     }
 
-    // MARK: - Progress Bar
+    // MARK: - Progress
 
     private var progressBar: some View {
-        VStack(spacing: 4) {
-            ProgressView(value: viewModel.progress)
-                .tint(.blue)
-                .padding(.horizontal)
-
-            HStack {
-                Text("Question \(viewModel.currentIndex + 1) of \(viewModel.totalQuestions)")
-                    .font(.detailLabel)
-                    .foregroundStyle(.secondary)
-                Spacer()
-                Text("\(viewModel.correctCount) correct")
-                    .font(.detailLabel)
-                    .foregroundStyle(.green)
-            }
-            .padding(.horizontal)
-        }
+        QuizProgressHeader(
+            progress: viewModel.progress,
+            current: viewModel.currentIndex + 1,
+            total: viewModel.totalQuestions,
+            score: viewModel.correctCount
+        )
     }
 
-    // MARK: - Prompt Card
+    // MARK: - Prompt
 
     private func promptCard(_ question: QuizQuestion) -> some View {
-        LiquidGlassCard(cornerRadius: 16, padding: 14) {
-            HStack(spacing: 12) {
-                Image(systemName: "hand.tap.fill")
-                    .font(.title2)
-                    .foregroundStyle(.blue)
-
-                Text(question.prompt)
-                    .font(.quizPrompt)
-
-                Spacer()
-            }
+        VStack(alignment: .leading, spacing: 10) {
+            QuestionEyebrow(title: "Find on the map", color: .blue)
+            // The eyebrow already says what to do, so the title is just the name.
+            Text(question.targetStructure.name)
+                .font(.largeTitle.weight(.bold))
+                .minimumScaleFactor(0.7)
+                .lineLimit(2)
+                .accessibilityLabel(question.prompt)
         }
-        .padding(.horizontal)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.top, 8)
     }
 
     // MARK: - Handle Tap
@@ -126,36 +104,12 @@ struct TapIdentifyQuizView: View {
         }
     }
 
-    // MARK: - Feedback Overlay
+    // MARK: - Feedback
 
     private var feedbackOverlay: some View {
-        VStack {
-            Spacer()
-
-            LiquidGlassCard(cornerRadius: 24, padding: 20) {
-                VStack(spacing: 12) {
-                    if feedbackIsCorrect {
-                        AnimatedCheckmark()
-                        Text("Correct!")
-                            .font(.structureTitle)
-                            .foregroundStyle(.green)
-                    } else {
-                        AnimatedXMark()
-                        Text("Not quite")
-                            .font(.structureTitle)
-                            .foregroundStyle(.red)
-
-                        if let question = viewModel.answeredQuestions.last?.question {
-                            Text("The answer was: \(question.targetStructure.name)")
-                                .font(.structureSubtitle)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                }
-                .frame(maxWidth: .infinity)
-            }
-            .padding(.horizontal, 40)
-            .padding(.bottom, 50)
-        }
+        FeedbackToast(
+            correct: feedbackIsCorrect,
+            detail: feedbackIsCorrect ? nil : viewModel.answeredQuestions.last.map { "The answer was \($0.question.targetStructure.name)." }
+        )
     }
 }

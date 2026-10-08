@@ -286,7 +286,7 @@ struct BrainMapView: View {
             )
 
             Text(structure.name)
-                .font(.system(.caption, design: .rounded, weight: .semibold))
+                .font(.system(.caption, weight: .semibold))
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
                 .background {

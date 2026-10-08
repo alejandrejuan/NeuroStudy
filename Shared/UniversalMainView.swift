@@ -144,34 +144,62 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Section("Interactions") {
-                Toggle("Haptic Feedback", isOn: $hapticFeedback)
+                Toggle(isOn: $hapticFeedback) {
+                    Label { Text("Haptic Feedback") } icon: { GlyphTile(systemName: "iphone.radiowaves.left.and.right", color: .pink, size: 29) }
+                }
             }
 
             Section("Study Preferences") {
-                Picker("Default Quiz Length", selection: $defaultQuizLength) {
+                Picker(selection: $defaultQuizLength) {
                     Text("5 Questions").tag(5)
                     Text("10 Questions").tag(10)
                     Text("15 Questions").tag(15)
                     Text("20 Questions").tag(20)
+                } label: {
+                    Label { Text("Default Quiz Length") } icon: { GlyphTile(systemName: "list.number", color: Theme.violet, size: 29) }
                 }
             }
-            
+
             Section("About") {
+                NavigationLink {
+                    AboutView()
+                } label: {
+                    Label { Text("About NeuroStudy") } icon: { GlyphTile(systemName: "info", color: .gray, size: 29) }
+                }
+
+                Link(destination: URL(string: "https://alejandrejuan.github.io/NeuroStudy/privacy-policy.html")!) {
+                    externalRow("Privacy Policy", symbol: "hand.raised.fill", color: .blue)
+                }
+                Link(destination: URL(string: "https://alejandrejuan.github.io/NeuroStudy/terms-of-service.html")!) {
+                    externalRow("Terms of Service", symbol: "doc.text.fill", color: .gray)
+                }
+            }
+
+            Section {
                 LabeledContent("Version", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
                 LabeledContent("Build", value: Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1")
-
-                NavigationLink("About NeuroStudy") {
-                    AboutView()
-                }
-
-                Link("Privacy Policy", destination: URL(string: "https://alejandrejuan.github.io/NeuroStudy/privacy-policy.html")!)
-                Link("Terms of Service", destination: URL(string: "https://alejandrejuan.github.io/NeuroStudy/terms-of-service.html")!)
             }
         }
+        // The form floats on the app background like every other screen, rather than
+        // dropping to the flat system grey.
+        .scrollContentBackground(.hidden)
+        .background { AppBackground() }
         .navigationTitle("Settings")
         #if os(iOS)
         .navigationBarTitleDisplayMode(.large)
         #endif
+    }
+
+    /// A row that opens Safari: primary text and an outgoing arrow, as in Settings.
+    private func externalRow(_ title: String, symbol: String, color: Color) -> some View {
+        HStack {
+            Label { Text(title) } icon: { GlyphTile(systemName: symbol, color: color, size: 29) }
+            Spacer()
+            Image(systemName: "arrow.up.forward")
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(.tertiary)
+        }
+        .foregroundStyle(.primary)
     }
 }
 
@@ -193,7 +221,7 @@ struct AboutView: View {
                         .accessibilityLabel("NeuroStudy app icon")
 
                     Text("NeuroStudy")
-                        .font(.system(.largeTitle, design: .rounded, weight: .bold))
+                        .font(.largeTitle.weight(.bold))
                     
                     Text("Master Brain Anatomy")
                         .font(.title3)
@@ -202,7 +230,7 @@ struct AboutView: View {
                 .padding(.top, 40)
                 
                 // Description
-                LiquidGlassCard(cornerRadius: 20, padding: 20) {
+                SurfaceCard(cornerRadius: 20, padding: 20) {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("About NeuroStudy")
                             .font(.headline)
@@ -214,33 +242,36 @@ struct AboutView: View {
                 }
                 
                 // Features
-                LiquidGlassCard(cornerRadius: 20, padding: 20) {
+                SurfaceCard(cornerRadius: 20, padding: 20) {
                     VStack(alignment: .leading, spacing: 16) {
                         Text("Features")
                             .font(.headline)
                         
                         FeatureRow(
                             icon: "brain.head.profile",
+                            color: .blue,
                             title: "Interactive Atlas",
                             description: "Explore \(BrainStructureStore.all.count) brain structures across lateral and medial views"
                         )
                         
                         FeatureRow(
                             icon: "questionmark.circle.fill",
+                            color: Theme.violet,
                             title: "Practice Quizzes",
-                            description: "Multiple quiz modes with spaced repetition for optimal learning"
+                            description: "Four quiz modes, with spaced repetition scheduling your reviews"
                         )
                         
                         FeatureRow(
                             icon: "chart.bar.fill",
+                            color: Theme.emerald,
                             title: "Progress Tracking",
-                            description: "Monitor your mastery with detailed analytics and insights"
+                            description: "Mastery by region, accuracy, and daily activity"
                         )
                     }
                 }
                 
                 // Credits
-                LiquidGlassCard(cornerRadius: 20, padding: 20) {
+                SurfaceCard(cornerRadius: 20, padding: 20) {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Suggested Reading")
                             .font(.headline)
@@ -252,7 +283,7 @@ struct AboutView: View {
                 }
                 
                 // Educational Disclaimer
-                LiquidGlassCard(cornerRadius: 20, padding: 20) {
+                SurfaceCard(cornerRadius: 20, padding: 20) {
                     VStack(alignment: .leading, spacing: 10) {
                         Label("Educational Use Only", systemImage: "exclamationmark.triangle")
                             .font(.subheadline)
@@ -283,24 +314,21 @@ struct AboutView: View {
 
 struct FeatureRow: View {
     let icon: String
+    var color: Color = .blue
     let title: String
     let description: String
-    
+
     var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: icon)
-                .font(.system(size: 24))
-                .foregroundStyle(.blue)
-                .frame(width: 40)
-            
-            VStack(alignment: .leading, spacing: 4) {
+        HStack(spacing: 14) {
+            GlyphTile(systemName: icon, color: color, size: 36)
+
+            VStack(alignment: .leading, spacing: 2) {
                 Text(title)
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                
+                    .font(.body.weight(.semibold))
                 Text(description)
-                    .font(.caption)
+                    .font(.footnote)
                     .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }

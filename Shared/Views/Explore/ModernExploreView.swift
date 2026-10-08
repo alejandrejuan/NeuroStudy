@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - Explore View with 3D Brain
+// MARK: - Atlas
 
 struct ModernExploreView: View {
     let progressStore: ProgressStore
@@ -11,18 +11,16 @@ struct ModernExploreView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     private var filteredStructures: [BrainStructure] {
-        var structures = BrainStructureStore.all
+        var structures = searchText.isEmpty ? BrainStructureStore.all : BrainStructureStore.search(searchText)
         if let region = selectedRegionFilter {
             structures = structures.filter { $0.region == region }
         }
-        if !searchText.isEmpty {
-            structures = BrainStructureStore.search(searchText)
-            if let region = selectedRegionFilter {
-                structures = structures.filter { $0.region == region }
-            }
-        }
         return structures
     }
+
+    /// Browsing with no search or filter groups the list by region, like Sports groups
+    /// games by league. A search or filter collapses it into one list of results.
+    private var isBrowsing: Bool { searchText.isEmpty && selectedRegionFilter == nil }
 
     var body: some View {
         NavigationStack {
@@ -49,9 +47,12 @@ struct ModernExploreView: View {
                         }
 
                         structureListSection
-                            .padding(.top, 20)
+                            .padding(.top, 28)
+                            .padding(.horizontal, 16)
                     }
                     .padding(.bottom, 28)
+                    .frame(maxWidth: horizontalSizeClass == .regular ? 900 : .infinity)
+                    .frame(maxWidth: .infinity)
                 }
                 .scrollDismissesKeyboard(.interactively)
                 .softScrollEdges()
@@ -62,10 +63,10 @@ struct ModernExploreView: View {
             .searchable(
                 text: $searchText,
                 placement: .navigationBarDrawer(displayMode: .always),
-                prompt: "Structures, functions, disorders…"
+                prompt: "Structures, functions, disorders"
             )
             #else
-            .searchable(text: $searchText, prompt: "Structures, functions, disorders…")
+            .searchable(text: $searchText, prompt: "Structures, functions, disorders")
             #endif
             .sheet(isPresented: $showingDetail) {
                 if let structure = brainMap.selectedStructure {
@@ -87,17 +88,13 @@ struct ModernExploreView: View {
         }
     }
 
-    // MARK: - Brain Atlas Section
+    // MARK: - Brain Map
 
     private var brainMapSection: some View {
         VStack(spacing: 10) {
-            // Header row: hint + lateral/medial toggle
             HStack {
-                Image(systemName: "hand.tap")
-                    .font(.system(size: 11, weight: .medium))
-                    .foregroundStyle(.secondary)
-                Text("Tap a region to explore")
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                Label("Tap a region", systemImage: "hand.tap")
+                    .font(.footnote.weight(.medium))
                     .foregroundStyle(.secondary)
                 Spacer()
                 BrainViewToggle(currentView: Binding(
@@ -108,7 +105,6 @@ struct ModernExploreView: View {
             .padding(.horizontal, 20)
             .padding(.top, 6)
 
-            // Brain Map
             BrainMapView(
                 viewModel: brainMap,
                 onRegionTapped: { structureID in
@@ -119,7 +115,6 @@ struct ModernExploreView: View {
             )
             .padding(.horizontal, 16)
             .frame(maxHeight: horizontalSizeClass == .regular ? 500 : 340)
-
         }
     }
 
@@ -127,8 +122,7 @@ struct ModernExploreView: View {
 
     private var regionFilterSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            // Grouping the chips lets their glass shapes blend into one another as they
-            // scroll past, instead of reading as a row of separate frosted rectangles.
+            // Grouped so the chips' glass shapes blend into one another as they scroll.
             GlassGroup(spacing: 8) {
                 HStack(spacing: 8) {
                     filterChip(label: "All", region: nil)
@@ -138,199 +132,198 @@ struct ModernExploreView: View {
                 }
             }
             .padding(.horizontal, 16)
+            .padding(.vertical, 4)
         }
         .scrollBounceBehavior(.basedOnSize)
     }
 
     private func filterChip(label: String, region: BrainRegion?) -> some View {
         let isSelected = selectedRegionFilter == region
+        let tint = region?.color ?? Theme.violet
         return Button {
-            withAnimation(.spring(response: 0.28, dampingFraction: 0.68)) {
+            withAnimation(.spring(response: 0.28, dampingFraction: 0.75)) {
                 selectedRegionFilter = region
             }
             Haptics.softImpact()
         } label: {
-            HStack(spacing: 5) {
-                if let r = region {
-                    Image(systemName: r.sfSymbol)
-                        .font(.system(size: 10, weight: .semibold))
-                        .foregroundStyle(isSelected ? r.color : .secondary)
+            HStack(spacing: 6) {
+                if let region {
+                    Circle()
+                        .fill(region.color)
+                        .frame(width: 7, height: 7)
                 }
                 Text(label)
-                    .font(.system(size: 13, weight: isSelected ? .semibold : .medium, design: .rounded))
+                    .font(.subheadline.weight(isSelected ? .semibold : .medium))
+                    .foregroundStyle(isSelected ? .primary : .secondary)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 7)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 8)
             .glassSurface(
                 in: Capsule(style: .continuous),
-                tint: isSelected ? (region?.color ?? .accentColor) : nil,
+                tint: isSelected ? tint : nil,
                 interactive: true,
                 shadowRadius: 6,
                 shadowY: 2
             )
-            .overlay {
-                // Only the selected chip carries a ring; unselected chips rely on the
-                // glass itself for definition. The previous white.opacity(0.2) outline
-                // was invisible against a light background.
-                if isSelected {
-                    Capsule(style: .continuous)
-                        .strokeBorder(region?.color ?? .accentColor, lineWidth: 1.5)
-                }
-            }
         }
         .buttonStyle(.plain)
-        .scaleEffect(isSelected ? 1.04 : 1.0)
-        .animation(.spring(response: 0.25, dampingFraction: 0.7), value: isSelected)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 
     // MARK: - Selected Structure Card
 
+    /// The one piece of content that floats on glass: it is transient, it hovers over
+    /// the list, and it dismisses. Everything else on the screen is a content surface.
     private func selectedStructureCard(_ structure: BrainStructure) -> some View {
-        LiquidGlassCard(cornerRadius: 24, padding: 18, prominent: true) {
+        SurfaceCard(cornerRadius: 28, padding: 20, floating: true) {
             VStack(alignment: .leading, spacing: 14) {
-                HStack {
-                    ModernRegionBadge(region: structure.region, style: .prominent)
-                    Spacer()
+                HStack(alignment: .top, spacing: 12) {
+                    GlyphTile(systemName: structure.region.sfSymbol, color: structure.region.color, size: 40)
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(structure.region.displayName.uppercased())
+                            .font(.statLabel)
+                            .foregroundStyle(.secondary)
+                        Text(structure.name)
+                            .font(.title3.weight(.bold))
+                        if let alias = structure.aliases.first {
+                            Text(alias)
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+
+                    Spacer(minLength: 0)
+
                     Button {
                         withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
                             brainMap.clearSelection()
                         }
                     } label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 22, weight: .medium))
-                            .foregroundStyle(.secondary, .quaternary)
+                        Image(systemName: "xmark")
+                            .font(.footnote.weight(.bold))
+                            .foregroundStyle(.secondary)
+                            .frame(width: 30, height: 30)
+                            .background(.quaternary, in: Circle())
                     }
                     .buttonStyle(.plain)
-                }
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(structure.name)
-                        .font(.cardTitle)
-                    if let alias = structure.aliases.first {
-                        Text(alias)
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
-                            .foregroundStyle(.tertiary)
-                    }
+                    .accessibilityLabel("Close")
                 }
 
                 Text(structure.description)
-                    .font(.bodyText)
+                    .font(.callout)
                     .foregroundStyle(.secondary)
                     .lineLimit(3)
                     .fixedSize(horizontal: false, vertical: true)
 
                 if !structure.functions.isEmpty {
-                    VStack(alignment: .leading, spacing: 5) {
-                        Label("Key Functions", systemImage: "bolt.fill")
-                            .font(.microText)
-                            .foregroundStyle(.tertiary)
-                            .textCase(.uppercase)
-
+                    VStack(alignment: .leading, spacing: 6) {
                         ForEach(structure.functions.prefix(2), id: \.self) { fn in
-                            HStack(alignment: .firstTextBaseline, spacing: 6) {
-                                Circle()
-                                    .fill(structure.region.color)
-                                    .frame(width: 4, height: 4)
-                                    .offset(y: 1)
+                            Label {
                                 Text(fn)
-                                    .font(.system(size: 12))
-                                    .foregroundStyle(.secondary)
+                                    .font(.subheadline)
+                            } icon: {
+                                Image(systemName: "bolt.fill")
+                                    .font(.caption2)
+                                    .foregroundStyle(structure.region.color)
                             }
-                        }
-                        if structure.functions.count > 2 {
-                            Text("+ \(structure.functions.count - 2) more")
-                                .font(.system(size: 11))
-                                .foregroundStyle(.tertiary)
-                                .padding(.leading, 10)
                         }
                     }
                 }
 
-                // Clinical note
                 if let disorder = structure.associatedDisorders.first {
-                    HStack(spacing: 6) {
-                        Image(systemName: "stethoscope")
-                            .font(.system(size: 10, weight: .semibold))
-                            .foregroundStyle(.orange)
-                        Text("Associated: \(disorder)")
-                            .font(.system(size: 11, weight: .medium))
-                            .foregroundStyle(.orange.opacity(0.85))
-                        Spacer()
-                    }
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 6)
-                    .background {
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .fill(.orange.opacity(0.08))
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                    .strokeBorder(.orange.opacity(0.2), lineWidth: 0.5)
-                            }
-                    }
+                    Label("Associated with \(disorder)", systemImage: "stethoscope")
+                        .font(.footnote.weight(.medium))
+                        .foregroundStyle(.orange)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .softChip(tint: .orange, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
                 }
 
                 HStack(spacing: 10) {
                     Button {
                         showingDetail = true
                     } label: {
-                        Label("Full Details", systemImage: "arrow.right.circle.fill")
-                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                        Text("Full Details")
+                            .font(.subheadline.weight(.semibold))
+                            .padding(.horizontal, 6)
                     }
                     .glassButton(prominent: true)
 
                     Spacer()
-                    let prog = progressStore.progress(for: structure.id)
-                    ModernMasteryBadge(level: prog.masteryLevel, animated: true)
+
+                    ModernMasteryBadge(level: progressStore.progress(for: structure.id).masteryLevel, animated: true)
                 }
-                .padding(.top, 2)
             }
         }
     }
 
     // MARK: - Structure List
 
+    @ViewBuilder
     private var structureListSection: some View {
-        LazyVStack(alignment: .leading, spacing: 10, pinnedViews: [.sectionHeaders]) {
-            Section {
-                if horizontalSizeClass == .regular {
-                    LazyVGrid(columns: [
-                        GridItem(.flexible(), spacing: 10),
-                        GridItem(.flexible(), spacing: 10)
-                    ], spacing: 10) {
-                        ForEach(filteredStructures) { structure in
-                            structureRow(structure)
+        let structures = filteredStructures
+
+        if structures.isEmpty {
+            ContentUnavailableView.search(text: searchText)
+                .padding(.top, 20)
+        } else if isBrowsing {
+            LazyVStack(alignment: .leading, spacing: 26) {
+                ForEach(BrainRegion.allCases) { region in
+                    let inRegion = structures.filter { $0.region == region }
+                    if !inRegion.isEmpty {
+                        VStack(alignment: .leading, spacing: 10) {
+                            // The region's icon lives on the header once, not on all
+                            // nine rows beneath it.
+                            HStack(spacing: 10) {
+                                GlyphTile(systemName: region.sfSymbol, color: region.color, size: 26)
+                                SectionHeader(region.displayName) {
+                                    Text("\(inRegion.count)")
+                                        .font(.subheadline.weight(.semibold))
+                                        .foregroundStyle(.secondary)
+                                        .monospacedDigit()
+                                }
+                                .padding(.leading, -4)
+                            }
+                            .padding(.leading, 4)
+                            structureGroup(inRegion, showsGlyph: false)
                         }
                     }
-                } else {
-                    ForEach(filteredStructures) { structure in
-                        structureRow(structure)
-                    }
                 }
-            } header: {
-                HStack(spacing: 8) {
-                    Text("All Structures")
-                        .font(.sectionHeader)
-                    Text("\(filteredStructures.count)")
-                        .font(.system(.caption, design: .rounded, weight: .bold))
+            }
+        } else {
+            VStack(alignment: .leading, spacing: 10) {
+                SectionHeader(searchText.isEmpty ? (selectedRegionFilter?.displayName ?? "Structures") : "Results") {
+                    Text("\(structures.count)")
+                        .font(.subheadline.weight(.semibold))
                         .foregroundStyle(.secondary)
-                        .padding(.horizontal, 7)
-                        .padding(.vertical, 3)
-                        .background {
-                            Capsule().fill(.quaternary)
-                                .overlay { Capsule().strokeBorder(.tertiary.opacity(0.3), lineWidth: 0.5) }
-                        }
-                    Spacer()
+                        .monospacedDigit()
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background(.ultraThinMaterial)
+                structureGroup(structures, showsGlyph: true)
             }
         }
-        .padding(.horizontal, 16)
-        .animation(.spring(response: 0.35), value: filteredStructures.map(\.id))
     }
 
-    private func structureRow(_ structure: BrainStructure) -> some View {
+    @ViewBuilder
+    private func structureGroup(_ structures: [BrainStructure], showsGlyph: Bool) -> some View {
+        let inset: CGFloat = showsGlyph ? 58 : 14
+        if horizontalSizeClass == .regular {
+            // iPad: two balanced columns, each its own grouped surface.
+            let mid = (structures.count + 1) / 2
+            HStack(alignment: .top, spacing: 14) {
+                GroupedList(data: Array(structures[..<mid]), separatorInset: inset) { structureRow($0, showsGlyph: showsGlyph) }
+                if mid < structures.count {
+                    GroupedList(data: Array(structures[mid...]), separatorInset: inset) { structureRow($0, showsGlyph: showsGlyph) }
+                } else {
+                    Color.clear.frame(maxWidth: .infinity)
+                }
+            }
+        } else {
+            GroupedList(data: structures, separatorInset: inset) { structureRow($0, showsGlyph: showsGlyph) }
+        }
+    }
+
+    private func structureRow(_ structure: BrainStructure, showsGlyph: Bool) -> some View {
         let isSelected = brainMap.selectedID == structure.id
         let isHighlighted = brainMap.highlightedIDs.contains(structure.id)
         let prog = progressStore.progress(for: structure.id)
@@ -340,72 +333,44 @@ struct ModernExploreView: View {
                 brainMap.select(structure.id)
             }
         } label: {
-            HStack(spacing: 12) {
-                ZStack {
-                    Circle()
-                        .fill(LinearGradient(
-                            colors: [
-                                structure.region.color.opacity(isSelected ? 0.5 : isHighlighted ? 0.35 : 0.22),
-                                structure.region.color.opacity(isSelected ? 0.28 : 0.12)
-                            ],
-                            startPoint: .topLeading, endPoint: .bottomTrailing
-                        ))
-                        .frame(width: 38, height: 38)
-                    Image(systemName: structure.region.sfSymbol)
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundStyle(structure.region.color)
+            HStack(spacing: 14) {
+                if showsGlyph {
+                    GlyphTile(systemName: structure.region.sfSymbol, color: structure.region.color)
                 }
 
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: 1) {
                     Text(structure.name)
-                        .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                        .font(.body.weight(isSelected ? .semibold : .regular))
                         .foregroundStyle(.primary)
-                    Text(structure.functions.first ?? "")
-                        .font(.system(size: 11))
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
-                }
-
-                Spacer(minLength: 6)
-
-                HStack(spacing: 5) {
-                    if prog.totalAttempts > 0 {
-                        ModernMasteryBadge(level: prog.masteryLevel, showLabel: false)
+                    if let function = structure.functions.first {
+                        Text(function)
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .lineLimit(1)
                     }
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 10, weight: .semibold))
-                        .foregroundStyle(.quaternary)
                 }
+
+                Spacer(minLength: 8)
+
+                if prog.totalAttempts > 0 {
+                    ModernMasteryBadge(level: prog.masteryLevel, showLabel: false)
+                }
+                Image(systemName: "chevron.right")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(.tertiary)
             }
             .padding(.horizontal, 14)
-            .padding(.vertical, 11)
+            .padding(.vertical, 10)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .background {
-                RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .fill(.ultraThinMaterial)
-                    .shadow(
-                        color: isSelected ? structure.region.color.opacity(0.22) : .black.opacity(0.04),
-                        radius: isSelected ? 10 : 3, y: 2
-                    )
-            }
-            .overlay {
                 if isSelected || isHighlighted {
-                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .strokeBorder(
-                            LinearGradient(
-                                colors: [
-                                    structure.region.color.opacity(isSelected ? 0.7 : 0.4),
-                                    structure.region.color.opacity(isSelected ? 0.35 : 0.15)
-                                ],
-                                startPoint: .topLeading, endPoint: .bottomTrailing
-                            ),
-                            lineWidth: isSelected ? 2 : 1
-                        )
+                    structure.region.color.opacity(isSelected ? 0.16 : 0.08)
                 }
             }
-            .scaleEffect(isSelected ? 1.02 : 1.0)
-            .animation(.spring(response: 0.28, dampingFraction: 0.7), value: isSelected)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
 

@@ -34,43 +34,28 @@ struct FlashcardQuizView: View {
                             gradeButtons
                                 .transition(.move(edge: .bottom).combined(with: .opacity))
                         } else {
-                            Text("Tap card to reveal answer")
-                                .font(.detailLabel)
+                            Label("Tap the card to reveal", systemImage: "hand.tap")
+                                .font(.footnote.weight(.medium))
                                 .foregroundStyle(.secondary)
                         }
                     }
                     .padding()
                 }
             }
-            .navigationTitle("Flashcards")
-            #if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-            #endif
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("End Quiz") { dismiss() }
-                }
-            }
+            .quizChrome(title: "Flashcards") { dismiss() }
         }
     }
 
-    // MARK: - Progress Bar
+    // MARK: - Progress
 
     private var progressBar: some View {
-        VStack(spacing: 4) {
-            ProgressView(value: viewModel.progress)
-                .tint(.purple)
-
-            HStack {
-                Text("Card \(viewModel.currentIndex + 1) of \(viewModel.totalQuestions)")
-                    .font(.detailLabel)
-                    .foregroundStyle(.secondary)
-                Spacer()
-                Text("\(viewModel.correctCount) recalled")
-                    .font(.detailLabel)
-                    .foregroundStyle(.green)
-            }
-        }
+        QuizProgressHeader(
+            progress: viewModel.progress,
+            current: viewModel.currentIndex + 1,
+            total: viewModel.totalQuestions,
+            score: viewModel.correctCount,
+            scoreNoun: "recalled"
+        )
     }
 
     // MARK: - Flashcard
@@ -92,82 +77,83 @@ struct FlashcardQuizView: View {
                 isFlipped.toggle()
             }
         }
-        .frame(maxWidth: 400)
+        // Both faces share one frame so the card keeps its size through the flip:
+        // as tall as the screen allows, up to a comfortable 500pt.
+        .frame(maxWidth: 420, minHeight: 360, maxHeight: 500)
     }
 
     private func cardFace(isFront: Bool, question: QuizQuestion) -> some View {
-        LiquidGlassCard(cornerRadius: 24, prominent: isFront) {
-            VStack(spacing: 16) {
+        let structure = question.targetStructure
+
+        return SurfaceCard(cornerRadius: 30, padding: 24) {
+            Group {
                 if isFront {
-                    // Front: structure name and region
-                    Spacer()
-
-                    ModernRegionBadge(region: question.targetStructure.region, style: .prominent)
-
-                    Text(question.targetStructure.name)
-                        .font(.system(.title, design: .rounded, weight: .bold))
-                        .multilineTextAlignment(.center)
-
-                    if !question.targetStructure.aliases.isEmpty {
-                        Text(question.targetStructure.aliases.first ?? "")
-                            .font(.structureSubtitle)
+                    VStack(spacing: 14) {
+                        Spacer(minLength: 0)
+                        GlyphTile(systemName: structure.region.sfSymbol, color: structure.region.color, size: 60)
+                        Text(structure.region.displayName.uppercased())
+                            .font(.statLabel)
                             .foregroundStyle(.secondary)
+                        Text(structure.name)
+                            .font(.largeTitle.weight(.bold))
+                            .multilineTextAlignment(.center)
+                            .minimumScaleFactor(0.7)
+                        if let alias = structure.aliases.first {
+                            Text(alias)
+                                .font(.callout)
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer(minLength: 0)
+                        SourceReferenceBadge(reference: question.sourceReference)
                     }
-
-                    Spacer()
-
-                    SourceReferenceBadge(reference: question.sourceReference)
-
-                    HStack {
-                        Image(systemName: "hand.tap.fill")
-                            .foregroundStyle(.secondary)
-                        Text("Tap to flip")
-                            .font(.detailLabel)
-                            .foregroundStyle(.secondary)
-                    }
+                    .frame(maxWidth: .infinity)
                 } else {
-                    // Back: functions and clinical info
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Functions")
-                            .font(.sectionHeader)
-                            .foregroundStyle(.purple)
-
-                        ForEach(question.targetStructure.functions, id: \.self) { function in
-                            HStack(alignment: .top, spacing: 8) {
-                                Circle()
-                                    .fill(.purple.opacity(0.5))
-                                    .frame(width: 6, height: 6)
-                                    .padding(.top, 6)
-                                Text(function)
-                                    .font(.bodyText)
+                    VStack(alignment: .leading, spacing: 16) {
+                        backSection("Functions", color: Theme.violet) {
+                            VStack(alignment: .leading, spacing: 6) {
+                                ForEach(structure.functions, id: \.self) { function in
+                                    Label {
+                                        Text(function).font(.body)
+                                    } icon: {
+                                        Image(systemName: "circle.fill")
+                                            .font(.system(size: 5))
+                                            .foregroundStyle(structure.region.color)
+                                    }
+                                }
                             }
                         }
 
                         Divider()
 
-                        Text("Clinical Significance")
-                            .font(.sectionHeader)
-                            .foregroundStyle(.orange)
-
-                        Text(question.targetStructure.clinicalSignificance)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .lineLimit(4)
-
-                        if !question.targetStructure.associatedDisorders.isEmpty {
-                            Divider()
-                            Text("Disorders")
-                                .font(.sectionHeader)
-                                .foregroundStyle(.red)
-                            Text(question.targetStructure.associatedDisorders.joined(separator: ", "))
-                                .font(.caption)
+                        backSection("Clinical Significance", color: .orange) {
+                            Text(structure.clinicalSignificance)
+                                .font(.callout)
                                 .foregroundStyle(.secondary)
+                                .lineLimit(5)
+                        }
+
+                        if !structure.associatedDisorders.isEmpty {
+                            Divider()
+                            backSection("Disorders", color: .red) {
+                                Text(structure.associatedDisorders.joined(separator: ", "))
+                                    .font(.callout)
+                                    .foregroundStyle(.secondary)
+                            }
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
-            .frame(maxWidth: .infinity)
-            .frame(minHeight: 300)
+            .frame(maxHeight: .infinity, alignment: .top)
+        }
+    }
+
+    private func backSection<Content: View>(_ title: String, color: Color, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title.uppercased())
+                .font(.statLabel)
+                .foregroundStyle(color)
+            content()
         }
     }
 
@@ -175,8 +161,8 @@ struct FlashcardQuizView: View {
 
     private var gradeButtons: some View {
         VStack(spacing: 8) {
-            Text("How well did you recall?")
-                .font(.structureSubtitle)
+            Text("How well did you recall it?")
+                .font(.subheadline.weight(.medium))
                 .foregroundStyle(.secondary)
 
             HStack(spacing: 12) {
@@ -191,7 +177,7 @@ struct FlashcardQuizView: View {
                             Image(systemName: grade.sfSymbol)
                                 .font(.title3)
                             Text(grade.label)
-                                .font(.system(.caption, design: .rounded, weight: .medium))
+                                .font(.footnote.weight(.semibold))
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)

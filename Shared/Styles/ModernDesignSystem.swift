@@ -4,40 +4,9 @@ import SwiftUI
 
 /// Additional typography for enhanced hierarchy (base fonts in AppTypography.swift)
 extension Font {
-    static let heroTitle = Font.system(.largeTitle, design: .rounded, weight: .bold)
-    static let cardTitle = Font.system(.title3, design: .rounded, weight: .semibold)
-    static let microText = Font.system(.caption2, design: .rounded, weight: .medium)
-}
-
-// MARK: - Liquid Glass Card Component
-
-/// Modern glass card. Renders true Liquid Glass on iOS 26+ and a material fallback on
-/// earlier systems via `glassSurface` (see LiquidGlass.swift). The public API is
-/// unchanged so existing call sites are untouched.
-struct LiquidGlassCard<Content: View>: View {
-    var cornerRadius: CGFloat = 20
-    var padding: CGFloat = 16
-    var interactive: Bool = false
-    var prominent: Bool = false
-    @ViewBuilder let content: () -> Content
-
-    private var shape: RoundedRectangle {
-        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-    }
-
-    var body: some View {
-        content()
-            .padding(padding)
-            // Prominence is carried by depth, not colour. Tinting these cards with the
-            // accent washed the whole surface blue and left tinted content on top of it
-            // — a yellow region badge on blue glass, for instance — barely readable.
-            .glassSurface(
-                in: shape,
-                interactive: interactive,
-                shadowRadius: prominent ? 16 : 10,
-                shadowY: prominent ? 6 : 3
-            )
-    }
+    static let heroTitle = Font.system(.largeTitle, weight: .bold)
+    static let cardTitle = Font.system(.title3, weight: .semibold)
+    static let microText = Font.system(.caption2, weight: .medium)
 }
 
 // MARK: - Enhanced Glass Button Style
@@ -107,7 +76,9 @@ struct ModernGlassButtonStyle: ButtonStyle {
             .scaleEffect(configuration.isPressed ? 0.96 : 1.0)
             .opacity(configuration.isPressed ? 0.85 : 1.0)
             .animation(.spring(response: 0.3, dampingFraction: 0.7), value: configuration.isPressed)
-            .sensoryFeedback(.impact(flexibility: .soft), trigger: configuration.isPressed)
+            .sensoryFeedback(trigger: configuration.isPressed) { _, _ in
+                Haptics.isEnabled ? .impact(flexibility: .soft) : nil
+            }
     }
 }
 
@@ -213,7 +184,7 @@ struct ModernMasteryBadge: View {
             
             if showLabel {
                 Text(level.rawValue)
-                    .font(.system(size: 10, weight: .semibold, design: .rounded))
+                    .font(.system(size: 10, weight: .semibold))
             }
         }
         .padding(.horizontal, showLabel ? 7 : 5)
@@ -244,10 +215,10 @@ struct ModernMasteryBadge: View {
     private var masteryColor: Color {
         switch level {
         case .new: return .secondary
-        case .learning: return .blue
+        case .learning: return Theme.violet
         case .struggling: return .red
         case .reviewing: return .orange
-        case .mastered: return .green
+        case .mastered: return Theme.emerald
         }
     }
 }
@@ -260,7 +231,7 @@ struct OptimizedCircularProgress: View {
     let label: String
     var lineWidth: CGFloat = 8
     var size: CGFloat = 100
-    var accentColors: [Color] = [.blue, .purple, .pink]
+    var accentColors: [Color] = Theme.progressGradient
     
     @State private var animatedProgress: Double = 0
     
@@ -275,8 +246,10 @@ struct OptimizedCircularProgress: View {
                 .trim(from: 0, to: animatedProgress)
                 .stroke(
                     AngularGradient(
-                        colors: accentColors + [accentColors.first ?? .blue],
-                        center: .center
+                        colors: accentColors,
+                        center: .center,
+                        startAngle: .degrees(0),
+                        endAngle: .degrees(360 * max(animatedProgress, 0.01))
                     ),
                     style: StrokeStyle(lineWidth: lineWidth, lineCap: .round)
                 )
@@ -285,10 +258,10 @@ struct OptimizedCircularProgress: View {
             // Center label
             VStack(spacing: 1) {
                 Text("\(Int(animatedProgress * 100))%")
-                    .font(.system(.title3, design: .rounded, weight: .bold))
+                    .font(.numeral(size * 0.2))
                     .contentTransition(.numericText())
-                Text(label)
-                    .font(.system(size: 10, weight: .medium, design: .rounded))
+                Text(label.uppercased())
+                    .font(.statLabel)
                     .foregroundStyle(.secondary)
             }
         }

@@ -1,14 +1,15 @@
 import SwiftUI
 import Charts
 
-// MARK: - Redesigned Progress Dashboard
+// MARK: - Progress
 
-/// Enhanced progress tracking with data visualization and Liquid Glass design
+/// A scoreboard, in the Apple Sports sense: the numbers are the design. Big expanded
+/// numerals, small uppercase labels, everything else quiet.
 struct ModernProgressDashboardView: View {
     let progressStore: ProgressStore
     @State private var selectedTimeframe: Timeframe = .week
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
+
     enum Timeframe: String, CaseIterable {
         case week = "Week"
         case month = "Month"
@@ -44,29 +45,30 @@ struct ModernProgressDashboardView: View {
         NavigationStack {
             ZStack {
                 AppBackground()
-                
+
                 ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 20) {
-                        // Hero progress card
-                        heroProgressCard
-                        
-                        // Achievement highlights
-                        achievementsSection
-                        
-                        // Activity chart
-                        activityChartSection
-                        
-                        // Region breakdown
-                        regionBreakdownSection
-                        
-                        // Due for review
+                    VStack(alignment: .leading, spacing: 28) {
+                        VStack(spacing: 12) {
+                            masteryCard
+                            statsRow
+                        }
+
+                        VStack(alignment: .leading, spacing: 10) {
+                            SectionHeader("Activity")
+                            activityCard
+                        }
+
+                        VStack(alignment: .leading, spacing: 10) {
+                            SectionHeader("By Region")
+                            GroupedList(data: BrainRegion.allCases) { regionRow($0) }
+                        }
+
                         dueForReviewSection
-                        
                     }
                     .padding(.horizontal, 16)
                     .padding(.top, 8)
-                    .padding(.bottom, 24)
-                    .frame(maxWidth: horizontalSizeClass == .regular ? 800 : .infinity)
+                    .padding(.bottom, 28)
+                    .frame(maxWidth: horizontalSizeClass == .regular ? 720 : .infinity)
                     .frame(maxWidth: .infinity)
                 }
                 .softScrollEdges()
@@ -77,149 +79,98 @@ struct ModernProgressDashboardView: View {
             #endif
         }
     }
-    
-    // MARK: - Hero Progress Card
-    
-    private var heroProgressCard: some View {
-        LiquidGlassCard(cornerRadius: 28, padding: 24, prominent: true) {
-            VStack(spacing: 20) {
-                // Main progress ring
+
+    private var totalStructures: Int { BrainStructureStore.all.count }
+
+    // MARK: - Mastery
+
+    private var masteryCard: some View {
+        let mastered = progressStore.masteredCount()
+
+        return SurfaceCard(cornerRadius: 28, padding: 22) {
+            HStack(spacing: 22) {
                 OptimizedCircularProgress(
                     progress: overallMasteryProgress,
                     label: "Mastery",
-                    lineWidth: 14,
-                    size: 160,
-                    accentColors: [.blue, .cyan, .purple, .pink]
+                    lineWidth: 12,
+                    size: 116
                 )
-                
-                // Title
-                VStack(spacing: 4) {
-                    Text("Brain Anatomy Mastery")
-                        .font(.structureSubtitle)
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("MASTERED")
+                        .font(.statLabel)
                         .foregroundStyle(.secondary)
-                    
-                    Text("\(progressStore.masteredCount()) of \(BrainStructureStore.all.count) structures")
-                        .font(.microText)
-                        .foregroundStyle(.secondary)
-                }
-            }
-            .frame(maxWidth: .infinity)
-        }
-    }
-    
-    private var overallMasteryProgress: Double {
-        let total = BrainStructureStore.all.count
-        guard total > 0 else { return 0 }
-        return Double(progressStore.masteredCount()) / Double(total)
-    }
-    
-    // MARK: - Achievements Section
-    
-    private var achievementsSection: some View {
-        HStack(spacing: 12) {
-            achievementCard(
-                icon: "book.fill",
-                title: "Studied",
-                value: progressStore.studiedCount(),
-                total: BrainStructureStore.all.count,
-                color: .blue
-            )
-            
-            achievementCard(
-                icon: "star.fill",
-                title: "Mastered",
-                value: progressStore.masteredCount(),
-                total: BrainStructureStore.all.count,
-                color: .yellow
-            )
-            
-            achievementCard(
-                icon: "target",
-                title: "Accuracy",
-                percentage: progressStore.overallAccuracy(),
-                color: .green
-            )
-        }
-    }
-    
-    private func achievementCard(
-        icon: String,
-        title: String,
-        value: Int? = nil,
-        total: Int? = nil,
-        percentage: Double? = nil,
-        color: Color
-    ) -> some View {
-        LiquidGlassCard(cornerRadius: 18, padding: 14) {
-            VStack(spacing: 8) {
-                // Icon
-                ZStack {
-                    Circle()
-                        .fill(
-                            RadialGradient(
-                                colors: [
-                                    color.opacity(0.3),
-                                    color.opacity(0.12)
-                                ],
-                                center: .center,
-                                startRadius: 5,
-                                endRadius: 20
-                            )
-                        )
-                        .frame(width: 44, height: 44)
-                    
-                    Image(systemName: icon)
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundStyle(color)
-                }
-                
-                // Value
-                if let percentage = percentage {
-                    Text("\(Int(percentage * 100))%")
-                        .font(.system(.title3, design: .rounded, weight: .bold))
-                } else if let value = value, let total = total {
-                    HStack(spacing: 3) {
-                        Text("\(value)")
-                            .font(.system(.title3, design: .rounded, weight: .bold))
-                        Text("/\(total)")
-                            .font(.system(.caption, design: .rounded))
+                    HStack(alignment: .firstTextBaseline, spacing: 6) {
+                        Text("\(mastered)")
+                            .font(.numeral(48, weight: .heavy))
+                            .contentTransition(.numericText())
+                        Text("/ \(totalStructures)")
+                            .font(.title3.weight(.semibold))
                             .foregroundStyle(.secondary)
                     }
+                    Text("structures")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                 }
-                
-                // Title
-                Text(title)
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
-                    .foregroundStyle(.secondary)
+                .monospacedDigit()
+
+                Spacer(minLength: 0)
             }
-            .frame(maxWidth: .infinity)
         }
+        .accessibilityElement(children: .combine)
     }
-    
-    // MARK: - Activity Chart Section
-    
-    private var activityChartSection: some View {
-        LiquidGlassCard(cornerRadius: 20, padding: 18) {
-            VStack(alignment: .leading, spacing: 14) {
-                // Header
-                HStack {
-                    Text("Study Activity")
-                        .font(.sectionHeader)
-                    
-                    Spacer()
-                    
-                    // Timeframe picker
-                    Picker("Timeframe", selection: $selectedTimeframe) {
-                        ForEach(Timeframe.allCases, id: \.self) { timeframe in
-                            Text(timeframe.rawValue).tag(timeframe)
-                        }
+
+    private var overallMasteryProgress: Double {
+        guard totalStructures > 0 else { return 0 }
+        return Double(progressStore.masteredCount()) / Double(totalStructures)
+    }
+
+    // MARK: - Stats
+
+    private var statsRow: some View {
+        HStack(spacing: 0) {
+            stat("Studied", value: "\(progressStore.studiedCount())", symbol: "book.fill", color: Theme.violet)
+            Divider().padding(.vertical, 14)
+            stat("Accuracy", value: "\(Int(progressStore.overallAccuracy() * 100))%", symbol: "target", color: Theme.emerald)
+            Divider().padding(.vertical, 14)
+            stat("Due", value: "\(progressStore.dueForReview().count)", symbol: "clock.arrow.circlepath", color: .orange)
+        }
+        .contentSurface()
+    }
+
+    private func stat(_ title: String, value: String, symbol: String, color: Color) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Label(title.uppercased(), systemImage: symbol)
+                .font(.statLabel)
+                .foregroundStyle(.secondary)
+                .labelStyle(StatLabelStyle(color: color))
+            Text(value)
+                .font(.numeral(26))
+                .monospacedDigit()
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 14)
+        .accessibilityElement(children: .combine)
+    }
+
+    // MARK: - Activity
+
+    private var activityCard: some View {
+        SurfaceCard(padding: 16) {
+            VStack(alignment: .leading, spacing: 16) {
+                Picker("Timeframe", selection: $selectedTimeframe) {
+                    ForEach(Timeframe.allCases, id: \.self) { timeframe in
+                        Text(timeframe.rawValue).tag(timeframe)
                     }
-                    .pickerStyle(.segmented)
-                    .frame(width: 200)
                 }
-                
+                .pickerStyle(.segmented)
+                .labelsHidden()
+
                 activityChart
-                    .frame(height: 180)
+                    .frame(height: 170)
             }
         }
     }
@@ -254,14 +205,8 @@ struct ModernProgressDashboardView: View {
                     x: .value("Day", entry.date, unit: .day),
                     y: .value("Answers", entry.count)
                 )
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: [.blue, .purple],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .cornerRadius(6)
+                .foregroundStyle(Theme.violet.gradient)
+                .cornerRadius(4)
             }
             .chartYAxis {
                 AxisMarks(position: .leading)
@@ -274,227 +219,115 @@ struct ModernProgressDashboardView: View {
         }
     }
     
-    // MARK: - Region Breakdown Section
-    
-    private var regionBreakdownSection: some View {
-        LiquidGlassCard(cornerRadius: 20, padding: 18) {
-            VStack(alignment: .leading, spacing: 16) {
-                HStack {
-                    Image(systemName: "brain")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundStyle(.blue)
-                    
-                    Text("Progress by Region")
-                        .font(.sectionHeader)
-                    
-                    Spacer()
-                }
-                
-                ForEach(BrainRegion.allCases) { region in
-                    regionProgressRow(region)
-                }
-            }
-        }
-    }
-    
-    private func regionProgressRow(_ region: BrainRegion) -> some View {
+    // MARK: - Regions
+
+    private func regionRow(_ region: BrainRegion) -> some View {
         let structures = BrainStructureStore.structures(inRegion: region)
-        let mastered = structures.filter { s in
-            progressStore.progress(for: s.id).masteryLevel == .mastered
-        }.count
+        let mastered = structures.filter { progressStore.progress(for: $0.id).masteryLevel == .mastered }.count
         let progress = structures.isEmpty ? 0 : Double(mastered) / Double(structures.count)
-        
-        return VStack(spacing: 8) {
-            HStack(spacing: 12) {
-                // Region icon
-                ZStack {
-                    Circle()
-                        .fill(region.color.opacity(0.15))
-                        .frame(width: 36, height: 36)
-                    
-                    Image(systemName: region.sfSymbol)
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(region.color)
-                }
-                
-                // Info
-                VStack(alignment: .leading, spacing: 2) {
+
+        return HStack(spacing: 14) {
+            GlyphTile(systemName: region.sfSymbol, color: region.color)
+
+            VStack(alignment: .leading, spacing: 6) {
+                HStack(alignment: .firstTextBaseline) {
                     Text(region.displayName)
-                        .font(.system(.subheadline, design: .rounded, weight: .medium))
-                    
-                    Text("\(mastered) of \(structures.count) mastered")
-                        .font(.system(size: 11))
+                        .font(.body)
+                    Spacer()
+                    Text("\(mastered)/\(structures.count)")
+                        .font(.subheadline.weight(.semibold))
                         .foregroundStyle(.secondary)
+                        .monospacedDigit()
                 }
-                
-                Spacer()
-                
-                // Percentage
-                Text("\(Int(progress * 100))%")
-                    .font(.system(size: 15, weight: .bold, design: .rounded))
-                    .foregroundStyle(region.color)
-                    .frame(minWidth: 50, alignment: .trailing)
-            }
-            
-            // Progress bar
-            GeometryReader { geometry in
-                ZStack(alignment: .leading) {
-                    // Background
-                    RoundedRectangle(cornerRadius: 4, style: .continuous)
-                        .fill(.quaternary)
-                    
-                    // Progress
-                    RoundedRectangle(cornerRadius: 4, style: .continuous)
-                        .fill(
-                            LinearGradient(
-                                colors: [
-                                    region.color,
-                                    region.color.opacity(0.7)
-                                ],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .frame(width: max(8, geometry.size.width * progress))
-                        .animation(.spring(response: 0.6, dampingFraction: 0.8), value: progress)
+                GeometryReader { geo in
+                    ZStack(alignment: .leading) {
+                        Capsule().fill(.quaternary)
+                        Capsule()
+                            .fill(region.color)
+                            .frame(width: progress > 0 ? max(6, geo.size.width * progress) : 0)
+                    }
                 }
+                .frame(height: 4)
+                .animation(.spring(response: 0.6, dampingFraction: 0.85), value: progress)
             }
-            .frame(height: 8)
         }
-        .padding(.vertical, 4)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 11)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(region.displayName), \(mastered) of \(structures.count) mastered")
     }
-    
-    // MARK: - Due for Review Section
-    
+
+    // MARK: - Due for Review
+
     @ViewBuilder
     private var dueForReviewSection: some View {
         let dueIDs = progressStore.dueForReview()
-        
-        if !dueIDs.isEmpty {
-            LiquidGlassCard(cornerRadius: 20, padding: 18) {
-                VStack(alignment: .leading, spacing: 14) {
-                    // Header
-                    HStack(spacing: 8) {
-                        ZStack {
-                            Circle()
-                                .fill(.orange.opacity(0.15))
-                                .frame(width: 32, height: 32)
-                            
-                            Image(systemName: "arrow.clockwise")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundStyle(.orange)
-                        }
-                        
-                        Text("Due for Review")
-                            .font(.sectionHeader)
-                        
-                        Spacer()
-                        
-                        Text("\(dueIDs.count)")
-                            .font(.system(.caption, design: .rounded, weight: .bold))
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 5)
-                            .background {
-                                Capsule()
-                                    .fill(.orange.opacity(0.2))
-                            }
-                            .foregroundStyle(.orange)
-                    }
-                    
-                    // Due structures
-                    ForEach(dueIDs.prefix(5), id: \.self) { id in
-                        if let structure = BrainStructureStore.structure(byID: id) {
-                            CompactStructureRow(
-                                structure: structure,
-                                progress: progressStore.progress(for: id)
-                            )
-                        }
-                    }
-                    
-                    if dueIDs.count > 5 {
-                        Text("+ \(dueIDs.count - 5) more structures")
-                            .font(.system(size: 12))
-                            .foregroundStyle(.secondary)
-                            .padding(.leading, 44)
-                    }
+        let structures = dueIDs.prefix(5).compactMap { BrainStructureStore.structure(byID: $0) }
+
+        if !structures.isEmpty {
+            VStack(alignment: .leading, spacing: 10) {
+                SectionHeader("Due for Review") {
+                    Text("\(dueIDs.count)")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(.orange)
+                        .monospacedDigit()
+                }
+                GroupedList(data: structures) { structure in
+                    CompactStructureRow(structure: structure, progress: progressStore.progress(for: structure.id))
+                }
+                if dueIDs.count > 5 {
+                    Text("\(dueIDs.count - 5) more in your next review")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal, 4)
                 }
             }
         }
     }
-    
-    // MARK: - Mastery List Section
-    
-    // MARK: - Helper Methods
-    
 }
 
-// MARK: - Compact Structure Row Component
+// MARK: - Stat Label Style
+
+/// A tinted symbol beside an uppercase caption.
+private struct StatLabelStyle: LabelStyle {
+    let color: Color
+    func makeBody(configuration: Configuration) -> some View {
+        HStack(spacing: 4) {
+            configuration.icon.foregroundStyle(color)
+            configuration.title
+        }
+    }
+}
+
+// MARK: - Compact Structure Row
 
 struct CompactStructureRow: View {
     let structure: BrainStructure
     let progress: StudyProgress
-    
+
     var body: some View {
-        HStack(spacing: 12) {
-            // Icon
-            ZStack {
-                Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: [
-                                structure.region.color.opacity(0.3),
-                                structure.region.color.opacity(0.15)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 36, height: 36)
-                
-                Image(systemName: structure.region.sfSymbol)
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(structure.region.color)
-            }
-            
-            // Info
-            VStack(alignment: .leading, spacing: 3) {
+        HStack(spacing: 14) {
+            GlyphTile(systemName: structure.region.sfSymbol, color: structure.region.color)
+
+            VStack(alignment: .leading, spacing: 1) {
                 Text(structure.name)
-                    .font(.system(.subheadline, design: .rounded, weight: .medium))
-                    .foregroundStyle(.primary)
-                
-                if progress.totalAttempts > 0 {
-                    HStack(spacing: 10) {
-                        Label(
-                            "\(Int(progress.accuracy * 100))%",
-                            systemImage: "target"
-                        )
-                        .font(.system(size: 11))
-                        .foregroundStyle(.secondary)
-                        
-                        Label(
-                            "\(progress.totalAttempts)",
-                            systemImage: "checkmark.circle"
-                        )
-                        .font(.system(size: 11))
-                        .foregroundStyle(.tertiary)
+                    .font(.body)
+                Group {
+                    if progress.totalAttempts > 0 {
+                        Text("\(Int(progress.accuracy * 100))% accuracy over \(progress.totalAttempts) \(progress.totalAttempts == 1 ? "answer" : "answers")")
+                    } else {
+                        Text("Not yet studied")
                     }
-                } else {
-                    Text("Not yet studied")
-                        .font(.system(size: 11))
-                        .foregroundStyle(.tertiary)
                 }
+                .font(.footnote)
+                .foregroundStyle(.secondary)
             }
-            
-            Spacer()
-            
-            // Mastery badge
+
+            Spacer(minLength: 8)
+
             ModernMasteryBadge(level: progress.masteryLevel)
         }
-        .padding(.horizontal, 12)
+        .padding(.horizontal, 14)
         .padding(.vertical, 10)
-        .background {
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(.ultraThinMaterial.opacity(0.7))
-        }
     }
 }

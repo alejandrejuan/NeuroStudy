@@ -8,13 +8,13 @@ struct AnimatedCheckmark: View {
     var body: some View {
         ZStack {
             Circle()
-                .fill(.green.opacity(0.15))
+                .fill(Theme.emerald.opacity(0.15))
                 .frame(width: 80, height: 80)
                 .scaleEffect(isAnimating ? 1.0 : 0.3)
 
             Image(systemName: "checkmark.circle.fill")
                 .font(.system(size: 44))
-                .foregroundStyle(.green)
+                .foregroundStyle(Theme.emerald)
                 .scaleEffect(isAnimating ? 1.0 : 0.1)
                 .rotationEffect(.degrees(isAnimating ? 0 : -60))
         }
@@ -101,8 +101,10 @@ struct CircularProgressView: View {
                 .trim(from: 0, to: animatedProgress)
                 .stroke(
                     AngularGradient(
-                        colors: [.blue, .purple, .pink, .blue],
-                        center: .center
+                        colors: Theme.progressGradient,
+                        center: .center,
+                        startAngle: .degrees(0),
+                        endAngle: .degrees(360 * max(animatedProgress, 0.01))
                     ),
                     style: StrokeStyle(lineWidth: lineWidth, lineCap: .round)
                 )
@@ -110,10 +112,10 @@ struct CircularProgressView: View {
 
             VStack(spacing: 1) {
                 Text("\(Int(animatedProgress * 100))%")
-                    .font(.system(.title3, design: .rounded, weight: .bold))
+                    .font(.system(.title3, weight: .bold))
                     .contentTransition(.numericText())
                 Text(label)
-                    .font(.system(size: 10, weight: .medium, design: .rounded))
+                    .font(.system(size: 10, weight: .medium))
                     .foregroundStyle(.secondary)
             }
         }
@@ -152,7 +154,7 @@ struct ScoreDisplayView: View {
             )
 
             Text("\(correct) / \(total)")
-                .font(.system(.subheadline, design: .rounded, weight: .medium))
+                .font(.system(.subheadline, weight: .medium))
                 .foregroundStyle(.secondary)
         }
     }

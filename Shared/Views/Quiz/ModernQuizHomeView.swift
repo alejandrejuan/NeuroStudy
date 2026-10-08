@@ -1,8 +1,7 @@
 import SwiftUI
 
-// MARK: - Redesigned Quiz Home View
+// MARK: - Quiz
 
-/// Enhanced quiz interface with Liquid Glass design and improved UX
 struct ModernQuizHomeView: View {
     let progressStore: ProgressStore
     @State private var selectedRegion: BrainRegion?
@@ -12,39 +11,45 @@ struct ModernQuizHomeView: View {
     @State private var showingPathologyQuiz = false
     @State private var pathologyQuizVM = PathologyQuizViewModel(progressStore: nil)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
                 AppBackground()
-                
+
                 ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 16) {
-                        
-                        // Due for review banner
-                        dueForReviewBanner
-                        
-                        // Quiz modes with enhanced cards
-                        quizModesSection
+                    VStack(alignment: .leading, spacing: 28) {
+                        heroCard
 
-                        // Clinical Knowledge (DSM-5 / Lezak / Imaging)
-                        clinicalKnowledgeSection
+                        VStack(alignment: .leading, spacing: 10) {
+                            SectionHeader("Practice")
+                            GroupedList(data: QuizMode.allCases, separatorInset: 64) { mode in
+                                modeRow(mode)
+                            }
+                        }
 
-                        // Quick settings
-                        quickSettingsSection
+                        VStack(alignment: .leading, spacing: 10) {
+                            SectionHeader("Clinical")
+                            clinicalRow
+                                .contentSurface()
+                        }
+
+                        VStack(alignment: .leading, spacing: 10) {
+                            SectionHeader("Session")
+                            sessionSettings
+                        }
                     }
                     .padding(.horizontal, 16)
                     .padding(.top, 8)
-                    .padding(.bottom, 24)
-                    .frame(maxWidth: horizontalSizeClass == .regular ? 800 : .infinity)
+                    .padding(.bottom, 28)
+                    .frame(maxWidth: horizontalSizeClass == .regular ? 720 : .infinity)
                     .frame(maxWidth: .infinity)
                 }
+                .softScrollEdges()
             }
             .navigationTitle("Quiz")
             #if os(iOS)
             .navigationBarTitleDisplayMode(.large)
-            #endif
-            #if os(iOS)
             .fullScreenCover(item: $activeSession) { session in
                 QuizSessionView(session: session, progressStore: progressStore)
             }
@@ -66,333 +71,206 @@ struct ModernQuizHomeView: View {
             }
         }
     }
-    
-    // MARK: - Hero Stats Card
-    
-    // MARK: - Due for Review Banner
-    
-    @ViewBuilder
-    private var dueForReviewBanner: some View {
+
+    // MARK: - Hero
+
+    /// The Invites-style feature card: full colour, big type, one glass button.
+    /// Leads with spaced-repetition reviews when any are due, otherwise a daily set.
+    private var heroCard: some View {
         let dueCount = progressStore.dueForReview().count
-        
-        if dueCount > 0 {
-            Button {
-                startQuiz(mode: .flashcard)
-            } label: {
-                LiquidGlassCard(cornerRadius: 18, padding: 16) {
-                    HStack(spacing: 14) {
-                        // Animated icon
-                        ZStack {
-                            Circle()
-                                .fill(
-                                    RadialGradient(
-                                        colors: [
-                                            .orange.opacity(0.25),
-                                            .orange.opacity(0.12)
-                                        ],
-                                        center: .center,
-                                        startRadius: 5,
-                                        endRadius: 25
-                                    )
-                                )
-                                .frame(width: 50, height: 50)
-                            
-                            Image(systemName: "arrow.clockwise")
-                                .font(.system(size: 20, weight: .semibold))
-                                .foregroundStyle(.orange)
-                        }
-                        
-                        // Info
-                        VStack(alignment: .leading, spacing: 3) {
-                            HStack(spacing: 6) {
-                                Text("\(dueCount)")
-                                    .font(.system(.title3, design: .rounded, weight: .bold))
-                                    .foregroundStyle(.orange)
-                                
-                                Text(dueCount == 1 ? "structure due" : "structures due")
-                                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                            }
-                            
-                            Text("Spaced repetition • Optimize retention")
-                                .font(.system(size: 12))
-                                .foregroundStyle(.secondary)
-                        }
-                        
-                        Spacer()
-                        
-                        // CTA
-                        Image(systemName: "arrow.right.circle.fill")
-                            .font(.system(size: 24))
-                            .foregroundStyle(.orange, .ultraThinMaterial)
+        let isReview = dueCount > 0
+        let shape = RoundedRectangle(cornerRadius: 30, style: .continuous)
+
+        return VStack(alignment: .leading, spacing: 0) {
+            Text(isReview ? "REVIEW" : "DAILY PRACTICE")
+                .font(.statLabel)
+                .kerning(0.6)
+                .foregroundStyle(.white.opacity(0.75))
+
+            Group {
+                if isReview {
+                    HStack(alignment: .firstTextBaseline, spacing: 8) {
+                        Text("\(dueCount)")
+                            .font(.numeral(56, weight: .heavy))
+                            .contentTransition(.numericText())
+                        Text(dueCount == 1 ? "structure due" : "structures due")
+                            .font(.title3.weight(.semibold))
                     }
+                } else {
+                    Text("Sharpen your recall.")
+                        .font(.title.weight(.bold))
+                        .padding(.vertical, 6)
                 }
             }
-            .buttonStyle(.plain)
-        }
-    }
-    
-    // MARK: - Quiz Modes Section
-    
-    private var quizModesSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Practice Modes")
-                .font(.sectionHeader)
-                .padding(.horizontal, 4)
-            
-            ForEach(QuizMode.allCases) { mode in
-                quizModeCard(mode)
+            .foregroundStyle(.white)
+            .padding(.top, 4)
+
+            Text(isReview
+                 ? "Spaced repetition brings these back right before you would forget them."
+                 : selectedRegion.map { "\(questionCount) questions on the \($0.displayName)." }
+                    ?? "\(questionCount) questions from across the atlas.")
+                .font(.subheadline)
+                .foregroundStyle(.white.opacity(0.8))
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.top, 2)
+
+            Button {
+                startQuiz(mode: isReview ? .flashcard : .multipleChoice)
+            } label: {
+                Label(isReview ? "Start Review" : "Start", systemImage: "play.fill")
+                    .font(.headline)
+                    .foregroundStyle(Color(red: 0.30, green: 0.22, blue: 0.74))
+                    .padding(.horizontal, 8)
             }
+            // White prominent glass on the colour field, like the RSVP button in Invites.
+            .glassButton(prominent: true, controlSize: .large)
+            .tint(.white)
+            .padding(.top, 18)
         }
+        .padding(22)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background {
+            ZStack(alignment: .topTrailing) {
+                LinearGradient(
+                    colors: [Color(red: 0.36, green: 0.27, blue: 0.86), Color(red: 0.22, green: 0.20, blue: 0.62), Color(red: 0.05, green: 0.50, blue: 0.40)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                Image(systemName: "brain")
+                    .font(.system(size: 150, weight: .light))
+                    .foregroundStyle(.white.opacity(0.09))
+                    .offset(x: 30, y: -14)
+                    .accessibilityHidden(true)
+            }
+            .clipShape(shape)
+        }
+        .overlay {
+            shape.strokeBorder(.white.opacity(0.18), lineWidth: 0.75)
+        }
+        .shadow(color: Color(red: 0.25, green: 0.18, blue: 0.70).opacity(0.28), radius: 24, y: 12)
     }
-    
-    private func quizModeCard(_ mode: QuizMode) -> some View {
+
+    // MARK: - Rows
+
+    private func modeRow(_ mode: QuizMode) -> some View {
         Button {
             startQuiz(mode: mode)
         } label: {
-            LiquidGlassCard(cornerRadius: 20, padding: 16) {
-                HStack(spacing: 16) {
-                    // Mode icon
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 16, style: .continuous)
-                            .fill(
-                                LinearGradient(
-                                    colors: [
-                                        modeColor(mode).opacity(0.2),
-                                        modeColor(mode).opacity(0.08)
-                                    ],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                            .frame(width: 56, height: 56)
-                        
-                        Image(systemName: mode.sfSymbol)
-                            .font(.system(size: 24, weight: .medium))
-                            .foregroundStyle(modeColor(mode))
-                    }
-                    
-                    // Mode info
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(mode.rawValue)
-                            .font(.system(.body, design: .rounded, weight: .semibold))
-                            .foregroundStyle(.primary)
-                        
-                        Text(mode.description)
-                            .font(.system(size: 13))
-                            .foregroundStyle(.secondary)
-                            .lineLimit(2)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                    
-                    Spacer(minLength: 8)
-                    
-                    // Chevron
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundStyle(.tertiary)
+            HStack(spacing: 14) {
+                GlyphTile(systemName: mode.sfSymbol, color: modeColor(mode), size: 36)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(mode.rawValue)
+                        .font(.body.weight(.semibold))
+                        .foregroundStyle(.primary)
+                    Text(mode.description)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
+                Spacer(minLength: 8)
+                Image(systemName: "chevron.right")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(.tertiary)
             }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 12)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .pressableScale()
     }
-    
+
     private func modeColor(_ mode: QuizMode) -> Color {
         switch mode {
         case .tapIdentify: return .blue
-        case .flashcard: return .purple
-        case .multipleChoice: return .green
+        case .flashcard: return Theme.violet
+        case .multipleChoice: return Theme.emerald
         }
     }
 
-    // MARK: - Clinical Knowledge Section
-
-    private var clinicalKnowledgeSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Clinical Knowledge")
-                .font(.sectionHeader)
-                .padding(.horizontal, 4)
-
-            Button {
-                pathologyQuizVM = PathologyQuizViewModel(count: questionCount, progressStore: progressStore)
-                showingPathologyQuiz = true
-            } label: {
-                LiquidGlassCard(cornerRadius: 20, padding: 16) {
-                    HStack(spacing: 16) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                .fill(
-                                    LinearGradient(
-                                        colors: [.orange.opacity(0.2), .red.opacity(0.1)],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                )
-                                .frame(width: 56, height: 56)
-                            Image(systemName: "book.closed.fill")
-                                .font(.system(size: 24, weight: .medium))
-                                .foregroundStyle(.orange)
-                        }
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("DSM-5 & Neuropsychology")
-                                .font(.system(.body, design: .rounded, weight: .semibold))
-                                .foregroundStyle(.primary)
-                            Text("Diagnostic criteria, neuropsychological test profiles, and brain imaging findings")
-                                .font(.system(size: 13))
-                                .foregroundStyle(.secondary)
-                                .lineLimit(2)
-                                .fixedSize(horizontal: false, vertical: true)
-
-                            HStack(spacing: 6) {
-                                ForEach([ContentReference.dsm5, .lezak, .brainImaging], id: \.rawValue) { ref in
-                                    SourceReferenceBadge(reference: ref)
-                                }
-                            }
-                            .padding(.top, 2)
-                        }
-
-                        Spacer(minLength: 8)
-
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundStyle(.tertiary)
-                    }
-                }
-            }
-            .buttonStyle(.plain)
-            .pressableScale()
-        }
-    }
-    
-    // MARK: - Quick Settings
-    
-    private var quickSettingsSection: some View {
-        LiquidGlassCard(cornerRadius: 18, padding: 16) {
-            VStack(alignment: .leading, spacing: 14) {
-                Text("Quick Settings")
-                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                
-                // Question count picker
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Questions per session")
-                        .font(.system(size: 13))
-                        .foregroundStyle(.secondary)
-                    
-                    HStack(spacing: 8) {
-                        ForEach([5, 10, 15, 20], id: \.self) { count in
-                            Button {
-                                withAnimation(.spring(response: 0.3)) {
-                                    questionCount = count
-                                }
-                            } label: {
-                                Text("\(count)")
-                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                    .foregroundStyle(questionCount == count ? .white : .secondary)
-                                    .frame(minWidth: 44, minHeight: 34)
-                                    .background {
-                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                            .fill(questionCount == count ? AnyShapeStyle(Color.accentColor) : AnyShapeStyle(.quaternary))
-                                    }
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-                }
-                
-                // Region filter
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Focus region (optional)")
-                        .font(.system(size: 13))
-                        .foregroundStyle(.secondary)
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 6) {
-                            regionFilterButton(label: "All", region: nil)
-                            
-                            ForEach(BrainRegion.allCases) { region in
-                                regionFilterButton(label: region.displayName, region: region)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    private func regionFilterButton(label: String, region: BrainRegion?) -> some View {
-        let isSelected = selectedRegion == region
-        
-        return Button {
-            withAnimation(.spring(response: 0.3)) {
-                selectedRegion = region
-            }
+    private var clinicalRow: some View {
+        Button {
+            pathologyQuizVM = PathologyQuizViewModel(count: questionCount, progressStore: progressStore)
+            showingPathologyQuiz = true
         } label: {
-            HStack(spacing: 4) {
-                if let r = region {
-                    Image(systemName: r.sfSymbol)
-                        .font(.system(size: 9, weight: .semibold))
+            HStack(spacing: 14) {
+                GlyphTile(systemName: "stethoscope", color: .orange, size: 36)
+                VStack(alignment: .leading, spacing: 6) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("DSM-5 & Neuropsychology")
+                            .font(.body.weight(.semibold))
+                            .foregroundStyle(.primary)
+                        Text("Diagnostic criteria, test profiles, and imaging findings")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    HStack(spacing: 6) {
+                        ForEach([ContentReference.dsm5, .lezak, .brainImaging], id: \.rawValue) { ref in
+                            SourceReferenceBadge(reference: ref)
+                        }
+                    }
                 }
-                
-                Text(label)
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                Spacer(minLength: 8)
+                Image(systemName: "chevron.right")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(.tertiary)
             }
-            .padding(.horizontal, 10)
-            .padding(.vertical, 6)
-            .background {
-                Capsule(style: .continuous)
-                    .fill(isSelected ? AnyShapeStyle(region?.color.opacity(0.2) ?? Color.accentColor.opacity(0.2)) : AnyShapeStyle(.quaternary))
-            }
-            .overlay {
-                if isSelected {
-                    Capsule(style: .continuous)
-                        .strokeBorder(region?.color ?? .accentColor, lineWidth: 1)
-                }
-            }
-            .foregroundStyle(isSelected ? (region?.color ?? .accentColor) : .secondary)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 12)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
     }
-    
+
+    // MARK: - Session Settings
+
+    /// Native controls, the way Apple's own apps expose settings: a segmented control
+    /// for length and a pop-up menu for the region, not a strip of custom chips.
+    private var sessionSettings: some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 12) {
+                Text("Questions")
+                Spacer()
+                Picker("Questions", selection: $questionCount) {
+                    ForEach([5, 10, 15, 20], id: \.self) { Text("\($0)").tag($0) }
+                }
+                .pickerStyle(.segmented)
+                .labelsHidden()
+                .frame(maxWidth: 210)
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
+
+            Divider().padding(.leading, 14)
+
+            HStack {
+                Text("Focus")
+                Spacer()
+                Picker("Focus", selection: $selectedRegion) {
+                    Text("All Regions").tag(BrainRegion?.none)
+                    Divider()
+                    ForEach(BrainRegion.allCases) { region in
+                        Text(region.displayName).tag(BrainRegion?.some(region))
+                    }
+                }
+                .pickerStyle(.menu)
+                .labelsHidden()
+                .tint(.secondary)
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 6)
+        }
+        .contentSurface()
+    }
+
     // MARK: - Helper Methods
-    
+
     private func startQuiz(mode: QuizMode) {
         activeSession = QuizSession(
             mode: mode,
             questionCount: questionCount,
             region: selectedRegion
         )
-    }
-    
-}
-
-// MARK: - Pressable Scale Modifier
-
-extension View {
-    func pressableScale(scale: CGFloat = 0.97) -> some View {
-        self.modifier(PressableScaleModifier(scale: scale))
-    }
-}
-
-struct PressableScaleModifier: ViewModifier {
-    let scale: CGFloat
-    @State private var isPressed = false
-    
-    func body(content: Content) -> some View {
-        content
-            .scaleEffect(isPressed ? scale : 1.0)
-            .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isPressed)
-            .simultaneousGesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { _ in
-                        if !isPressed {
-                            isPressed = true
-                        }
-                    }
-                    .onEnded { _ in
-                        isPressed = false
-                    }
-            )
     }
 }
 

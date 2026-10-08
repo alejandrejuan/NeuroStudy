@@ -12,6 +12,7 @@
 		0873060076F714444D75D8F6 /* NeuroStudyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0034CBA1AED71AD650A0681C /* NeuroStudyApp.swift */; };
 		094B741486A07E40B4AC02FD /* ModernProgressDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E3D89AD4A75BB47A9FC522 /* ModernProgressDashboardView.swift */; };
 		14DD226EB4B9599F8E531A45 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8272D3F38A6598EF656FC77 /* ScreenshotTests.swift */; };
+		14FC55BE6118D6D4E226B621 /* QuizChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFAB08D35EEA4A080B7619C /* QuizChrome.swift */; };
 		16D6B722564CE073D061CE6C /* TapIdentifyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */; };
 		29189F8E21DAA32E59C4E6E1 /* GlassComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D4F3B912CD378B9D90ECE /* GlassComponents.swift */; };
 		2BA07433427198D7B2EEC4D4 /* ModernDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDA2FBF57EFA60F2F151A27 /* ModernDesignSystem.swift */; };
@@ -32,6 +33,7 @@
 		4868AEB9F120B9579B872E48 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5386B46B26129222D30051 /* Haptics.swift */; };
 		4D99258306D8FDDD0CFDB7DC /* PathologyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B5C7DA03A3EB499B5DCFAB /* PathologyStore.swift */; };
 		4FB5CA8E0019FC3CB1EACC2D /* BrainRenderEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F493D506307D9AA7C8CA82D /* BrainRenderEffects.swift */; };
+		503FB2DB5116D2CABBBD09D0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE680DA363FD7F9B2E38CF9 /* Theme.swift */; };
 		527A264B9C71547F706ECEA3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */; };
 		5A5D401EC2FBD372D4584DE9 /* BrainRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E1C4BAD3C96A2ECB3AC94 /* BrainRegion.swift */; };
 		5BF360443BB7FF23B7B9EEAB /* PathologyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF7725D2E1527DB24F1555 /* PathologyData.swift */; };
@@ -42,9 +44,11 @@
 		7349463F96DB9A41177F057F /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247E697F887109916D2B4727 /* QuizViewModel.swift */; };
 		7391B89F41E16B5811365C0B /* ModernExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442BFC60E119CC072FC7112C /* ModernExploreView.swift */; };
 		76D5B3A1DC6B3D5CF6BAC8B8 /* PathologyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF7725D2E1527DB24F1555 /* PathologyData.swift */; };
+		77A61129FD4A406FCD1075B4 /* QuizChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFAB08D35EEA4A080B7619C /* QuizChrome.swift */; };
 		77D60B5B512FC3D1A3B6ECFD /* ProgressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846B3B5497475D14055CEB96 /* ProgressStore.swift */; };
 		791F6BD5CA3456AB39562409 /* AppTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886AF33244B0412DDFFD76C8 /* AppTypography.swift */; };
 		7A62635A3A85CFB50F89229D /* GlassComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D4F3B912CD378B9D90ECE /* GlassComponents.swift */; };
+		7B2BBCB557472620A72D5633 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE680DA363FD7F9B2E38CF9 /* Theme.swift */; };
 		7E6F2126D2B19171C10E81F6 /* BrainStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FC9A1F90F4D473DE8E2E5 /* BrainStructure.swift */; };
 		7F5F7111B637470E5721C4C0 /* BrainRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E1C4BAD3C96A2ECB3AC94 /* BrainRegion.swift */; };
 		88698E2610BE4E711AD231ED /* BrainStructureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47720808E26F924BA29CFF7 /* BrainStructureStore.swift */; };
@@ -96,6 +100,7 @@
 		034D1EA85EDEC6B23673EC15 /* NeuroStudyUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NeuroStudyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1284EBC8180B361D2B86E11B /* QuizQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestion.swift; sourceTree = "<group>"; };
 		170D7A15D5D37414F759B0A7 /* FlashcardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardView.swift; sourceTree = "<group>"; };
+		1BE680DA363FD7F9B2E38CF9 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		247E697F887109916D2B4727 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
 		31628D0CF6C252C15568120B /* QuizResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultsView.swift; sourceTree = "<group>"; };
 		35FA75F18BF16E031D6799BE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -105,6 +110,7 @@
 		4652787F297CCE688A6C3100 /* BrainHotspot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainHotspot.swift; sourceTree = "<group>"; };
 		4CBE3D9F323D219086A25F60 /* LiquidGlass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGlass.swift; sourceTree = "<group>"; };
 		4F493D506307D9AA7C8CA82D /* BrainRenderEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainRenderEffects.swift; sourceTree = "<group>"; };
+		4FFAB08D35EEA4A080B7619C /* QuizChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizChrome.swift; sourceTree = "<group>"; };
 		5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapIdentifyQuizView.swift; sourceTree = "<group>"; };
 		652FC9A1F90F4D473DE8E2E5 /* BrainStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainStructure.swift; sourceTree = "<group>"; };
 		736D4F3B912CD378B9D90ECE /* GlassComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassComponents.swift; sourceTree = "<group>"; };
@@ -140,6 +146,7 @@
 				97C38866C8A7A6367D67872C /* ModernQuizHomeView.swift */,
 				029A583054B38D467A7CB354 /* MultipleChoiceView.swift */,
 				B15BE40AEBE598A6C47BAC7D /* PathologyQuizView.swift */,
+				4FFAB08D35EEA4A080B7619C /* QuizChrome.swift */,
 				31628D0CF6C252C15568120B /* QuizResultsView.swift */,
 				247E697F887109916D2B4727 /* QuizViewModel.swift */,
 				5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */,
@@ -219,6 +226,7 @@
 				4CBE3D9F323D219086A25F60 /* LiquidGlass.swift */,
 				D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */,
 				CFDA2FBF57EFA60F2F151A27 /* ModernDesignSystem.swift */,
+				1BE680DA363FD7F9B2E38CF9 /* Theme.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -435,6 +443,7 @@
 				993B7C5AAE18C074D71B032D /* PathologyQuizView.swift in Sources */,
 				BB3E5090969B87731567EB83 /* PathologyStore.swift in Sources */,
 				77D60B5B512FC3D1A3B6ECFD /* ProgressStore.swift in Sources */,
+				14FC55BE6118D6D4E226B621 /* QuizChrome.swift in Sources */,
 				40EA8D0A2D5CCC4BEAD344A4 /* QuizQuestion.swift in Sources */,
 				AAFD0E5DEB43F33EB622411C /* QuizResultsView.swift in Sources */,
 				65BE6C741BA6B6EB42262894 /* QuizViewModel.swift in Sources */,
@@ -442,6 +451,7 @@
 				B1F68A0D739ADA861FB7DA05 /* StructureDetailView.swift in Sources */,
 				3370DCD14A8B9F8F9C655F26 /* StudyProgress.swift in Sources */,
 				16D6B722564CE073D061CE6C /* TapIdentifyQuizView.swift in Sources */,
+				503FB2DB5116D2CABBBD09D0 /* Theme.swift in Sources */,
 				B9CFAAD0AB85934B458283E1 /* UniversalMainView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -474,6 +484,7 @@
 				46C470FFCBBAEEC1EAFFBA49 /* PathologyQuizView.swift in Sources */,
 				4D99258306D8FDDD0CFDB7DC /* PathologyStore.swift in Sources */,
 				D06B43A0C1BF2BCEDEE0A3BA /* ProgressStore.swift in Sources */,
+				77A61129FD4A406FCD1075B4 /* QuizChrome.swift in Sources */,
 				AE6E17A8543017DE64F1BD0B /* QuizQuestion.swift in Sources */,
 				BDB9423C4725F1709298DD9A /* QuizResultsView.swift in Sources */,
 				7349463F96DB9A41177F057F /* QuizViewModel.swift in Sources */,
@@ -481,6 +492,7 @@
 				D6D7ECB348C9DFBE7F491115 /* StructureDetailView.swift in Sources */,
 				3507E5A9B63A49C35B9CDC2B /* StudyProgress.swift in Sources */,
 				401038D8E768B6FDD0FD4939 /* TapIdentifyQuizView.swift in Sources */,
+				7B2BBCB557472620A72D5633 /* Theme.swift in Sources */,
 				46E2A4A0EDF2ABFD99C27ACE /* UniversalMainView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
