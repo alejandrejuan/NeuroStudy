@@ -41,7 +41,7 @@ struct StructureDetailView: View {
                         FlowLayout(spacing: 8) {
                             ForEach(structure.associatedDisorders, id: \.self) { disorder in
                                 Text(disorder)
-                                    .font(.subheadline)
+                                    .font(.callout)
                                     .padding(.horizontal, 12)
                                     .padding(.vertical, 7)
                                     .contentSurface(cornerRadius: 100)
@@ -56,7 +56,7 @@ struct StructureDetailView: View {
                             ForEach(connectedStructures) { connected in
                                 HStack(spacing: 6) {
                                     Circle().fill(connected.region.color).frame(width: 7, height: 7)
-                                    Text(connected.name).font(.subheadline)
+                                    Text(connected.name).font(.callout)
                                 }
                                 .padding(.horizontal, 12)
                                 .padding(.vertical, 7)
@@ -112,7 +112,7 @@ struct StructureDetailView: View {
                         .foregroundStyle(.secondary)
                     if !structure.aliases.isEmpty {
                         Text(structure.aliases.joined(separator: ", "))
-                            .font(.subheadline)
+                            .font(.callout)
                             .foregroundStyle(.secondary)
                             .lineLimit(2)
                     }
@@ -134,47 +134,23 @@ struct StructureDetailView: View {
 
     // MARK: - Stats
 
+    @ViewBuilder
     private var statsStrip: some View {
         let progress = progressStore.progress(for: structure.id)
 
-        return Group {
-            if progress.totalAttempts > 0 {
-                HStack(spacing: 0) {
-                    stat("Attempts", "\(progress.totalAttempts)")
-                    Divider().padding(.vertical, 12)
-                    stat("Accuracy", "\(Int(progress.accuracy * 100))%")
-                    Divider().padding(.vertical, 12)
-                    stat("Best Streak", "\(progress.streakBest)")
-                }
-            } else {
-                HStack(spacing: 12) {
-                    Image(systemName: "sparkles")
-                        .foregroundStyle(Theme.violet)
-                    Text("Not studied yet. Quiz yourself to start tracking it.")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                    Spacer(minLength: 0)
-                }
-                .padding(16)
+        if progress.totalAttempts > 0 {
+            HStack(spacing: 10) {
+                StatTile(title: "Answers", value: "\(progress.totalAttempts)")
+                StatTile(title: "Accuracy", value: "\(Int((progress.accuracy * 100).rounded()))%")
+                StatTile(title: "Best Streak", value: "\(progress.streakBest)")
             }
-        }
-        .contentSurface()
-    }
-
-    private func stat(_ title: String, _ value: String) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(title.uppercased())
-                .font(.statLabel)
+        } else {
+            // A plain line, not a card: there is nothing to show yet.
+            Label("Not studied yet. Quiz yourself to start tracking it.", systemImage: "sparkles")
+                .font(.callout)
                 .foregroundStyle(.secondary)
-            Text(value)
-                .font(.numeral(24))
-                .monospacedDigit()
+                .padding(.horizontal, 4)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 16)
-        .padding(.top, 14)
-        .padding(.bottom, 14)
-        .accessibilityElement(children: .combine)
     }
 
     // MARK: - Building Blocks

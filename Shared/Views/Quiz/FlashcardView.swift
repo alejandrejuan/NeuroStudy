@@ -30,14 +30,12 @@ struct FlashcardQuizView: View {
                         Spacer()
 
                         // Grade buttons (shown when flipped)
-                        if isFlipped {
-                            gradeButtons
-                                .transition(.move(edge: .bottom).combined(with: .opacity))
-                        } else {
-                            Label("Tap the card to reveal", systemImage: "hand.tap")
-                                .font(.subheadline.weight(.medium))
-                                .foregroundStyle(.secondary)
-                        }
+                        // Always laid out, faded in on reveal, so the card never jumps.
+                        gradeButtons
+                            .opacity(isFlipped ? 1 : 0)
+                            .offset(y: isFlipped ? 0 : 12)
+                            .allowsHitTesting(isFlipped)
+                            .accessibilityHidden(!isFlipped)
                     }
                     .padding()
                 }
@@ -160,9 +158,6 @@ struct FlashcardQuizView: View {
 
     private var gradeButtons: some View {
         VStack(spacing: 8) {
-            Text("How well did you recall it?")
-                .font(.subheadline.weight(.medium))
-                .foregroundStyle(.secondary)
 
             HStack(spacing: 12) {
                 ForEach(SpacedRepetitionGrade.allCases, id: \.rawValue) { grade in

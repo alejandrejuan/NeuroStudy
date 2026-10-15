@@ -126,15 +126,16 @@ class BrainMapViewModel {
             return (0.30, 0.18)
         }
         if isSelected {
-            return (0.85, 0.65)
+            return (0.80, 0.62)
         }
         if isHighlighted {
-            return (0.60, 0.42)
+            return (0.52, 0.38)
         }
         if structureID == hoveredID ?? "" {
-            return (0.55, 0.38)
+            return (0.45, 0.32)
         }
-        return (0.50, 0.35)
+        // Light enough that the tissue and its folds read first, the region second.
+        return (0.34, 0.24)
     }
 
     func renderingStyle(for structureID: String) -> StructureRenderStyle {

@@ -126,6 +126,12 @@ class ProgressStore {
         return Double(correct) / Double(total)
     }
 
+    /// Anatomy answers behind `overallAccuracy()`. Clinical answers are not tied to
+    /// a structure and do not count toward it.
+    func totalAnswers() -> Int {
+        allProgress().reduce(0) { $0 + $1.totalAttempts }
+    }
+
     func masteredCount() -> Int {
         allProgress().filter { $0.masteryLevel == .mastered }.count
     }

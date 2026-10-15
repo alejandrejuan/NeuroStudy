@@ -52,7 +52,7 @@ struct QuizResultsView: View {
         VStack(alignment: .leading, spacing: 10) {
             SectionHeader(title) {
                 Text("\(questions.count)")
-                    .font(.subheadline.weight(.semibold))
+                    .font(.callout.weight(.semibold))
                     .foregroundStyle(.secondary)
                     .monospacedDigit()
             }
@@ -64,7 +64,7 @@ struct QuizResultsView: View {
                             .font(.body)
                         if let function = question.targetStructure.functions.first {
                             Text(function)
-                                .font(.subheadline)
+                                .font(.callout)
                                 .foregroundStyle(.secondary)
                                 .lineLimit(1)
                         }

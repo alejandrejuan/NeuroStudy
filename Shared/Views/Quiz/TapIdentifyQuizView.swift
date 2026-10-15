@@ -63,8 +63,7 @@ struct TapIdentifyQuizView: View {
 
     private func promptCard(_ question: QuizQuestion) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            QuestionEyebrow(title: "Find on the map", color: .blue)
-            // The eyebrow already says what to do, so the title is just the name.
+            // Just the name: the map below makes the task obvious.
             Text(question.targetStructure.name)
                 .font(.largeTitle.weight(.bold))
                 .minimumScaleFactor(0.7)

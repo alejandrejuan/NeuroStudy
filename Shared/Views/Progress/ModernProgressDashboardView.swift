@@ -3,8 +3,8 @@ import Charts
 
 // MARK: - Progress
 
-/// A scoreboard, in the Apple Sports sense: the numbers are the design. Big expanded
-/// numerals, small uppercase labels, everything else quiet.
+/// The numbers are the design: large numerals, small uppercase labels, everything
+/// else quiet.
 struct ModernProgressDashboardView: View {
     let progressStore: ProgressStore
     @State private var selectedTimeframe: Timeframe = .week
@@ -129,32 +129,18 @@ struct ModernProgressDashboardView: View {
     // MARK: - Stats
 
     private var statsRow: some View {
-        HStack(spacing: 0) {
-            stat("Studied", value: "\(progressStore.studiedCount())", symbol: "book.fill")
-            Divider().padding(.vertical, 14)
-            stat("Accuracy", value: "\(Int(progressStore.overallAccuracy() * 100))%", symbol: "target")
-            Divider().padding(.vertical, 14)
-            stat("Due", value: "\(progressStore.dueForReview().count)", symbol: "clock.arrow.circlepath")
-        }
-        .contentSurface()
-    }
+        let answers = progressStore.totalAnswers()
+        let accuracy = Int((progressStore.overallAccuracy() * 100).rounded())
 
-    private func stat(_ title: String, value: String, symbol: String) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Label(title.uppercased(), systemImage: symbol)
-                .font(.statLabel)
-                .foregroundStyle(.secondary)
-                .labelStyle(StatLabelStyle())
-            Text(value)
-                .font(.numeral(26))
-                .monospacedDigit()
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
+        return HStack(spacing: 10) {
+            StatTile(title: "Studied", value: "\(progressStore.studiedCount())", caption: "of \(totalStructures)")
+            StatTile(
+                title: "Accuracy",
+                value: answers > 0 ? "\(accuracy)%" : "–",
+                caption: answers > 0 ? "\(answers) \(answers == 1 ? "answer" : "answers")" : "No answers yet"
+            )
+            StatTile(title: "Due", value: "\(progressStore.dueForReview().count)", caption: "for review")
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 16)
-        .padding(.vertical, 14)
-        .accessibilityElement(children: .combine)
     }
 
     // MARK: - Activity
@@ -195,12 +181,12 @@ struct ModernProgressDashboardView: View {
                 // activity simply falls outside the selected window.
                 let hasHistory = progressStore.studiedCount() > 0
                 Text(hasHistory ? "No activity in this period" : "No study activity yet")
-                    .font(.subheadline)
+                    .font(.callout)
                     .foregroundStyle(.secondary)
                 Text(hasHistory
                      ? "Earlier sessions show under a longer timeframe."
                      : "Answer a few quiz questions and your activity will show up here.")
-                    .font(.footnote)
+                    .font(.subheadline)
                     .foregroundStyle(.tertiary)
                     .multilineTextAlignment(.center)
             }
@@ -241,7 +227,7 @@ struct ModernProgressDashboardView: View {
                         .font(.body)
                     Spacer()
                     Text("\(mastered)/\(structures.count)")
-                        .font(.subheadline.weight(.semibold))
+                        .font(.callout.weight(.semibold))
                         .foregroundStyle(.secondary)
                         .monospacedDigit()
                 }
@@ -274,7 +260,7 @@ struct ModernProgressDashboardView: View {
             VStack(alignment: .leading, spacing: 10) {
                 SectionHeader("Due for Review") {
                     Text("\(dueIDs.count)")
-                        .font(.subheadline.weight(.semibold))
+                        .font(.callout.weight(.semibold))
                         .foregroundStyle(.orange)
                         .monospacedDigit()
                 }
@@ -283,23 +269,11 @@ struct ModernProgressDashboardView: View {
                 }
                 if dueIDs.count > 5 {
                     Text("\(dueIDs.count - 5) more in your next review")
-                        .font(.subheadline)
+                        .font(.callout)
                         .foregroundStyle(.secondary)
                         .padding(.horizontal, 4)
                 }
             }
-        }
-    }
-}
-
-// MARK: - Stat Label Style
-
-/// A symbol beside an uppercase caption, tighter than the default Label spacing.
-private struct StatLabelStyle: LabelStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        HStack(spacing: 4) {
-            configuration.icon
-            configuration.title
         }
     }
 }
@@ -324,7 +298,7 @@ struct CompactStructureRow: View {
                         Text("Not yet studied")
                     }
                 }
-                .font(.subheadline)
+                .font(.callout)
                 .foregroundStyle(.secondary)
             }
 

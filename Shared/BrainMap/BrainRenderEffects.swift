@@ -115,9 +115,9 @@ struct BrainOutlineEnhanced {
             .fill(
                 LinearGradient(
                     colors: [
-                        Color(red: 0.97, green: 0.92, blue: 0.88),
-                        Color(red: 0.94, green: 0.88, blue: 0.84),
-                        Color(red: 0.91, green: 0.85, blue: 0.81)
+                        Color(red: 0.96, green: 0.89, blue: 0.87),
+                        Color(red: 0.93, green: 0.84, blue: 0.82),
+                        Color(red: 0.88, green: 0.78, blue: 0.77)
                     ],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing

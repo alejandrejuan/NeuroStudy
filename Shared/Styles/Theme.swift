@@ -27,13 +27,13 @@ enum Theme {
 // MARK: - Typography
 
 extension Font {
-    /// Big scoreboard numerals: SF Pro Expanded, the Apple Sports treatment.
+    /// Big numerals in standard-width SF Pro.
     static func numeral(_ size: CGFloat, weight: Font.Weight = .bold) -> Font {
-        .system(size: size, weight: weight).width(.expanded)
+        .system(size: size, weight: weight)
     }
 
     /// Small uppercase label that sits above or below a numeral.
-    static let statLabel = Font.system(.caption, weight: .semibold)
+    static let statLabel = Font.system(.footnote, weight: .semibold)
 }
 
 // MARK: - App Background
@@ -95,20 +95,26 @@ struct AppBackground: View {
     }
 
     /// Violet top-left, emerald top-right, both settling into the base by mid-screen.
-    /// Kept a touch below full saturation so the glow reads as light, not paint.
+    /// Each tint is mixed toward the base by `intensity`, so the whole glow can be made
+    /// quieter or stronger in one place.
     private var meshColors: [Color] {
-        let b = base
+        let intensity = 0.5
+        let b: (Double, Double, Double) = isDark ? (0.040, 0.040, 0.065) : (0.965, 0.963, 0.980)
+        func tint(_ r: Double, _ g: Double, _ bl: Double) -> Color {
+            Color(red: b.0 + (r - b.0) * intensity, green: b.1 + (g - b.1) * intensity, blue: b.2 + (bl - b.2) * intensity)
+        }
+        let base = Color(red: b.0, green: b.1, blue: b.2)
         if isDark {
             return [
-                Color(red: 0.22, green: 0.16, blue: 0.52), Color(red: 0.15, green: 0.11, blue: 0.36), Color(red: 0.05, green: 0.25, blue: 0.20),
-                Color(red: 0.09, green: 0.075, blue: 0.18), Color(red: 0.06, green: 0.055, blue: 0.11), Color(red: 0.05, green: 0.10, blue: 0.09),
-                b, b, b,
+                tint(0.22, 0.16, 0.52), tint(0.15, 0.11, 0.36), tint(0.05, 0.25, 0.20),
+                tint(0.09, 0.075, 0.18), tint(0.06, 0.055, 0.11), tint(0.05, 0.10, 0.09),
+                base, base, base,
             ]
         } else {
             return [
-                Color(red: 0.85, green: 0.83, blue: 0.98), Color(red: 0.90, green: 0.89, blue: 0.98), Color(red: 0.82, green: 0.94, blue: 0.89),
-                Color(red: 0.935, green: 0.93, blue: 0.985), Color(red: 0.955, green: 0.953, blue: 0.982), Color(red: 0.925, green: 0.96, blue: 0.945),
-                b, b, b,
+                tint(0.85, 0.83, 0.98), tint(0.90, 0.89, 0.98), tint(0.82, 0.94, 0.89),
+                tint(0.935, 0.93, 0.985), tint(0.955, 0.953, 0.982), tint(0.925, 0.96, 0.945),
+                base, base, base,
             ]
         }
     }
@@ -239,11 +245,50 @@ struct GlyphTile: View {
             .frame(width: size, height: size)
             .overlay {
                 Image(systemName: systemName)
-                    .font(.system(size: size * 0.5, weight: .semibold))
+                    .font(.system(size: size * 0.44, weight: .semibold))
                     .foregroundStyle(.white)
                     .symbolRenderingMode(.monochrome)
             }
             .accessibilityHidden(true)
+    }
+}
+
+// MARK: - Stat Tile
+
+/// One number on its own near-square tile: an uppercase label, the value as a
+/// scoreboard numeral, and a short caption that says what the number is out of.
+/// Three of these side by side replace a single long, short strip.
+struct StatTile: View {
+    let title: String
+    let value: String
+    var caption: String?
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(title.uppercased())
+                .font(.statLabel)
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+            Spacer(minLength: 8)
+            Text(value)
+                .font(.numeral(30))
+                .monospacedDigit()
+                .lineLimit(1)
+                .minimumScaleFactor(0.6)
+                .contentTransition(.numericText())
+            if let caption {
+                Text(caption)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+            }
+        }
+        .frame(maxWidth: .infinity, minHeight: 92, alignment: .leading)
+        .padding(14)
+        .contentSurface(cornerRadius: 20)
+        .accessibilityElement(children: .combine)
     }
 }
 

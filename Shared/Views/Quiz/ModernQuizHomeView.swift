@@ -19,12 +19,11 @@ struct ModernQuizHomeView: View {
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 28) {
-                        reviewSection
-
                         VStack(alignment: .leading, spacing: 10) {
                             SectionHeader("Practice")
-                            GroupedList(data: PracticeItem.all, separatorInset: 64) { item in
+                            GroupedList(data: practiceItems, separatorInset: 64) { item in
                                 switch item {
+                                case .review(let count): reviewRow(count)
                                 case .mode(let mode): modeRow(mode)
                                 case .clinical: clinicalRow
                                 }
@@ -71,40 +70,36 @@ struct ModernQuizHomeView: View {
 
     // MARK: - Review
 
-    /// Shown only when spaced repetition has something due. One row, no banner:
-    /// the count is the whole message.
-    @ViewBuilder
-    private var reviewSection: some View {
-        let dueCount = progressStore.dueForReview().count
-        if dueCount > 0 {
-            VStack(alignment: .leading, spacing: 10) {
-                SectionHeader("Review")
-                Button {
-                    startQuiz(mode: .flashcard)
-                } label: {
-                    HStack(spacing: 14) {
-                        GlyphTile(systemName: "clock.arrow.circlepath", color: .orange, size: 36)
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("\(dueCount) \(dueCount == 1 ? "structure" : "structures") due")
-                                .font(.body.weight(.semibold))
-                                .foregroundStyle(.primary)
-                            Text("Review them before they fade")
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                        }
-                        Spacer(minLength: 8)
-                        Image(systemName: "chevron.right")
-                            .font(.footnote.weight(.semibold))
-                            .foregroundStyle(.tertiary)
-                    }
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 12)
-                    .contentShape(Rectangle())
+    /// Due reviews lead the Practice list as an ordinary row, only while there are any.
+    private var practiceItems: [PracticeItem] {
+        let due = progressStore.dueForReview().count
+        return (due > 0 ? [.review(due)] : []) + PracticeItem.all
+    }
+
+    private func reviewRow(_ dueCount: Int) -> some View {
+        Button {
+            startQuiz(mode: .flashcard)
+        } label: {
+            HStack(spacing: 14) {
+                GlyphTile(systemName: "clock.arrow.circlepath", color: .orange, size: 36)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Review")
+                        .font(.body)
+                        .foregroundStyle(.primary)
+                    Text("\(dueCount) \(dueCount == 1 ? "structure" : "structures") due")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
                 }
-                .buttonStyle(.plain)
-                .contentSurface()
+                Spacer(minLength: 8)
+                Image(systemName: "chevron.right")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(.tertiary)
             }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 12)
+            .contentShape(Rectangle())
         }
+        .buttonStyle(.plain)
     }
 
     // MARK: - Rows
@@ -117,10 +112,10 @@ struct ModernQuizHomeView: View {
                 GlyphTile(systemName: mode.sfSymbol, color: modeColor(mode), size: 36)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(mode.rawValue)
-                        .font(.body.weight(.semibold))
+                        .font(.body)
                         .foregroundStyle(.primary)
                     Text(mode.description)
-                        .font(.subheadline)
+                        .font(.callout)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 }
@@ -153,10 +148,10 @@ struct ModernQuizHomeView: View {
                 GlyphTile(systemName: "stethoscope", color: .pink, size: 36)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("DSM-5 & Neuropsychology")
-                        .font(.body.weight(.semibold))
+                        .font(.body)
                         .foregroundStyle(.primary)
                     Text("Criteria, test profiles, and imaging")
-                        .font(.subheadline)
+                        .font(.callout)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 }
@@ -226,8 +221,10 @@ struct ModernQuizHomeView: View {
 
 // MARK: - Supporting Types
 
-/// The rows of the Practice list: the three anatomy modes, then the clinical quiz.
+/// The rows of the Practice list: due reviews when any, the three anatomy modes, then
+/// the clinical quiz.
 private enum PracticeItem: Identifiable {
+    case review(Int)
     case mode(QuizMode)
     case clinical
 
@@ -235,6 +232,7 @@ private enum PracticeItem: Identifiable {
 
     var id: String {
         switch self {
+        case .review: return "review"
         case .mode(let mode): return mode.id
         case .clinical: return "clinical"
         }

@@ -281,7 +281,7 @@ struct AboutView: View {
                             .font(.headline)
 
                         Text("NeuroStudy is not a substitute for a textbook. To go deeper, or to check anything you read here:\n\n• Principles of Neural Science (Kandel et al.)\n• Neuroanatomy Through Clinical Cases (Blumenfeld)")
-                            .font(.footnote)
+                            .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
                 }
@@ -290,19 +290,19 @@ struct AboutView: View {
                 SurfaceCard(cornerRadius: 20, padding: 20) {
                     VStack(alignment: .leading, spacing: 10) {
                         Label("Educational Use Only", systemImage: "exclamationmark.triangle")
-                            .font(.subheadline)
+                            .font(.callout)
                             .fontWeight(.semibold)
                             .foregroundStyle(.orange)
 
                         Text("NeuroStudy is an educational tool designed for students and academic study of neuroanatomy and neuropsychology. All content, including DSM-5 diagnostic criteria, clinical descriptions, and neuroimaging findings, is presented for learning purposes only and does not constitute medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional for clinical decisions.")
-                            .font(.footnote)
+                            .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
                 }
 
                 // Copyright
                 Text("© 2026 Juan Alejandre. All rights reserved.")
-                    .font(.footnote)
+                    .font(.subheadline)
                     .foregroundStyle(.tertiary)
                     .padding(.vertical, 20)
             }
@@ -328,9 +328,9 @@ struct FeatureRow: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
-                    .font(.body.weight(.semibold))
+                    .font(.body)
                 Text(description)
-                    .font(.subheadline)
+                    .font(.callout)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }

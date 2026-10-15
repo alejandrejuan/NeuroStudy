@@ -34,13 +34,39 @@ struct BrainMapView: View {
                 // Brain outline (enhanced 7-layer)
                 brainOutline(in: rect)
 
-                // Sulci decorative lines (enhanced depth)
-                sulciLines(in: rect)
+                let hotspots = viewModel.currentHotspots.sorted(by: { $0.zIndex < $1.zIndex })
 
-                // Tappable region shapes
-                ForEach(viewModel.currentHotspots.sorted(by: { $0.zIndex < $1.zIndex })) { hotspot in
+                // Region tints, as ONE layer: each shape is painted opaque, then the
+                // group is faded together, so overlapping shapes no longer stack into
+                // darker patches. A light blur softens the geometric edges into areas,
+                // and the clip keeps colour inside the brain's silhouette. One blur
+                // pass for the whole map, not an effect per shape.
+                ZStack {
+                    ForEach(hotspots.filter { viewModel.renderingStyle(for: $0.structureID) == .standard }) { hotspot in
+                        regionTint(hotspot: hotspot, in: rect)
+                    }
+                }
+                .compositingGroup()
+                .opacity(viewModel.isQuizMode ? 0.22 : 0.30)
+                .blur(radius: reduceMotion ? 0 : 2.5)
+                .clipShape(outlinePath(in: rect))
+
+                // Ventricles, white matter and the chiasm keep their own rendering.
+                ForEach(hotspots.filter { viewModel.renderingStyle(for: $0.structureID) != .standard }) { hotspot in
                     regionShape(hotspot: hotspot, in: rect)
                 }
+
+                // Sulci go on top of the tints, not under them. Drawn first, the
+                // regions' fills buried every fold and the brain read as a quilt of
+                // coloured blobs; on top, the folds show through and it reads as a brain.
+                sulciLines(in: rect)
+                    .allowsHitTesting(false)
+
+                // Selection and connection highlights sit above everything, crisp.
+                ForEach(hotspots.filter { isEmphasized($0) }) { hotspot in
+                    emphasis(hotspot: hotspot, in: rect)
+                }
+                .allowsHitTesting(false)
 
                 // Labels
                 if viewModel.showLabels, let selectedID = viewModel.selectedID {
@@ -52,6 +78,52 @@ struct BrainMapView: View {
         }
         .aspectRatio(1.3, contentMode: .fit)
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+
+    // MARK: - Region Tint
+
+    private func outlinePath(in rect: CGRect) -> Path {
+        viewModel.currentView == .lateral
+            ? BrainPathData.lateralOutline(in: rect)
+            : BrainPathData.medialOutline(in: rect)
+    }
+
+    /// An opaque fill in the region's colour; the enclosing layer sets the opacity.
+    private func regionTint(hotspot: BrainHotspot, in rect: CGRect) -> some View {
+        let shapePath = hotspot.path(in: rect)
+        return shapePath
+            .fill(viewModel.regionBaseColor(for: hotspot.structureID))
+            .modifier(RegionInteraction(hotspot: hotspot, path: shapePath, viewModel: viewModel, onRegionTapped: onRegionTapped))
+    }
+
+    private func isEmphasized(_ hotspot: BrainHotspot) -> Bool {
+        hotspot.structureID == viewModel.selectedID
+            || viewModel.highlightedIDs.contains(hotspot.structureID)
+            || hotspot.structureID == viewModel.hoveredID
+    }
+
+    /// The selected region gets a stronger tint and a ring; connected regions a light
+    /// tint and a thin outline.
+    @ViewBuilder
+    private func emphasis(hotspot: BrainHotspot, in rect: CGRect) -> some View {
+        let shapePath = hotspot.path(in: rect)
+        let color = viewModel.regionBaseColor(for: hotspot.structureID)
+        if hotspot.structureID == viewModel.selectedID {
+            ZStack {
+                shapePath.fill(color.opacity(0.38))
+                if !reduceMotion {
+                    shapePath.stroke(color.opacity(0.4), lineWidth: 4).blur(radius: 4)
+                }
+                shapePath.stroke(color, lineWidth: 2.5)
+            }
+        } else if viewModel.highlightedIDs.contains(hotspot.structureID) {
+            ZStack {
+                shapePath.fill(color.opacity(0.16))
+                shapePath.stroke(color.opacity(0.55), lineWidth: 1.2)
+            }
+        } else {
+            shapePath.fill(color.opacity(0.14))
+        }
     }
 
     // MARK: - Brain Outline (Enhanced)
@@ -69,8 +141,8 @@ struct BrainMapView: View {
                 .fill(
                     LinearGradient(
                         colors: [
-                            Color(red: 0.97, green: 0.92, blue: 0.88),
-                            Color(red: 0.91, green: 0.85, blue: 0.81)
+                            Color(red: 0.96, green: 0.89, blue: 0.87),
+                            Color(red: 0.88, green: 0.78, blue: 0.77)
                         ],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
@@ -185,32 +257,15 @@ struct BrainMapView: View {
                     )
 
             case .standard:
-                // 1 — Convex gradient (replaces flat LinearGradient)
+                // A soft tint over the tissue. No per-region outline or specular spot
+                // at rest: on 34 overlapping shapes those made the map look like
+                // plastic patchwork rather than one organ.
                 GyrusShading.convexGradient(
                     path: shapePath,
                     baseColor: baseColor,
                     centerBrightness: opacityPair.top,
                     edgeBrightness: opacityPair.bottom
                 )
-
-                // 2-4 — Enhanced effects (only when not reduceMotion)
-                if !reduceMotion {
-                    // Subsurface scatter edge glow
-                    GyrusShading.subsurfaceScatter(path: shapePath, isDark: colorScheme == .dark)
-
-                    // Inner shadow for edge depth
-                    GyrusShading.innerShadow(path: shapePath, isDark: colorScheme == .dark)
-
-                    // Specular highlight
-                    GyrusShading.specularHighlight(path: shapePath)
-                }
-
-                // 5 — Border stroke
-                shapePath
-                    .stroke(
-                        viewModel.strokeColor(for: hotspot, isSelected: isSelected).opacity(0.4),
-                        lineWidth: viewModel.strokeWidth(for: hotspot, isSelected: isSelected)
-                    )
             }
 
             // Highlighted glow (connected regions)
@@ -243,36 +298,7 @@ struct BrainMapView: View {
                 }
             }
         }
-        // No .drawingGroup() here: it was rasterizing each hotspot into its own
-        // offscreen buffer, up to 34 of them per render, which is the opposite of what
-        // drawingGroup is for (one buffer around many elements, not one buffer each).
-        .contentShape(shapePath)
-        .onTapGesture {
-            withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
-                if let handler = onRegionTapped {
-                    handler(hotspot.structureID)
-                } else {
-                    viewModel.select(hotspot.structureID)
-                }
-            }
-            Haptics.lightImpact()
-        }
-        // Every region is a VoiceOver button. Without this the whole atlas is a
-        // single silent image and the app's core interaction is unusable non-visually.
-        .accessibilityElement()
-        .accessibilityLabel(BrainStructureStore.structure(byID: hotspot.structureID)?.name ?? hotspot.structureID)
-        .accessibilityHint(viewModel.isQuizMode ? "Double tap to answer" : "Double tap to view details")
-        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
-        #if os(macOS)
-        .onHover { hovering in
-            viewModel.hover(hotspot.structureID, isHovering: hovering)
-            if hovering {
-                NSCursor.pointingHand.push()
-            } else {
-                NSCursor.pop()
-            }
-        }
-        #endif
+        .modifier(RegionInteraction(hotspot: hotspot, path: shapePath, viewModel: viewModel, onRegionTapped: onRegionTapped))
     }
 
     // MARK: - Structure Label
@@ -301,6 +327,48 @@ struct BrainMapView: View {
                 .position(x: anchor.x, y: max(anchor.y - 25, 20))
                 .transition(.scale.combined(with: .opacity))
         }
+    }
+}
+
+// MARK: - Region Interaction
+
+/// Tap, VoiceOver and hover behaviour shared by every region, whichever way it is drawn.
+private struct RegionInteraction: ViewModifier {
+    let hotspot: BrainHotspot
+    let path: Path
+    @Bindable var viewModel: BrainMapViewModel
+    var onRegionTapped: ((String) -> Void)?
+
+    func body(content: Content) -> some View {
+        let isSelected = viewModel.selectedID == hotspot.structureID
+        content
+        .contentShape(path)
+        .onTapGesture {
+            withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
+                if let handler = onRegionTapped {
+                    handler(hotspot.structureID)
+                } else {
+                    viewModel.select(hotspot.structureID)
+                }
+            }
+            Haptics.lightImpact()
+        }
+        // Every region is a VoiceOver button. Without this the whole atlas is a
+        // single silent image and the app's core interaction is unusable non-visually.
+        .accessibilityElement()
+        .accessibilityLabel(BrainStructureStore.structure(byID: hotspot.structureID)?.name ?? hotspot.structureID)
+        .accessibilityHint(viewModel.isQuizMode ? "Double tap to answer" : "Double tap to view details")
+        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
+        #if os(macOS)
+        .onHover { hovering in
+            viewModel.hover(hotspot.structureID, isHovering: hovering)
+            if hovering {
+                NSCursor.pointingHand.push()
+            } else {
+                NSCursor.pop()
+            }
+        }
+        #endif
     }
 }
 

@@ -149,7 +149,7 @@ struct PathologyResultsView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         SectionHeader("Review These") {
                             Text("\(missed.count)")
-                                .font(.subheadline.weight(.semibold))
+                                .font(.callout.weight(.semibold))
                                 .foregroundStyle(.secondary)
                                 .monospacedDigit()
                         }
@@ -157,13 +157,13 @@ struct PathologyResultsView: View {
                             HStack(spacing: 12) {
                                 VStack(alignment: .leading, spacing: 3) {
                                     Text(question.pathology.name)
-                                        .font(.body.weight(.semibold))
+                                        .font(.body)
                                     Text(question.prompt)
-                                        .font(.subheadline)
+                                        .font(.callout)
                                         .foregroundStyle(.secondary)
                                         .lineLimit(2)
                                     Text("Answer: \(question.correctAnswer)")
-                                        .font(.subheadline.weight(.medium))
+                                        .font(.callout.weight(.medium))
                                         .foregroundStyle(Theme.emerald)
                                         .lineLimit(2)
                                 }

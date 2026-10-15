@@ -93,10 +93,6 @@ struct ModernExploreView: View {
     private var brainMapSection: some View {
         VStack(spacing: 10) {
             HStack {
-                Label("Tap a region", systemImage: "hand.tap")
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(.secondary)
-                Spacer()
                 BrainViewToggle(currentView: Binding(
                     get: { brainMap.currentView },
                     set: { brainMap.currentView = $0; brainMap.clearSelection() }
@@ -151,7 +147,7 @@ struct ModernExploreView: View {
                         .frame(width: 7, height: 7)
                 }
                 Text(label)
-                    .font(.subheadline.weight(isSelected ? .semibold : .medium))
+                    .font(.callout.weight(isSelected ? .semibold : .medium))
                     .foregroundStyle(isSelected ? .primary : .secondary)
             }
             .padding(.horizontal, 14)
@@ -186,7 +182,7 @@ struct ModernExploreView: View {
                             .font(.title3.weight(.bold))
                         if let alias = structure.aliases.first {
                             Text(alias)
-                                .font(.subheadline)
+                                .font(.callout)
                                 .foregroundStyle(.secondary)
                         }
                     }
@@ -219,7 +215,7 @@ struct ModernExploreView: View {
                         ForEach(structure.functions.prefix(2), id: \.self) { fn in
                             Label {
                                 Text(fn)
-                                    .font(.subheadline)
+                                    .font(.callout)
                             } icon: {
                                 Image(systemName: "bolt.fill")
                                     .font(.caption2)
@@ -231,7 +227,7 @@ struct ModernExploreView: View {
 
                 if let disorder = structure.associatedDisorders.first {
                     Label("Associated with \(disorder)", systemImage: "stethoscope")
-                        .font(.subheadline)
+                        .font(.callout)
                         .foregroundStyle(.secondary)
                 }
 
@@ -240,7 +236,7 @@ struct ModernExploreView: View {
                         showingDetail = true
                     } label: {
                         Text("Full Details")
-                            .font(.subheadline.weight(.semibold))
+                            .font(.callout.weight(.semibold))
                             .padding(.horizontal, 6)
                     }
                     .glassButton(prominent: true)
@@ -274,7 +270,7 @@ struct ModernExploreView: View {
                                 GlyphTile(systemName: region.sfSymbol, color: region.color, size: 26)
                                 SectionHeader(region.displayName) {
                                     Text("\(inRegion.count)")
-                                        .font(.subheadline.weight(.semibold))
+                                        .font(.callout.weight(.semibold))
                                         .foregroundStyle(.secondary)
                                         .monospacedDigit()
                                 }
@@ -290,7 +286,7 @@ struct ModernExploreView: View {
             VStack(alignment: .leading, spacing: 10) {
                 SectionHeader(searchText.isEmpty ? (selectedRegionFilter?.displayName ?? "Structures") : "Results") {
                     Text("\(structures.count)")
-                        .font(.subheadline.weight(.semibold))
+                        .font(.callout.weight(.semibold))
                         .foregroundStyle(.secondary)
                         .monospacedDigit()
                 }
@@ -339,7 +335,7 @@ struct ModernExploreView: View {
                         .foregroundStyle(.primary)
                     if let function = structure.functions.first {
                         Text(function)
-                            .font(.subheadline)
+                            .font(.callout)
                             .foregroundStyle(.secondary)
                             .lineLimit(1)
                     }

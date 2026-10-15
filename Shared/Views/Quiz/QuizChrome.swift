@@ -124,7 +124,7 @@ struct AnswerRow: View {
                 case .incorrect:
                     Image(systemName: "xmark").font(.footnote.weight(.bold)).foregroundStyle(.white)
                 default:
-                    Text(letter).font(.subheadline.weight(.semibold)).foregroundStyle(.secondary)
+                    Text(letter).font(.callout.weight(.semibold)).foregroundStyle(.secondary)
                 }
             }
             .transition(.scale.combined(with: .opacity))
@@ -185,7 +185,7 @@ struct FeedbackToast<Accessory: View>: View {
                         .font(.headline)
                     if let detail {
                         Text(detail)
-                            .font(.subheadline)
+                            .font(.callout)
                             .foregroundStyle(.secondary)
                             .fixedSize(horizontal: false, vertical: true)
                     }
@@ -264,7 +264,7 @@ struct ScoreHero: View {
                 Text(verdict.title)
                     .font(.title.weight(.bold))
                 Text(verdict.message)
-                    .font(.subheadline)
+                    .font(.callout)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
             }
