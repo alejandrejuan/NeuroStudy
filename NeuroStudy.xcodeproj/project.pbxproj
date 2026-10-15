@@ -14,7 +14,6 @@
 		14DD226EB4B9599F8E531A45 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8272D3F38A6598EF656FC77 /* ScreenshotTests.swift */; };
 		14FC55BE6118D6D4E226B621 /* QuizChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFAB08D35EEA4A080B7619C /* QuizChrome.swift */; };
 		16D6B722564CE073D061CE6C /* TapIdentifyQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */; };
-		29189F8E21DAA32E59C4E6E1 /* GlassComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D4F3B912CD378B9D90ECE /* GlassComponents.swift */; };
 		2BA07433427198D7B2EEC4D4 /* ModernDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDA2FBF57EFA60F2F151A27 /* ModernDesignSystem.swift */; };
 		32400DFBD4252BCF8842BC32 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C61E8421DDF6EFC475A09844 /* Media.xcassets */; };
 		3370DCD14A8B9F8F9C655F26 /* StudyProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C02FD658C3F7B90FA54C33 /* StudyProgress.swift */; };
@@ -46,8 +45,6 @@
 		76D5B3A1DC6B3D5CF6BAC8B8 /* PathologyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF7725D2E1527DB24F1555 /* PathologyData.swift */; };
 		77A61129FD4A406FCD1075B4 /* QuizChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFAB08D35EEA4A080B7619C /* QuizChrome.swift */; };
 		77D60B5B512FC3D1A3B6ECFD /* ProgressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846B3B5497475D14055CEB96 /* ProgressStore.swift */; };
-		791F6BD5CA3456AB39562409 /* AppTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886AF33244B0412DDFFD76C8 /* AppTypography.swift */; };
-		7A62635A3A85CFB50F89229D /* GlassComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D4F3B912CD378B9D90ECE /* GlassComponents.swift */; };
 		7B2BBCB557472620A72D5633 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE680DA363FD7F9B2E38CF9 /* Theme.swift */; };
 		7E6F2126D2B19171C10E81F6 /* BrainStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FC9A1F90F4D473DE8E2E5 /* BrainStructure.swift */; };
 		7F5F7111B637470E5721C4C0 /* BrainRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E1C4BAD3C96A2ECB3AC94 /* BrainRegion.swift */; };
@@ -80,7 +77,6 @@
 		DE35B4B88287EBC69B571A65 /* LiquidGlassStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */; };
 		E76203E659B312AE7779105C /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 3B42D67E9511423EFA82FFA9 /* AppIcon.icon */; };
 		EC01E24F0FF262B2804C815A /* BrainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9F1D05EAF7806B0E9CB253 /* BrainMapViewModel.swift */; };
-		F65D7C4A21FA11935A0C6E9C /* AppTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886AF33244B0412DDFFD76C8 /* AppTypography.swift */; };
 		F68FEB224B4E9AAE29532A76 /* SpacedRepetitionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF999B7C0FE4375D4469CF9 /* SpacedRepetitionEngine.swift */; };
 /* End PBXBuildFile section */
 
@@ -113,10 +109,8 @@
 		4FFAB08D35EEA4A080B7619C /* QuizChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizChrome.swift; sourceTree = "<group>"; };
 		5C72E86218872C89E913EA32 /* TapIdentifyQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapIdentifyQuizView.swift; sourceTree = "<group>"; };
 		652FC9A1F90F4D473DE8E2E5 /* BrainStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainStructure.swift; sourceTree = "<group>"; };
-		736D4F3B912CD378B9D90ECE /* GlassComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassComponents.swift; sourceTree = "<group>"; };
 		75138F19D66E9A1DC7444F37 /* BrainPathData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainPathData.swift; sourceTree = "<group>"; };
 		846B3B5497475D14055CEB96 /* ProgressStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStore.swift; sourceTree = "<group>"; };
-		886AF33244B0412DDFFD76C8 /* AppTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTypography.swift; sourceTree = "<group>"; };
 		8A4FC106EB9F049E4512E2EC /* StructureDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureDetailView.swift; sourceTree = "<group>"; };
 		8CC92131AFE65197C9A9C804 /* BrainMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainMapView.swift; sourceTree = "<group>"; };
 		8D7EEC20F93F0243AA91E0B0 /* UniversalMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalMainView.swift; sourceTree = "<group>"; };
@@ -154,14 +148,6 @@
 			path = Quiz;
 			sourceTree = "<group>";
 		};
-		19B1EC1A3882E631E14C8A8B /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				736D4F3B912CD378B9D90ECE /* GlassComponents.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
 		2A5B97DA2C8B0D5B05ABB4DC /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,7 +174,6 @@
 		3103316691C5C2BED9DB799F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				19B1EC1A3882E631E14C8A8B /* Components */,
 				C55D4BC0DB2D1B7DE17ED8FB /* Explore */,
 				2F008E3F06CDD4B0EAF703C0 /* Progress */,
 				142D17BE748063265C795C16 /* Quiz */,
@@ -221,7 +206,6 @@
 		630842BF267F2AE488359C9A /* Styles */ = {
 			isa = PBXGroup;
 			children = (
-				886AF33244B0412DDFFD76C8 /* AppTypography.swift */,
 				DA5386B46B26129222D30051 /* Haptics.swift */,
 				4CBE3D9F323D219086A25F60 /* LiquidGlass.swift */,
 				D34C01BAD5956E3CABEFA9AB /* LiquidGlassStyle.swift */,
@@ -419,7 +403,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				791F6BD5CA3456AB39562409 /* AppTypography.swift in Sources */,
 				3BA7BFC2D29A2614CDC9C483 /* BrainHotspot.swift in Sources */,
 				BE1E6E5BBEDE8CFD60D61EA9 /* BrainMapView.swift in Sources */,
 				EC01E24F0FF262B2804C815A /* BrainMapViewModel.swift in Sources */,
@@ -429,7 +412,6 @@
 				7E6F2126D2B19171C10E81F6 /* BrainStructure.swift in Sources */,
 				A768B3242E04DB8B4CD4E805 /* BrainStructureStore.swift in Sources */,
 				3A1D6A9C77BD8787FE0BDF11 /* FlashcardView.swift in Sources */,
-				7A62635A3A85CFB50F89229D /* GlassComponents.swift in Sources */,
 				4868AEB9F120B9579B872E48 /* Haptics.swift in Sources */,
 				48682CA873D05BBF549D86B0 /* LiquidGlass.swift in Sources */,
 				AFDE40E93AE14F5D63172509 /* LiquidGlassStyle.swift in Sources */,
@@ -460,7 +442,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F65D7C4A21FA11935A0C6E9C /* AppTypography.swift in Sources */,
 				B634CB79934E494E276B4772 /* BrainHotspot.swift in Sources */,
 				C9AB6345447899D6AED2C105 /* BrainMapView.swift in Sources */,
 				44D68FB176EAA33C9EE2BA64 /* BrainMapViewModel.swift in Sources */,
@@ -470,7 +451,6 @@
 				D3DDC683981C41B9A1DD4465 /* BrainStructure.swift in Sources */,
 				88698E2610BE4E711AD231ED /* BrainStructureStore.swift in Sources */,
 				06DAF3B9CC72C96D19550CDE /* FlashcardView.swift in Sources */,
-				29189F8E21DAA32E59C4E6E1 /* GlassComponents.swift in Sources */,
 				C8B67537E48488EB744F39EE /* Haptics.swift in Sources */,
 				CCF1703BE758F0CA16E8C83F /* LiquidGlass.swift in Sources */,
 				DE35B4B88287EBC69B571A65 /* LiquidGlassStyle.swift in Sources */,

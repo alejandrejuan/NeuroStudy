@@ -48,7 +48,7 @@ struct ModernProgressDashboardView: View {
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 28) {
-                        VStack(spacing: 12) {
+                        VStack(alignment: .leading, spacing: 20) {
                             masteryCard
                             statsRow
                         }
@@ -84,40 +84,41 @@ struct ModernProgressDashboardView: View {
 
     // MARK: - Mastery
 
+    /// Typography on the background, no card: the number is the design, the way
+    /// Weather leads with the temperature. A hairline bar shows how far along it is.
     private var masteryCard: some View {
         let mastered = progressStore.masteredCount()
 
-        return SurfaceCard(cornerRadius: 28, padding: 22) {
-            HStack(spacing: 22) {
-                OptimizedCircularProgress(
-                    progress: overallMasteryProgress,
-                    label: "",
-                    lineWidth: 12,
-                    size: 116
-                )
+        return VStack(alignment: .leading, spacing: 10) {
+            Text("MASTERED")
+                .font(.statLabel)
+                .foregroundStyle(.secondary)
 
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("MASTERED")
-                        .font(.statLabel)
-                        .foregroundStyle(.secondary)
-                    HStack(alignment: .firstTextBaseline, spacing: 6) {
-                        Text("\(mastered)")
-                            .font(.numeral(48, weight: .heavy))
-                            .contentTransition(.numericText())
-                        Text("/ \(totalStructures)")
-                            .font(.title3.weight(.semibold))
-                            .foregroundStyle(.secondary)
-                    }
-                    Text("structures")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
-                .monospacedDigit()
-
-                Spacer(minLength: 0)
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                Text("\(mastered)")
+                    .font(.numeral(64, weight: .heavy))
+                    .contentTransition(.numericText())
+                Text("of \(totalStructures) structures")
+                    .font(.title3.weight(.semibold))
+                    .foregroundStyle(.secondary)
             }
+            .monospacedDigit()
+
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    Capsule().fill(.quaternary)
+                    Capsule()
+                        .fill(LinearGradient(colors: Theme.progressGradient, startPoint: .leading, endPoint: .trailing))
+                        .frame(width: overallMasteryProgress > 0 ? max(6, geo.size.width * overallMasteryProgress) : 0)
+                }
+            }
+            .frame(height: 6)
+            .padding(.top, 2)
         }
-        .accessibilityElement(children: .combine)
+        .padding(.horizontal, 4)
+        .padding(.bottom, 8)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(mastered) of \(totalStructures) structures mastered")
     }
 
     private var overallMasteryProgress: Double {
@@ -190,10 +191,15 @@ struct ModernProgressDashboardView: View {
                 Image(systemName: "chart.bar.xaxis")
                     .font(.system(size: 28))
                     .foregroundStyle(.tertiary)
-                Text("No study activity yet")
+                // "Yet" is only true for someone who has never studied; otherwise the
+                // activity simply falls outside the selected window.
+                let hasHistory = progressStore.studiedCount() > 0
+                Text(hasHistory ? "No activity in this period" : "No study activity yet")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
-                Text("Answer a few quiz questions and your activity will show up here.")
+                Text(hasHistory
+                     ? "Earlier sessions show under a longer timeframe."
+                     : "Answer a few quiz questions and your activity will show up here.")
                     .font(.footnote)
                     .foregroundStyle(.tertiary)
                     .multilineTextAlignment(.center)

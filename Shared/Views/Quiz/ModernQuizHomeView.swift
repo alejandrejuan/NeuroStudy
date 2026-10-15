@@ -19,19 +19,16 @@ struct ModernQuizHomeView: View {
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 28) {
-                        heroCard
+                        reviewSection
 
                         VStack(alignment: .leading, spacing: 10) {
                             SectionHeader("Practice")
-                            GroupedList(data: QuizMode.allCases, separatorInset: 64) { mode in
-                                modeRow(mode)
+                            GroupedList(data: PracticeItem.all, separatorInset: 64) { item in
+                                switch item {
+                                case .mode(let mode): modeRow(mode)
+                                case .clinical: clinicalRow
+                                }
                             }
-                        }
-
-                        VStack(alignment: .leading, spacing: 10) {
-                            SectionHeader("Clinical")
-                            clinicalRow
-                                .contentSurface()
                         }
 
                         VStack(alignment: .leading, spacing: 10) {
@@ -72,82 +69,42 @@ struct ModernQuizHomeView: View {
         }
     }
 
-    // MARK: - Hero
+    // MARK: - Review
 
-    /// The Invites-style feature card: full colour, big type, one glass button.
-    /// Leads with spaced-repetition reviews when any are due, otherwise a daily set.
-    private var heroCard: some View {
+    /// Shown only when spaced repetition has something due. One row, no banner:
+    /// the count is the whole message.
+    @ViewBuilder
+    private var reviewSection: some View {
         let dueCount = progressStore.dueForReview().count
-        let isReview = dueCount > 0
-        let shape = RoundedRectangle(cornerRadius: 30, style: .continuous)
-
-        return VStack(alignment: .leading, spacing: 0) {
-            Text(isReview ? "REVIEW" : "DAILY PRACTICE")
-                .font(.statLabel)
-                .kerning(0.6)
-                .foregroundStyle(.white.opacity(0.75))
-
-            Group {
-                if isReview {
-                    HStack(alignment: .firstTextBaseline, spacing: 8) {
-                        Text("\(dueCount)")
-                            .font(.numeral(56, weight: .heavy))
-                            .contentTransition(.numericText())
-                        Text(dueCount == 1 ? "structure due" : "structures due")
-                            .font(.title3.weight(.semibold))
+        if dueCount > 0 {
+            VStack(alignment: .leading, spacing: 10) {
+                SectionHeader("Review")
+                Button {
+                    startQuiz(mode: .flashcard)
+                } label: {
+                    HStack(spacing: 14) {
+                        GlyphTile(systemName: "clock.arrow.circlepath", color: .orange, size: 36)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("\(dueCount) \(dueCount == 1 ? "structure" : "structures") due")
+                                .font(.body.weight(.semibold))
+                                .foregroundStyle(.primary)
+                            Text("Review them before they fade")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer(minLength: 8)
+                        Image(systemName: "chevron.right")
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(.tertiary)
                     }
-                } else {
-                    Text("Sharpen your recall.")
-                        .font(.title.weight(.bold))
-                        .padding(.vertical, 6)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 12)
+                    .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
+                .contentSurface()
             }
-            .foregroundStyle(.white)
-            .padding(.top, 4)
-
-            Text(isReview
-                 ? "Spaced repetition brings these back right before you would forget them."
-                 : selectedRegion.map { "\(questionCount) questions on the \($0.displayName)." }
-                    ?? "\(questionCount) questions from across the atlas.")
-                .font(.callout)
-                .foregroundStyle(.white.opacity(0.8))
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.top, 2)
-
-            Button {
-                startQuiz(mode: isReview ? .flashcard : .multipleChoice)
-            } label: {
-                Label(isReview ? "Start Review" : "Start", systemImage: "play.fill")
-                    .font(.headline)
-                    .foregroundStyle(Color(red: 0.30, green: 0.22, blue: 0.74))
-                    .padding(.horizontal, 8)
-            }
-            // White prominent glass on the colour field, like the RSVP button in Invites.
-            .glassButton(prominent: true, controlSize: .large)
-            .tint(.white)
-            .padding(.top, 18)
         }
-        .padding(22)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background {
-            ZStack(alignment: .topTrailing) {
-                LinearGradient(
-                    colors: [Color(red: 0.36, green: 0.27, blue: 0.86), Color(red: 0.22, green: 0.20, blue: 0.62), Color(red: 0.05, green: 0.50, blue: 0.40)],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                Image(systemName: "brain")
-                    .font(.system(size: 150, weight: .light))
-                    .foregroundStyle(.white.opacity(0.09))
-                    .offset(x: 30, y: -14)
-                    .accessibilityHidden(true)
-            }
-            .clipShape(shape)
-        }
-        .overlay {
-            shape.strokeBorder(.white.opacity(0.18), lineWidth: 0.75)
-        }
-        .shadow(color: Color(red: 0.25, green: 0.18, blue: 0.70).opacity(0.28), radius: 24, y: 12)
     }
 
     // MARK: - Rows
@@ -193,7 +150,7 @@ struct ModernQuizHomeView: View {
             showingPathologyQuiz = true
         } label: {
             HStack(spacing: 14) {
-                GlyphTile(systemName: "stethoscope", color: .orange, size: 36)
+                GlyphTile(systemName: "stethoscope", color: .pink, size: 36)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("DSM-5 & Neuropsychology")
                         .font(.body.weight(.semibold))
@@ -268,6 +225,21 @@ struct ModernQuizHomeView: View {
 }
 
 // MARK: - Supporting Types
+
+/// The rows of the Practice list: the three anatomy modes, then the clinical quiz.
+private enum PracticeItem: Identifiable {
+    case mode(QuizMode)
+    case clinical
+
+    static let all: [PracticeItem] = QuizMode.allCases.map { .mode($0) } + [.clinical]
+
+    var id: String {
+        switch self {
+        case .mode(let mode): return mode.id
+        case .clinical: return "clinical"
+        }
+    }
+}
 
 private struct QuizSession: Identifiable {
     let id = UUID()

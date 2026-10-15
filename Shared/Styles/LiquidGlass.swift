@@ -13,8 +13,6 @@ import SwiftUI
 //      to refract.
 //   2. Never stack glass on glass. Elements sitting inside a glass card use `softChip`
 //      (a flat, opaque-ish fill), not another material.
-//   3. Group adjacent glass so the shapes merge and flow instead of reading as separate
-//      blurred rectangles — that is what `glassGroup` is for.
 
 // MARK: - Glass Surfaces
 
@@ -118,28 +116,6 @@ private struct GlassSurfaceModifier: ViewModifier {
             glass = glass.interactive()
         }
         return glass
-    }
-}
-
-// MARK: - Glass Grouping
-
-/// Groups adjacent glass elements so they blend and flow into one another rather than
-/// reading as a row of separate frosted rectangles. This is what produces the fluid,
-/// liquid quality of the material; without it, neighbouring glass just looks blurry.
-///
-/// No-ops into a plain `HStack`-friendly container below iOS 26.
-struct GlassGroup<Content: View>: View {
-    var spacing: CGFloat = 12
-    @ViewBuilder let content: () -> Content
-
-    var body: some View {
-        if #available(iOS 26.0, macOS 26.0, *) {
-            GlassEffectContainer(spacing: spacing) {
-                content()
-            }
-        } else {
-            content()
-        }
     }
 }
 

@@ -71,7 +71,7 @@ struct PathologyQuizView: View {
 
     private func questionCard(_ question: PathologyQuizQuestion) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            QuestionEyebrow(title: question.pathology.name, color: .orange, reference: question.sourceReference)
+            QuestionEyebrow(title: question.pathology.name, color: .pink, reference: question.sourceReference)
             Text(question.prompt)
                 .font(.title3.weight(.bold))
                 .fixedSize(horizontal: false, vertical: true)

@@ -247,7 +247,7 @@ struct ModernExploreView: View {
 
                     Spacer()
 
-                    ModernMasteryBadge(level: progressStore.progress(for: structure.id).masteryLevel, animated: true)
+                    ModernMasteryBadge(level: progressStore.progress(for: structure.id).masteryLevel)
                 }
             }
         }
