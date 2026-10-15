@@ -328,7 +328,7 @@ struct FeatureRow: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
-                    .font(.body)
+                    .font(.body.weight(.medium))
                 Text(description)
                     .font(.callout)
                     .foregroundStyle(.secondary)

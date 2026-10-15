@@ -157,7 +157,7 @@ struct PathologyResultsView: View {
                             HStack(spacing: 12) {
                                 VStack(alignment: .leading, spacing: 3) {
                                     Text(question.pathology.name)
-                                        .font(.body)
+                                        .font(.body.weight(.medium))
                                     Text(question.prompt)
                                         .font(.callout)
                                         .foregroundStyle(.secondary)

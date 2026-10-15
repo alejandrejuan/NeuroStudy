@@ -180,7 +180,7 @@ struct ModernProgressDashboardView: View {
                 // "Yet" is only true for someone who has never studied; otherwise the
                 // activity simply falls outside the selected window.
                 let hasHistory = progressStore.studiedCount() > 0
-                Text(hasHistory ? "No activity in this period" : "No study activity yet")
+                Text(hasHistory ? "No Activity in This Period" : "No Study Activity Yet")
                     .font(.callout)
                     .foregroundStyle(.secondary)
                 Text(hasHistory
@@ -224,7 +224,7 @@ struct ModernProgressDashboardView: View {
             VStack(alignment: .leading, spacing: 6) {
                 HStack(alignment: .firstTextBaseline) {
                     Text(region.displayName)
-                        .font(.body)
+                        .font(.body.weight(.medium))
                     Spacer()
                     Text("\(mastered)/\(structures.count)")
                         .font(.callout.weight(.semibold))
@@ -290,7 +290,7 @@ struct CompactStructureRow: View {
 
             VStack(alignment: .leading, spacing: 1) {
                 Text(structure.name)
-                    .font(.body)
+                    .font(.body.weight(.medium))
                 Group {
                     if progress.totalAttempts > 0 {
                         Text("\(Int(progress.accuracy * 100))% accuracy over \(progress.totalAttempts) \(progress.totalAttempts == 1 ? "answer" : "answers")")

@@ -66,14 +66,14 @@ struct SulcusDepthEffect {
 
         // 1 - Deep shadow (widest, most blurred)
         path.stroke(
-            Color(red: 0.25, green: 0.20, blue: 0.18).opacity((isDark ? 0.25 : 0.18) * baseOpacity),
+            Color(red: 0.24, green: 0.20, blue: 0.24).opacity((isDark ? 0.25 : 0.18) * baseOpacity),
             style: StrokeStyle(lineWidth: isMajor ? 3.5 : 2.0, lineCap: .round, lineJoin: .round)
         )
         .blur(radius: isMajor ? 2.5 : 1.5)
 
         // 2 - Ambient occlusion
         path.stroke(
-            Color(red: 0.30, green: 0.25, blue: 0.22).opacity((isDark ? 0.30 : 0.22) * baseOpacity),
+            Color(red: 0.29, green: 0.25, blue: 0.29).opacity((isDark ? 0.30 : 0.22) * baseOpacity),
             style: StrokeStyle(lineWidth: isMajor ? 2.5 : 1.5, lineCap: .round, lineJoin: .round)
         )
         .blur(radius: isMajor ? 1.5 : 0.8)
@@ -87,14 +87,14 @@ struct SulcusDepthEffect {
 
         // 4 - Lower rim shadow (offset down-right)
         path.stroke(
-            Color(red: 0.30, green: 0.25, blue: 0.22).opacity(0.18 * baseOpacity),
+            Color(red: 0.29, green: 0.25, blue: 0.29).opacity(0.18 * baseOpacity),
             style: StrokeStyle(lineWidth: isMajor ? 0.7 : 0.4, lineCap: .round, lineJoin: .round)
         )
         .offset(x: 0.5, y: 0.5)
 
         // 5 - Crisp center line
         path.stroke(
-            Color(red: 0.38, green: 0.32, blue: 0.30).opacity((isDark ? 0.38 : 0.30) * baseOpacity),
+            Color(red: 0.36, green: 0.31, blue: 0.35).opacity((isDark ? 0.38 : 0.30) * baseOpacity),
             style: StrokeStyle(lineWidth: isMajor ? 1.2 : 0.7, lineCap: .round, lineJoin: .round)
         )
     }
@@ -115,9 +115,9 @@ struct BrainOutlineEnhanced {
             .fill(
                 LinearGradient(
                     colors: [
-                        Color(red: 0.96, green: 0.89, blue: 0.87),
-                        Color(red: 0.93, green: 0.84, blue: 0.82),
-                        Color(red: 0.88, green: 0.78, blue: 0.77)
+                        Color(red: 0.95, green: 0.90, blue: 0.91),
+                        Color(red: 0.92, green: 0.86, blue: 0.88),
+                        Color(red: 0.87, green: 0.80, blue: 0.83)
                     ],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
@@ -130,8 +130,8 @@ struct BrainOutlineEnhanced {
                 RadialGradient(
                     colors: [
                         .clear,
-                        Color(red: 0.72, green: 0.65, blue: 0.60).opacity(0.08),
-                        Color(red: 0.60, green: 0.52, blue: 0.48).opacity(0.15)
+                        Color(red: 0.66, green: 0.60, blue: 0.64).opacity(0.08),
+                        Color(red: 0.55, green: 0.48, blue: 0.53).opacity(0.15)
                     ],
                     center: .init(x: 0.40, y: 0.35),
                     startRadius: rect.width * 0.20,
@@ -142,7 +142,7 @@ struct BrainOutlineEnhanced {
         // 4 - Edge ambient occlusion (inset stroke + blur)
         outlinePath
             .stroke(
-                Color(red: 0.50, green: 0.42, blue: 0.38).opacity(isDark ? 0.20 : 0.14),
+                Color(red: 0.46, green: 0.40, blue: 0.45).opacity(isDark ? 0.20 : 0.14),
                 lineWidth: 4.0
             )
             .blur(radius: 4.0)
@@ -180,7 +180,7 @@ struct BrainOutlineEnhanced {
         // 7 - Outline stroke
         outlinePath
             .stroke(
-                Color(red: 0.28, green: 0.26, blue: 0.24).opacity(isDark ? 0.65 : 0.55),
+                Color(red: 0.28, green: 0.25, blue: 0.29).opacity(isDark ? 0.65 : 0.55),
                 lineWidth: 1.8
             )
     }

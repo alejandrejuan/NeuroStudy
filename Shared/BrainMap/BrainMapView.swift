@@ -18,7 +18,7 @@ struct BrainMapView: View {
                         .fill(
                             RadialGradient(
                                 colors: [
-                                    Color(red: 0.85, green: 0.82, blue: 0.80).opacity(colorScheme == .dark ? 0.08 : 0.12),
+                                    Color(red: 0.84, green: 0.82, blue: 0.85).opacity(colorScheme == .dark ? 0.08 : 0.12),
                                     .clear
                                 ],
                                 center: .center,
@@ -48,7 +48,7 @@ struct BrainMapView: View {
                 }
                 .compositingGroup()
                 .opacity(viewModel.isQuizMode ? 0.22 : 0.30)
-                .blur(radius: reduceMotion ? 0 : 2.5)
+                .blur(radius: reduceMotion ? 0 : 1)
                 .clipShape(outlinePath(in: rect))
 
                 // Ventricles, white matter and the chiasm keep their own rendering.
@@ -141,8 +141,8 @@ struct BrainMapView: View {
                 .fill(
                     LinearGradient(
                         colors: [
-                            Color(red: 0.96, green: 0.89, blue: 0.87),
-                            Color(red: 0.88, green: 0.78, blue: 0.77)
+                            Color(red: 0.95, green: 0.90, blue: 0.91),
+                            Color(red: 0.87, green: 0.80, blue: 0.83)
                         ],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
@@ -150,7 +150,7 @@ struct BrainMapView: View {
                 )
             outlinePath
                 .stroke(
-                    Color(red: 0.28, green: 0.26, blue: 0.24).opacity(isDark ? 0.65 : 0.55),
+                    Color(red: 0.28, green: 0.25, blue: 0.29).opacity(isDark ? 0.65 : 0.55),
                     lineWidth: 1.8
                 )
         } else {
@@ -174,12 +174,12 @@ struct BrainMapView: View {
             // Simplified sulci for reduce motion
             majorPath
                 .stroke(
-                    Color(red: 0.40, green: 0.35, blue: 0.32).opacity(isDark ? 0.35 : 0.28),
+                    Color(red: 0.38, green: 0.33, blue: 0.37).opacity(isDark ? 0.35 : 0.28),
                     style: StrokeStyle(lineWidth: 1.0, lineCap: .round, lineJoin: .round)
                 )
             minorPath
                 .stroke(
-                    Color(red: 0.45, green: 0.40, blue: 0.38).opacity(isDark ? 0.20 : 0.15),
+                    Color(red: 0.43, green: 0.38, blue: 0.42).opacity(isDark ? 0.20 : 0.15),
                     style: StrokeStyle(lineWidth: 0.7, lineCap: .round, lineJoin: .round)
                 )
         } else {

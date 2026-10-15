@@ -84,7 +84,7 @@ struct ModernQuizHomeView: View {
                 GlyphTile(systemName: "clock.arrow.circlepath", color: .orange, size: 36)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Review")
-                        .font(.body)
+                        .font(.body.weight(.medium))
                         .foregroundStyle(.primary)
                     Text("\(dueCount) \(dueCount == 1 ? "structure" : "structures") due")
                         .font(.callout)
@@ -112,7 +112,7 @@ struct ModernQuizHomeView: View {
                 GlyphTile(systemName: mode.sfSymbol, color: modeColor(mode), size: 36)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(mode.rawValue)
-                        .font(.body)
+                        .font(.body.weight(.medium))
                         .foregroundStyle(.primary)
                     Text(mode.description)
                         .font(.callout)
@@ -148,7 +148,7 @@ struct ModernQuizHomeView: View {
                 GlyphTile(systemName: "stethoscope", color: .pink, size: 36)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("DSM-5 & Neuropsychology")
-                        .font(.body)
+                        .font(.body.weight(.medium))
                         .foregroundStyle(.primary)
                     Text("Criteria, test profiles, and imaging")
                         .font(.callout)

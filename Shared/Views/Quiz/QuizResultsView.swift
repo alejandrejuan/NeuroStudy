@@ -61,7 +61,7 @@ struct QuizResultsView: View {
                     GlyphTile(systemName: question.targetStructure.region.sfSymbol, color: question.targetStructure.region.color)
                     VStack(alignment: .leading, spacing: 1) {
                         Text(question.targetStructure.name)
-                            .font(.body)
+                            .font(.body.weight(.medium))
                         if let function = question.targetStructure.functions.first {
                             Text(function)
                                 .font(.callout)

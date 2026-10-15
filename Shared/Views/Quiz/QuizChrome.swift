@@ -181,7 +181,7 @@ struct FeedbackToast<Accessory: View>: View {
                     .foregroundStyle(correct ? Theme.emerald : .red)
                     .symbolEffect(.bounce, value: correct)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(correct ? "Correct" : "Not quite")
+                    Text(correct ? "Correct" : "Not Quite")
                         .font(.headline)
                     if let detail {
                         Text(detail)
@@ -226,9 +226,9 @@ struct ScoreHero: View {
     private var verdict: (title: String, message: String) {
         switch fraction {
         case 0.9...: return ("Outstanding", "You have a strong command of this material.")
-        case 0.7..<0.9: return ("Nicely done", "A few items are worth another look.")
-        case 0.5..<0.7: return ("Getting there", "Review the ones you missed, then try again.")
-        default: return ("Keep practicing", "Go through the misses below before your next round.")
+        case 0.7..<0.9: return ("Nicely Done", "A few items are worth another look.")
+        case 0.5..<0.7: return ("Getting There", "Review the ones you missed, then try again.")
+        default: return ("Keep Practicing", "Go through the misses below before your next round.")
         }
     }
 

@@ -7,8 +7,8 @@ import SwiftUI
 //
 //   • Controls float on Liquid Glass: tab bar, chips, buttons, the floating selection
 //     card. That lives in LiquidGlass.swift.
-//   • Content sits on quiet translucent surfaces (`SurfaceCard`, `contentSurface`), never
-//     glass. Glass on content makes everything compete with the controls above it.
+//   • Content cards and list sections (`SurfaceCard`, `contentSurface`) sit on regular
+//     Liquid Glass too, on iOS 26 and later. Glass is never stacked on glass.
 //
 // Behind both is `AppBackground`: a mesh of the icon's violet with a touch of emerald,
 // strongest at the top of the screen and settling into a neutral base below, the way
@@ -28,7 +28,7 @@ enum Theme {
 
 extension Font {
     /// Big numerals in standard-width SF Pro.
-    static func numeral(_ size: CGFloat, weight: Font.Weight = .bold) -> Font {
+    static func numeral(_ size: CGFloat, weight: Font.Weight = .semibold) -> Font {
         .system(size: size, weight: weight)
     }
 
@@ -178,6 +178,18 @@ private struct ContentSurfaceModifier: ViewModifier {
         let shape = RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
         let isDark = colorScheme == .dark
 
+        if #available(iOS 26.0, macOS 26.0, *), !reduceTransparency {
+            // Real Liquid Glass on every card and list section: it refracts the
+            // background glow and catches light at its edges. Regular glass manages
+            // its own contrast, so text on it stays legible in both appearances.
+            content.glassEffect(.regular, in: shape)
+        } else {
+            material(content: content, shape: shape, isDark: isDark)
+        }
+    }
+
+    /// Before iOS 26, or under Reduce Transparency: a translucent fill and hairline.
+    private func material(content: Content, shape: RoundedRectangle, isDark: Bool) -> some View {
         content
             .background {
                 shape
@@ -245,7 +257,7 @@ struct GlyphTile: View {
             .frame(width: size, height: size)
             .overlay {
                 Image(systemName: systemName)
-                    .font(.system(size: size * 0.44, weight: .semibold))
+                    .font(.system(size: size * 0.47, weight: .semibold))
                     .foregroundStyle(.white)
                     .symbolRenderingMode(.monochrome)
             }

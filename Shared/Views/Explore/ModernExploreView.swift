@@ -331,7 +331,7 @@ struct ModernExploreView: View {
 
                 VStack(alignment: .leading, spacing: 1) {
                     Text(structure.name)
-                        .font(.body.weight(isSelected ? .semibold : .regular))
+                        .font(.body.weight(isSelected ? .semibold : .medium))
                         .foregroundStyle(.primary)
                     if let function = structure.functions.first {
                         Text(function)

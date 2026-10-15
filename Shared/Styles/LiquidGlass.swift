@@ -7,10 +7,10 @@ import SwiftUI
 // its own material, and so the iOS 26 adoption is gated in exactly one place.
 //
 // Design rules this layer enforces (all straight from Apple's Liquid Glass guidance):
-//   1. Glass is for the controls layer only. Content uses `contentSurface` / `SurfaceCard`
-//      (Theme.swift). The background (`AppBackground`, also in Theme.swift) is a static
-//      mesh and is never rasterized with .drawingGroup(), so the glass has real colour
-//      to refract.
+//   1. Controls use the glass styles here; cards and list sections use regular glass via
+//      `contentSurface` / `SurfaceCard` (Theme.swift). The background (`AppBackground`)
+//      is a static mesh, never rasterized with .drawingGroup(), so the glass has real
+//      colour to refract.
 //   2. Never stack glass on glass. Elements sitting inside a glass card use `softChip`
 //      (a flat, opaque-ish fill), not another material.
 
